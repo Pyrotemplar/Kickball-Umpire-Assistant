@@ -7,6 +7,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 
 
 /**
@@ -19,6 +20,10 @@ public class MyFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
 
-       return inflater.inflate(R.layout.umpire_clicker_layout,null);
+
+
+        FrameLayout placeHolder = (FrameLayout)  container.findViewById(R.id.frameLayout);
+        return  inflater.inflate(R.layout.umpire_clicker_layout, placeHolder);
+      // return inflater.inflate(R.layout.umpire_clicker_layout,null);
     }
 }
