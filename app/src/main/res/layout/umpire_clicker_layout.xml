@@ -260,11 +260,10 @@
         tools:layout_editor_absoluteY="0dp"
         tools:layout_editor_absoluteX="180dp" />
 
-
     <FrameLayout
         android:id="@+id/frameLayout"
-        android:layout_width="264dp"
-        android:layout_height="287dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         android:layout_marginLeft="8dp"
         app:layout_constraintLeft_toLeftOf="parent"
         android:layout_marginRight="8dp"
@@ -277,6 +276,8 @@
         tools:layout_editor_absoluteX="87dp">
 
     </FrameLayout>
+
+
 
 
 </android.support.constraint.ConstraintLayout>

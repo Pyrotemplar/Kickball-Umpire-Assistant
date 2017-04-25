@@ -1,8 +1,10 @@
 package com.pyrotemplar.refereehelper;
 
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.constraint.ConstraintLayout;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,8 +24,15 @@ public class MyFragment extends Fragment {
 
 
 
-        FrameLayout placeHolder = (FrameLayout)  container.findViewById(R.id.frameLayout);
-        return  inflater.inflate(R.layout.umpire_clicker_layout, placeHolder);
-      // return inflater.inflate(R.layout.umpire_clicker_layout,null);
+
+        View rootView = inflater.inflate(R.layout.umpire_clicker_layout,null);
+
+        FrameLayout frameLayout = (FrameLayout) rootView.findViewById(R.id.frameLayout);
+
+        View rightHandLayoutView =  inflater.inflate(R.layout.right_hand_clicker_layout,null);
+        frameLayout.addView(rightHandLayoutView);
+
+
+        return rootView;
     }
 }
