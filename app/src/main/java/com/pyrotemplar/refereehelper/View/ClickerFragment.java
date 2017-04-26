@@ -16,6 +16,8 @@ import com.pyrotemplar.refereehelper.Presenter.ClickerPresenter;
 import com.pyrotemplar.refereehelper.R;
 
 
+import org.w3c.dom.Text;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -27,6 +29,29 @@ import butterknife.OnClick;
 
 public class ClickerFragment extends Fragment implements ClickerFragmentView {
 
+    @BindView(R.id.awayTeamNameTextView)
+    TextView getHomeTeamNameTextView;
+    @BindView(R.id.homeTeamNameTextView)
+    TextView homeTeamNameTextView;
+    @BindView(R.id.awayTeamScoreTextView)
+    TextView awayTeamScoreTextView;
+    @BindView(R.id.homeTeamScoreTextView)
+    TextView homeTeamScoreTextView;
+    @BindView(R.id.inningTextViewCount)
+    TextView inningTextViewCount;
+    @BindView(R.id.ballCountTextView)
+    TextView ballCountTextView;
+    @BindView(R.id.strikeCountTextView)
+    TextView strikeCountTextView;
+    @BindView(R.id.foulCountTextView)
+    TextView foulCountTextView;
+    @BindView(R.id.outCountTextView)
+    TextView outCountTextView;
+    @BindView(R.id.gameClockTextView)
+    TextView gameClockTextView;
+    @BindView(R.id.playUpdateView)
+    TextView playUpdateTextView;
+
     private ClickerPresenter clickerPresenter;
 
 
@@ -36,7 +61,6 @@ public class ClickerFragment extends Fragment implements ClickerFragmentView {
 
         View rootView = inflater.inflate(R.layout.clicker_layout, null);
 
-        clickerPresenter = new ClickerPresenter(rootView);
 
         FrameLayout frameLayout = (FrameLayout) rootView.findViewById(R.id.frameLayout);
         View rightHandLayoutView = inflater.inflate(R.layout.right_hand_clicker_layout, null);
@@ -44,6 +68,12 @@ public class ClickerFragment extends Fragment implements ClickerFragmentView {
         ButterKnife.bind(this, rootView);
 
         return rootView;
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        clickerPresenter = new ClickerPresenter(this);
     }
 
     @OnClick(R.id.ballButton)
@@ -81,4 +111,51 @@ public class ClickerFragment extends Fragment implements ClickerFragmentView {
     public void runnerScoredButtonClicked() {
         clickerPresenter.runnerScoredButtonClicked();
     }
+
+    @Override
+    public void updateBallCountTextView(int ballCount) {
+        ballCountTextView.setText(Integer.toString(ballCount));
+    }
+
+    @Override
+    public void updateStrikeCountTextView(int strikeCount) {
+        strikeCountTextView.setText(strikeCount);
+    }
+
+    @Override
+    public void updateFoulCountTextView(int foulCount) {
+        foulCountTextView.setText(foulCount);
+    }
+
+    @Override
+    public void updateOutCountTextView(int outCount) {
+        outCountTextView.setText(outCount);
+    }
+
+    @Override
+    public void updateHomeScoreTextView(int homeScore) {
+        homeTeamScoreTextView.setText(homeScore);
+    }
+
+    @Override
+    public void updateAwayScoreTextView(int awayScore) {
+        awayTeamScoreTextView.setText(awayScore);
+    }
+
+    @Override
+    public void updateInningTextView(String inning) {
+
+        inningTextViewCount.setText(inning);
+    }
+
+    @Override
+    public void updateGameClockTextView(String gameClock) {
+        gameClockTextView.setText(gameClock);
+    }
+
+    @Override
+    public void updatePlayViewTextView(String playString) {
+        playUpdateTextView.setText(playString);
+    }
+
 }

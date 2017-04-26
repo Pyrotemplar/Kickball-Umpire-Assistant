@@ -12,4 +12,13 @@ public interface ClickerFragmentView {
     void outButtonClicked();
     void kickerIsSafeButtonClicked();
     void runnerScoredButtonClicked();
+    void updateBallCountTextView(int ballCount);
+    void updateStrikeCountTextView(int StrikeCount);
+    void updateFoulCountTextView(int foulCount);
+    void updateOutCountTextView(int outCount);
+    void updateHomeScoreTextView(int homeScore);
+    void updateAwayScoreTextView(int awayScore);
+    void updateInningTextView(String inning);
+    void updateGameClockTextView(String gameClock);
+    void updatePlayViewTextView(String playString);
 }

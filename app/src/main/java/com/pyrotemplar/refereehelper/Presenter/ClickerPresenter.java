@@ -14,34 +14,17 @@ import butterknife.BindView;
 
 public class ClickerPresenter  implements ClickerFragmentView{
 
-    @BindView(R.id.awayTeamNameTextView)
-    TextView getHomeTeamNameTextView;
-    @BindView(R.id.homeTeamNameTextView)
-    TextView homeTeamNameTextView;
-    @BindView(R.id.awayTeamScoreTextView)
-    TextView awayTeamScoreTextView;
-    @BindView(R.id.homeTeamScoreTextView)
-    TextView homeTeamScoreTextView;
-    @BindView(R.id.inningTextViewCount)
-    TextView inningTextViewCount;
-    @BindView(R.id.ballCountTextView)
-    TextView ballCountTextView;
-    @BindView(R.id.strikeCountTextView)
-    TextView strikeCountTextView;
-    @BindView(R.id.foulCountTextView)
-    TextView foulCountTextView;
-    @BindView(R.id.outCountTextView)
-    TextView outCountTextView;
 
-    private View view;
 
-    public ClickerPresenter(View view) {
+    private ClickerFragmentView view;
+
+    public ClickerPresenter(ClickerFragmentView view) {
         this.view = view;
     }
 
     @Override
     public void ballButtonClicked() {
-
+        updateBallCountTextView(5);
     }
 
     @Override
@@ -68,4 +51,50 @@ public class ClickerPresenter  implements ClickerFragmentView{
     public void runnerScoredButtonClicked() {
 
     }
+
+    @Override
+    public void updateBallCountTextView(int ballCount) {
+        view.updateBallCountTextView(ballCount);
+    }
+
+    @Override
+    public void updateStrikeCountTextView(int StrikeCount) {
+
+    }
+
+    @Override
+    public void updateFoulCountTextView(int foulCount) {
+
+    }
+
+    @Override
+    public void updateOutCountTextView(int outCount) {
+
+    }
+
+    @Override
+    public void updateHomeScoreTextView(int homeScore) {
+
+    }
+
+    @Override
+    public void updateAwayScoreTextView(int awayScore) {
+
+    }
+
+    @Override
+    public void updateInningTextView(String inning) {
+
+    }
+
+    @Override
+    public void updateGameClockTextView(String gameClock) {
+
+    }
+
+    @Override
+    public void updatePlayViewTextView(String playString) {
+
+    }
+
 }
