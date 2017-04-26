@@ -1,14 +1,11 @@
 package com.pyrotemplar.refereehelper;
 
-import android.content.Context;
-import android.support.design.widget.TabLayout;
-import android.widget.ImageView;
 
 /**
  * Created by Manuel Montes de Oca on 4/25/2017.
  */
 
-public class TabActivityPresenter implements TabActivityView {
+public class TabActivityPresenter implements TabActivityContract.Presenter {
 
     public static final int[] TAB_RES_ID = {
             R.mipmap.ic_launcher_round,
@@ -23,13 +20,10 @@ public class TabActivityPresenter implements TabActivityView {
     }
 
     @Override
-    public void setTabIcons(TabLayout tabLayout, Context context) {
-
-        // Populates Tabs with icons
-        for (int i = 0; i < tabLayout.getTabCount(); i++) {
-            ImageView imageView = new ImageView(context);
-            imageView.setImageResource(TAB_RES_ID[i]);
-            tabLayout.getTabAt(i).setCustomView(imageView);
+    public void setTabIcons() {
+        for (int i = 0; i < TAB_RES_ID.length; i++) {
+            view.showTabIcons(i, TAB_RES_ID[i]);
         }
     }
 }
+

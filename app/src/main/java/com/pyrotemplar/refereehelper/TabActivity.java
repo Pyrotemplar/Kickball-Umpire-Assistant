@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v7.app.AppCompatActivity;
+import android.widget.ImageView;
 
 import com.pyrotemplar.refereehelper.Adapters.PageAdapter;
 import com.pyrotemplar.refereehelper.Utils.NonSwipeViewPager;
@@ -17,7 +18,7 @@ import butterknife.ButterKnife;
  * Created by Manuel Montes de Oca on 4/21/2017.
  */
 
-public class TabActivity extends AppCompatActivity implements TabActivityView {
+public class TabActivity extends AppCompatActivity implements TabActivityContract.View {
 
     @BindView(R.id.tabLayout)
     TabLayout mTabLayout;
@@ -43,7 +44,7 @@ public class TabActivity extends AppCompatActivity implements TabActivityView {
 
         mTabLayout.setupWithViewPager(mPager);
 
-        setTabIcons(mTabLayout, getApplicationContext());
+        presenter.setTabIcons();
     }
 
     @Override
@@ -53,8 +54,12 @@ public class TabActivity extends AppCompatActivity implements TabActivityView {
     }
 
     @Override
-    public void setTabIcons(TabLayout tabLayout, Context context) {
-        presenter.setTabIcons(mTabLayout, context);
+    public void showTabIcons(int location, int resId) {
+
+        // Populates Tabs with icons
+        ImageView imageView = new ImageView(this);
+        imageView.setImageResource(resId);
+        mTabLayout.getTabAt(location).setCustomView(imageView);
     }
 }
 

@@ -7,16 +7,12 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.TextView;
-import android.widget.Toast;
+
 
 import com.pyrotemplar.refereehelper.Presenter.ClickerPresenter;
 import com.pyrotemplar.refereehelper.R;
-
-
-import org.w3c.dom.Text;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -27,10 +23,10 @@ import butterknife.OnClick;
  * Created by Manuel Montes de Oca on 4/21/2017.
  */
 
-public class ClickerFragment extends Fragment implements ClickerFragmentView {
+public class ClickerFragment extends Fragment implements ClickerFragmentContract.View {
 
     @BindView(R.id.awayTeamNameTextView)
-    TextView getHomeTeamNameTextView;
+    TextView awayTeamNameTextView;
     @BindView(R.id.homeTeamNameTextView)
     TextView homeTeamNameTextView;
     @BindView(R.id.awayTeamScoreTextView)
@@ -52,7 +48,7 @@ public class ClickerFragment extends Fragment implements ClickerFragmentView {
     @BindView(R.id.playUpdateView)
     TextView playUpdateTextView;
 
-    private ClickerPresenter clickerPresenter;
+    private ClickerFragmentContract.Presenter mPresenter;
 
 
     @Nullable
@@ -67,84 +63,90 @@ public class ClickerFragment extends Fragment implements ClickerFragmentView {
         frameLayout.addView(rightHandLayoutView);
         ButterKnife.bind(this, rootView);
 
+        new ClickerPresenter(this);
+
         return rootView;
+    }
+
+    @Override
+    public void setPresenter(ClickerPresenter presenter) {
+        mPresenter = presenter;
     }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        clickerPresenter = new ClickerPresenter(this);
+
     }
 
     @OnClick(R.id.ballButton)
     @Override
     public void ballButtonClicked() {
-        clickerPresenter.ballButtonClicked();
+        mPresenter.incrementBall();
     }
 
     @OnClick(R.id.strikeButton)
     @Override
     public void strikeButtonClicked() {
-        clickerPresenter.strikeButtonClicked();
+        mPresenter.incrementStrike();
     }
 
     @OnClick(R.id.foulButton)
     @Override
     public void foulButtonClicked() {
-        clickerPresenter.foulButtonClicked();
+        mPresenter.incrementFoul();
     }
 
     @OnClick(R.id.outButton)
     @Override
     public void outButtonClicked() {
-        clickerPresenter.outButtonClicked();
+        mPresenter.incrementOut();
     }
 
     @OnClick(R.id.kickerIsSafeButton)
     @Override
     public void kickerIsSafeButtonClicked() {
-        clickerPresenter.kickerIsSafeButtonClicked();
+        mPresenter.resetCount();
     }
 
     @OnClick(R.id.runnerScoredButton)
     @Override
     public void runnerScoredButtonClicked() {
-        clickerPresenter.runnerScoredButtonClicked();
+        mPresenter.incrementRun();
     }
 
     @Override
-    public void updateBallCountTextView(int ballCount) {
-        ballCountTextView.setText(Integer.toString(ballCount));
+    public void updateBallCountTextView(String ballCount) {
+        ballCountTextView.setText(ballCount);
     }
 
     @Override
-    public void updateStrikeCountTextView(int strikeCount) {
+    public void updateStrikeCountTextView(String strikeCount) {
         strikeCountTextView.setText(strikeCount);
     }
 
     @Override
-    public void updateFoulCountTextView(int foulCount) {
+    public void updateFoulCountTextView(String foulCount) {
         foulCountTextView.setText(foulCount);
     }
 
     @Override
-    public void updateOutCountTextView(int outCount) {
+    public void updateOutCountTextView(String outCount) {
         outCountTextView.setText(outCount);
     }
 
     @Override
-    public void updateHomeScoreTextView(int homeScore) {
+    public void updateHomeScoreTextView(String homeScore) {
         homeTeamScoreTextView.setText(homeScore);
     }
 
     @Override
-    public void updateAwayScoreTextView(int awayScore) {
+    public void updateAwayScoreTextView(String awayScore) {
         awayTeamScoreTextView.setText(awayScore);
     }
 
     @Override
     public void updateInningTextView(String inning) {
-
         inningTextViewCount.setText(inning);
     }
 

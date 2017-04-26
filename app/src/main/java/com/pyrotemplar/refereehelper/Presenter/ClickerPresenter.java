@@ -1,100 +1,104 @@
 package com.pyrotemplar.refereehelper.Presenter;
 
-import android.view.View;
-import android.widget.TextView;
+import android.support.annotation.NonNull;
 
-import com.pyrotemplar.refereehelper.R;
-import com.pyrotemplar.refereehelper.View.ClickerFragmentView;
-
-import butterknife.BindView;
+import com.pyrotemplar.refereehelper.Utils.GameCountState;
+import com.pyrotemplar.refereehelper.View.ClickerFragmentContract;
 
 /**
  * Created by Manuel Montes de Oca on 4/25/2017.
  */
 
-public class ClickerPresenter  implements ClickerFragmentView{
+public class ClickerPresenter implements ClickerFragmentContract.Presenter {
 
+    static int awayTeamScore;
+    static int homeTeamScore;
+    static int strikeCount;
+    static int ballCount = 0;
+    static int foulCount;
+    static int outCount;
+    static int inning;
+    static String currentPlay;
 
+    private final ClickerFragmentContract.View mClickerFragmentView;
+    private GameCountState gameCountState;
+    private boolean botOfInning;
 
-    private ClickerFragmentView view;
-
-    public ClickerPresenter(ClickerFragmentView view) {
-        this.view = view;
+    public ClickerPresenter(@NonNull ClickerFragmentContract.View clickerFragmentView) {
+        mClickerFragmentView = clickerFragmentView;
+        mClickerFragmentView.setPresenter(this);
     }
 
     @Override
-    public void ballButtonClicked() {
-        updateBallCountTextView(5);
-    }
-
-    @Override
-    public void strikeButtonClicked() {
-
-    }
-
-    @Override
-    public void foulButtonClicked() {
-
-    }
-
-    @Override
-    public void outButtonClicked() {
+    public void calculateCount() {
 
     }
 
     @Override
-    public void kickerIsSafeButtonClicked() {
-
+    public void incrementBall() {
+        ballCount++;
+        updatedFields();
     }
 
     @Override
-    public void runnerScoredButtonClicked() {
-
+    public void incrementStrike() {
+        strikeCount++;
+        updatedFields();
     }
 
     @Override
-    public void updateBallCountTextView(int ballCount) {
-        view.updateBallCountTextView(ballCount);
+    public void incrementFoul() {
+        foulCount++;
+        updatedFields();
     }
 
     @Override
-    public void updateStrikeCountTextView(int StrikeCount) {
+    public void incrementOut() {
+        if (outCount == 3) {
+            outCount = 0;
+            changeInning();
+        } else
+            outCount++;
+        resetCount();
+    }
 
+    private void changeInning() {
+        if(botOfInning){
+            botOfInning = true;
+        } else
+            inning++;
     }
 
     @Override
-    public void updateFoulCountTextView(int foulCount) {
-
+    public void resetCount() {
+        ballCount = 0;
+        strikeCount = 0;
+        foulCount = 0;
+        updatedFields();
     }
 
     @Override
-    public void updateOutCountTextView(int outCount) {
+    public void incrementRun() {
+       if(botOfInning)
+           homeTeamScore++;
+        else
+           awayTeamScore++;
 
+        updatedFields();
     }
 
     @Override
-    public void updateHomeScoreTextView(int homeScore) {
+    public void updatedFields() {
+
+        mClickerFragmentView.updateAwayScoreTextView(Integer.toString(awayTeamScore));
+        mClickerFragmentView.updateHomeScoreTextView(Integer.toString(homeTeamScore));
+        mClickerFragmentView.updateBallCountTextView(Integer.toString(ballCount));
+        mClickerFragmentView.updateStrikeCountTextView(Integer.toString(strikeCount));
+        mClickerFragmentView.updateOutCountTextView(Integer.toString(outCount));
+        mClickerFragmentView.updateFoulCountTextView(Integer.toString(foulCount));
+        mClickerFragmentView.updateInningTextView(Integer.toString(inning));
+        mClickerFragmentView.updatePlayViewTextView(currentPlay);
+
 
     }
-
-    @Override
-    public void updateAwayScoreTextView(int awayScore) {
-
-    }
-
-    @Override
-    public void updateInningTextView(String inning) {
-
-    }
-
-    @Override
-    public void updateGameClockTextView(String gameClock) {
-
-    }
-
-    @Override
-    public void updatePlayViewTextView(String playString) {
-
-    }
-
 }

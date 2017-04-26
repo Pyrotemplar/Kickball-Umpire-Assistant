@@ -7,6 +7,12 @@ import android.support.design.widget.TabLayout;
  * Created by Manuel Montes de Oca on 4/25/2017.
  */
 
-interface TabActivityView {
-    void setTabIcons(TabLayout tabLayout, Context context);
+interface TabActivityContract {
+    interface View {
+        void showTabIcons(int location, int resId);
+    }
+
+    interface Presenter {
+        void setTabIcons();
+    }
 }
