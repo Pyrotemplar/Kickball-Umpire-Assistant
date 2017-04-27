@@ -1,12 +1,12 @@
-package com.pyrotemplar.refereehelper.View;
+package com.pyrotemplar.refereehelper.ClickerFragment;
 
-import com.pyrotemplar.refereehelper.Presenter.ClickerPresenter;
+import com.pyrotemplar.refereehelper.ClickerFragment.ClickerPresenter;
 
 /**
  * Created by Manuel Montes de Oca on 4/25/2017.
  */
 
-public interface ClickerFragmentContract {
+public interface ClickerContract {
 
     interface View {
         void ballButtonClicked();
@@ -43,7 +43,6 @@ public interface ClickerFragmentContract {
     }
 
     interface Presenter {
-        void calculateCount();
 
         void incrementBall();
 
@@ -58,6 +57,11 @@ public interface ClickerFragmentContract {
         void incrementRun();
 
         void updatedFields();
+
+    }
+
+    interface Model {
+        void calculateCount();
     }
 
 }

@@ -1,5 +1,7 @@
-package com.pyrotemplar.refereehelper;
+package com.pyrotemplar.refereehelper.TabAcivity;
 
+
+import com.pyrotemplar.refereehelper.R;
 
 /**
  * Created by Manuel Montes de Oca on 4/25/2017.

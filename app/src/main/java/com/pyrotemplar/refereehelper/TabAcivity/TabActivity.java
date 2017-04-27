@@ -1,6 +1,5 @@
-package com.pyrotemplar.refereehelper;
+package com.pyrotemplar.refereehelper.TabAcivity;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
@@ -8,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.widget.ImageView;
 
 import com.pyrotemplar.refereehelper.Adapters.PageAdapter;
+import com.pyrotemplar.refereehelper.R;
 import com.pyrotemplar.refereehelper.Utils.NonSwipeViewPager;
 
 import butterknife.BindView;

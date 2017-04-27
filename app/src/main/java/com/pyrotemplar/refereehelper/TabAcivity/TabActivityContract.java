@@ -1,4 +1,4 @@
-package com.pyrotemplar.refereehelper;
+package com.pyrotemplar.refereehelper.TabAcivity;
 
 import android.content.Context;
 import android.support.design.widget.TabLayout;

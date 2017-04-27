@@ -1,4 +1,4 @@
-package com.pyrotemplar.refereehelper.View;
+package com.pyrotemplar.refereehelper.ClickerFragment;
 
 
 import android.os.Bundle;
@@ -11,7 +11,6 @@ import android.widget.FrameLayout;
 import android.widget.TextView;
 
 
-import com.pyrotemplar.refereehelper.Presenter.ClickerPresenter;
 import com.pyrotemplar.refereehelper.R;
 
 import butterknife.BindView;
@@ -23,7 +22,7 @@ import butterknife.OnClick;
  * Created by Manuel Montes de Oca on 4/21/2017.
  */
 
-public class ClickerFragment extends Fragment implements ClickerFragmentContract.View {
+public class ClickerView extends Fragment implements ClickerContract.View {
 
     @BindView(R.id.awayTeamNameTextView)
     TextView awayTeamNameTextView;
@@ -48,7 +47,7 @@ public class ClickerFragment extends Fragment implements ClickerFragmentContract
     @BindView(R.id.playUpdateView)
     TextView playUpdateTextView;
 
-    private ClickerFragmentContract.Presenter mPresenter;
+    private ClickerContract.Presenter mPresenter;
 
 
     @Nullable

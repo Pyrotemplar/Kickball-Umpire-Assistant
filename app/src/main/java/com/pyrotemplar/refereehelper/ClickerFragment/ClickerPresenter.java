@@ -1,15 +1,14 @@
-package com.pyrotemplar.refereehelper.Presenter;
+package com.pyrotemplar.refereehelper.ClickerFragment;
 
 import android.support.annotation.NonNull;
 
 import com.pyrotemplar.refereehelper.Utils.GameCountState;
-import com.pyrotemplar.refereehelper.View.ClickerFragmentContract;
 
 /**
  * Created by Manuel Montes de Oca on 4/25/2017.
  */
 
-public class ClickerPresenter implements ClickerFragmentContract.Presenter {
+public class ClickerPresenter implements ClickerContract.Presenter {
 
     static int awayTeamScore;
     static int homeTeamScore;
@@ -19,18 +18,32 @@ public class ClickerPresenter implements ClickerFragmentContract.Presenter {
     static int outCount;
     static int inning;
     static String currentPlay;
+    private static boolean vibrate;
+    private static int gameClockTime;
 
-    private final ClickerFragmentContract.View mClickerFragmentView;
+    private final ClickerContract.View mClickerFragmentView;
     private GameCountState gameCountState;
     private boolean botOfInning;
+    private boolean threeFoulOption;
 
-    public ClickerPresenter(@NonNull ClickerFragmentContract.View clickerFragmentView) {
+    public ClickerPresenter(@NonNull ClickerContract.View clickerFragmentView) {
         mClickerFragmentView = clickerFragmentView;
         mClickerFragmentView.setPresenter(this);
+        initializeCountFields();
+        updatedFields();
     }
 
-    @Override
-    public void calculateCount() {
+    protected static void initializeCountFields() {
+
+        awayTeamScore = 0;
+        homeTeamScore = 0;
+        strikeCount = 0;
+        ballCount = 0;
+        foulCount = 0;
+        outCount = 0;
+        gameClockTime = 2700;
+        inning = 1;
+        vibrate = true;
 
     }
 
@@ -54,20 +67,10 @@ public class ClickerPresenter implements ClickerFragmentContract.Presenter {
 
     @Override
     public void incrementOut() {
-        if (outCount == 3) {
-            outCount = 0;
-            changeInning();
-        } else
-            outCount++;
-        resetCount();
+        outCount++;
+        updatedFields();
     }
 
-    private void changeInning() {
-        if(botOfInning){
-            botOfInning = true;
-        } else
-            inning++;
-    }
 
     @Override
     public void resetCount() {
@@ -90,6 +93,7 @@ public class ClickerPresenter implements ClickerFragmentContract.Presenter {
     @Override
     public void updatedFields() {
 
+        autoMode();
         mClickerFragmentView.updateAwayScoreTextView(Integer.toString(awayTeamScore));
         mClickerFragmentView.updateHomeScoreTextView(Integer.toString(homeTeamScore));
         mClickerFragmentView.updateBallCountTextView(Integer.toString(ballCount));
@@ -99,6 +103,49 @@ public class ClickerPresenter implements ClickerFragmentContract.Presenter {
         mClickerFragmentView.updateInningTextView(Integer.toString(inning));
         mClickerFragmentView.updatePlayViewTextView(currentPlay);
 
+    }
 
+    private void autoMode() {
+        if (ballCount == 4) {
+            ballCount = 0;
+            foulCount = 0;
+            strikeCount = 0;
+        }
+        if (threeFoulOption) {
+            if (foulCount == 3) {
+                outCount++;
+                ballCount = 0;
+                foulCount = 0;
+                strikeCount = 0;
+            }
+        } else {
+            if (foulCount == 4) {
+                outCount++;
+                ballCount = 0;
+                foulCount = 0;
+                strikeCount = 0;
+            }
+        }
+        if (strikeCount == 3) {
+            outCount++;
+            ballCount = 0;
+            foulCount = 0;
+            strikeCount = 0;
+        }
+        if (outCount == 3) {
+            if (!botOfInning) {
+                botOfInning = true;
+            } else if (botOfInning) {
+                if (inning < 9)
+                    inning++;
+                else
+                    inning = 1;
+                botOfInning = false;
+            }
+            outCount = 0;
+            ballCount = 0;
+            foulCount = 0;
+            strikeCount = 0;
+        }
     }
 }
