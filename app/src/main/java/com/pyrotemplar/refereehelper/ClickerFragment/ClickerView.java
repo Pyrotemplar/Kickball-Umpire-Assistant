@@ -58,7 +58,7 @@ public class ClickerView extends Fragment implements ClickerContract.View {
 
 
         FrameLayout frameLayout = (FrameLayout) rootView.findViewById(R.id.frameLayout);
-        View rightHandLayoutView = inflater.inflate(R.layout.right_hand_clicker_layout, null);
+        View rightHandLayoutView = inflater.inflate(R.layout.left_hand_click_layout, null);
         frameLayout.addView(rightHandLayoutView);
         ButterKnife.bind(this, rootView);
 

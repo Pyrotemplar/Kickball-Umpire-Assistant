@@ -18,7 +18,6 @@ public class ClickerPresenter implements ClickerContract.Presenter {
     static int outCount;
     static int inning;
     static String currentPlay;
-    private static boolean vibrate;
     private static int gameClockTime;
 
     private final ClickerContract.View mClickerFragmentView;
@@ -43,8 +42,6 @@ public class ClickerPresenter implements ClickerContract.Presenter {
         outCount = 0;
         gameClockTime = 2700;
         inning = 1;
-        vibrate = true;
-
     }
 
     @Override
