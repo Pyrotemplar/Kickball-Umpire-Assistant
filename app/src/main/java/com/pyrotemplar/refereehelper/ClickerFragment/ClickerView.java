@@ -24,16 +24,16 @@ import butterknife.OnClick;
 
 public class ClickerView extends Fragment implements ClickerContract.View {
 
-    @BindView(R.id.awayTeamNameTextView)
-    TextView awayTeamNameTextView;
-    @BindView(R.id.homeTeamNameTextView)
-    TextView homeTeamNameTextView;
+   // @BindView(R.id.awayTeamNameTextView)
+   // TextView awayTeamNameTextView;
+   // @BindView(R.id.homeTeamNameTextView)
+  //  TextView homeTeamNameTextView;
     @BindView(R.id.awayTeamScoreTextView)
     TextView awayTeamScoreTextView;
     @BindView(R.id.homeTeamScoreTextView)
     TextView homeTeamScoreTextView;
-    @BindView(R.id.inningTextViewCount)
-    TextView inningTextViewCount;
+    @BindView(R.id.inningCountTextView)
+    TextView inningCountTextView;
     @BindView(R.id.ballCountTextView)
     TextView ballCountTextView;
     @BindView(R.id.strikeCountTextView)
@@ -44,8 +44,8 @@ public class ClickerView extends Fragment implements ClickerContract.View {
     TextView outCountTextView;
     @BindView(R.id.gameClockTextView)
     TextView gameClockTextView;
-    @BindView(R.id.playUpdateView)
-    TextView playUpdateTextView;
+  //  @BindView(R.id.playUpdateView)
+  //  TextView playUpdateTextView;
 
     private ClickerContract.Presenter mPresenter;
 
@@ -54,12 +54,12 @@ public class ClickerView extends Fragment implements ClickerContract.View {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
 
-        View rootView = inflater.inflate(R.layout.clicker_layout, null);
+        View rootView = inflater.inflate(R.layout.clicker_layout_option_2, null);
 
 
-        FrameLayout frameLayout = (FrameLayout) rootView.findViewById(R.id.frameLayout);
-        View rightHandLayoutView = inflater.inflate(R.layout.left_hand_click_layout, null);
-        frameLayout.addView(rightHandLayoutView);
+       // FrameLayout frameLayout = (FrameLayout) rootView.findViewById(R.id.frameLayout);
+       // View rightHandLayoutView = inflater.inflate(R.layout.left_hand_click_layout, null);
+       // frameLayout.addView(rightHandLayoutView);
         ButterKnife.bind(this, rootView);
 
         new ClickerPresenter(this);
@@ -146,7 +146,7 @@ public class ClickerView extends Fragment implements ClickerContract.View {
 
     @Override
     public void updateInningTextView(String inning) {
-        inningTextViewCount.setText(inning);
+        inningCountTextView.setText(inning);
     }
 
     @Override
@@ -156,7 +156,7 @@ public class ClickerView extends Fragment implements ClickerContract.View {
 
     @Override
     public void updatePlayViewTextView(String playString) {
-        playUpdateTextView.setText(playString);
+     //   playUpdateTextView.setText(playString);
     }
 
 }
