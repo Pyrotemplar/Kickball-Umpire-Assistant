@@ -35,6 +35,12 @@ public interface ClickerContract {
 
         void updateInningTextView(String inning);
 
+        void updateInningArrowImageView();
+
+        void updateAwayArrowImageView(boolean isVisible);
+
+        void updateHomeArrowImageView(boolean isVisible);
+
         void updateGameClockTextView(String gameClock);
 
         void updatePlayViewTextView(String playString);

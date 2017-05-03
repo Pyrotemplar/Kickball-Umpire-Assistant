@@ -20,10 +20,12 @@ public class ClickerPresenter implements ClickerContract.Presenter {
     static String currentPlay;
     private static int gameClockTime;
 
+
     private final ClickerContract.View mClickerFragmentView;
     private GameCountState gameCountState;
     private boolean botOfInning;
     private boolean threeFoulOption;
+    private boolean rotateInningImage;
 
     public ClickerPresenter(@NonNull ClickerContract.View clickerFragmentView) {
         mClickerFragmentView = clickerFragmentView;
@@ -32,7 +34,7 @@ public class ClickerPresenter implements ClickerContract.Presenter {
         updatedFields();
     }
 
-    protected static void initializeCountFields() {
+    private void initializeCountFields() {
 
         awayTeamScore = 0;
         homeTeamScore = 0;
@@ -42,6 +44,8 @@ public class ClickerPresenter implements ClickerContract.Presenter {
         outCount = 0;
         gameClockTime = 2700;
         inning = 1;
+        mClickerFragmentView.updateAwayArrowImageView(true);
+        mClickerFragmentView.updateHomeArrowImageView(false);
     }
 
     @Override
@@ -79,10 +83,10 @@ public class ClickerPresenter implements ClickerContract.Presenter {
 
     @Override
     public void incrementRun() {
-       if(botOfInning)
-           homeTeamScore++;
+        if (botOfInning)
+            homeTeamScore++;
         else
-           awayTeamScore++;
+            awayTeamScore++;
 
         updatedFields();
     }
@@ -97,9 +101,39 @@ public class ClickerPresenter implements ClickerContract.Presenter {
         mClickerFragmentView.updateStrikeCountTextView(Integer.toString(strikeCount));
         mClickerFragmentView.updateOutCountTextView(Integer.toString(outCount));
         mClickerFragmentView.updateFoulCountTextView(Integer.toString(foulCount));
-        mClickerFragmentView.updateInningTextView(Integer.toString(inning));
-        mClickerFragmentView.updatePlayViewTextView(currentPlay);
+        if (rotateInningImage) {
+            mClickerFragmentView.updateInningArrowImageView();
+            rotateInningImage = false;
+        }
 
+
+        mClickerFragmentView.updateInningTextView(generateInningString(inning));
+        // mClickerFragmentView.updatePlayViewTextView(currentPlay);
+
+    }
+
+    private String generateInningString(int inning) {
+        String inningString = "1st";
+        if (inning == 1) {
+            inningString = "1st";
+        } else if (inning == 2) {
+            inningString = "2nd";
+        } else if (inning == 3) {
+            inningString = "3rd";
+        } else if (inning == 4) {
+            inningString = "4th";
+        } else if (inning == 5) {
+            inningString = "5th";
+        } else if (inning == 6) {
+            inningString = "6th";
+        } else if (inning == 7) {
+            inningString = "7th";
+        } else if (inning == 8) {
+            inningString = "8th";
+        } else if (inning == 9) {
+            inningString = "9th";
+        }
+        return inningString;
     }
 
     private void autoMode() {
@@ -130,8 +164,10 @@ public class ClickerPresenter implements ClickerContract.Presenter {
             strikeCount = 0;
         }
         if (outCount == 3) {
+            rotateInningImage = true;
             if (!botOfInning) {
                 botOfInning = true;
+
             } else if (botOfInning) {
                 if (inning < 9)
                     inning++;
@@ -139,10 +175,22 @@ public class ClickerPresenter implements ClickerContract.Presenter {
                     inning = 1;
                 botOfInning = false;
             }
+            changeTeamInningArrow();
             outCount = 0;
             ballCount = 0;
             foulCount = 0;
             strikeCount = 0;
+        }
+    }
+
+    private void changeTeamInningArrow() {
+
+        if (botOfInning) {
+            mClickerFragmentView.updateHomeArrowImageView(true);
+            mClickerFragmentView.updateAwayArrowImageView(false);
+        } else {
+            mClickerFragmentView.updateHomeArrowImageView(false);
+            mClickerFragmentView.updateAwayArrowImageView(true);
         }
     }
 }

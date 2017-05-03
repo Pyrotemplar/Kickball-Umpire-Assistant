@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 
@@ -24,10 +25,7 @@ import butterknife.OnClick;
 
 public class ClickerView extends Fragment implements ClickerContract.View {
 
-   // @BindView(R.id.awayTeamNameTextView)
-   // TextView awayTeamNameTextView;
-   // @BindView(R.id.homeTeamNameTextView)
-  //  TextView homeTeamNameTextView;
+
     @BindView(R.id.awayTeamScoreTextView)
     TextView awayTeamScoreTextView;
     @BindView(R.id.homeTeamScoreTextView)
@@ -44,8 +42,12 @@ public class ClickerView extends Fragment implements ClickerContract.View {
     TextView outCountTextView;
     @BindView(R.id.gameClockTextView)
     TextView gameClockTextView;
-  //  @BindView(R.id.playUpdateView)
-  //  TextView playUpdateTextView;
+    @BindView(R.id.inningArrowImageView)
+    ImageView inningArrowImageView;
+    @BindView(R.id.awayArrowImageView)
+    ImageView awayArrowImageView;
+    @BindView(R.id.homeArrowImageView)
+    ImageView homeArrowImageView;
 
     private ClickerContract.Presenter mPresenter;
 
@@ -57,9 +59,9 @@ public class ClickerView extends Fragment implements ClickerContract.View {
         View rootView = inflater.inflate(R.layout.clicker_layout_option_2, null);
 
 
-       // FrameLayout frameLayout = (FrameLayout) rootView.findViewById(R.id.frameLayout);
-       // View rightHandLayoutView = inflater.inflate(R.layout.left_hand_click_layout, null);
-       // frameLayout.addView(rightHandLayoutView);
+        //   FrameLayout frameLayout = (FrameLayout) rootView.findViewById(R.id.frameLayout);
+        // View rightHandLayoutView = inflater.inflate(R.layout.left_hand_click_layout, null);
+        // frameLayout.addView(rightHandLayoutView);
         ButterKnife.bind(this, rootView);
 
         new ClickerPresenter(this);
@@ -78,25 +80,25 @@ public class ClickerView extends Fragment implements ClickerContract.View {
 
     }
 
-    @OnClick(R.id.ballButton)
+    @OnClick(R.id.ballLayout)
     @Override
     public void ballButtonClicked() {
         mPresenter.incrementBall();
     }
 
-    @OnClick(R.id.strikeButton)
+    @OnClick(R.id.strikeLayout)
     @Override
     public void strikeButtonClicked() {
         mPresenter.incrementStrike();
     }
 
-    @OnClick(R.id.foulButton)
+    @OnClick(R.id.foulLayout)
     @Override
     public void foulButtonClicked() {
         mPresenter.incrementFoul();
     }
 
-    @OnClick(R.id.outButton)
+    @OnClick(R.id.outLayout)
     @Override
     public void outButtonClicked() {
         mPresenter.incrementOut();
@@ -150,13 +152,34 @@ public class ClickerView extends Fragment implements ClickerContract.View {
     }
 
     @Override
+    public void updateInningArrowImageView() {
+        inningArrowImageView.setRotation(inningArrowImageView.getRotation() + 180);
+    }
+
+    @Override
+    public void updateAwayArrowImageView(boolean isVisible) {
+        if (isVisible)
+            awayArrowImageView.setVisibility(View.VISIBLE);
+        else
+            awayArrowImageView.setVisibility(View.INVISIBLE);
+    }
+
+    @Override
+    public void updateHomeArrowImageView(boolean isVisible) {
+        if (isVisible)
+            homeArrowImageView.setVisibility(View.VISIBLE);
+        else
+            homeArrowImageView.setVisibility(View.INVISIBLE);
+    }
+
+    @Override
     public void updateGameClockTextView(String gameClock) {
         gameClockTextView.setText(gameClock);
     }
 
     @Override
     public void updatePlayViewTextView(String playString) {
-     //   playUpdateTextView.setText(playString);
+        //   playUpdateTextView.setText(playString);
     }
 
 }

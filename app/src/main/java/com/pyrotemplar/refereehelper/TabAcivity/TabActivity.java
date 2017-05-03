@@ -59,6 +59,8 @@ public class TabActivity extends AppCompatActivity implements TabActivityContrac
         // Populates Tabs with icons
         ImageView imageView = new ImageView(this);
         imageView.setImageResource(resId);
+        imageView.setPadding(0,10,0,20);
+
         mTabLayout.getTabAt(location).setCustomView(imageView);
     }
 }
