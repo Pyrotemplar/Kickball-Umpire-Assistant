@@ -172,7 +172,7 @@ public class ClickerView extends Fragment implements ClickerContract.View {
         if (isNotClickable) {
             undoLayout.setAlpha(.5f);
             undoLayout.setClickable(false);
-        } else{
+        } else {
             undoLayout.setAlpha(1);
             undoLayout.setClickable(true);
         }
@@ -184,28 +184,32 @@ public class ClickerView extends Fragment implements ClickerContract.View {
         if (isNotClickable) {
             redoLayout.setAlpha(.5f);
             redoLayout.setClickable(false);
-        } else{
+        } else {
             redoLayout.setAlpha(1);
             redoLayout.setClickable(true);
         }
     }
 
     @Override
-    public void updateInningArrowImageView() {
-        inningArrowImageView.setRotation(inningArrowImageView.getRotation() + 180);
-    }
-
-    @Override
-    public void updateAwayArrowImageView(boolean isVisible) {
-        if (isVisible)
-            awayArrowImageView.setVisibility(View.VISIBLE);
+    public void updateInningArrowImageView(boolean isBottomOfInning) {
+        if (isBottomOfInning)
+            inningArrowImageView.setRotation(180);
         else
-            awayArrowImageView.setVisibility(View.INVISIBLE);
+            inningArrowImageView.setRotation(0);
     }
 
     @Override
-    public void updateHomeArrowImageView(boolean isVisible) {
-        if (isVisible)
+    public void updateAwayArrowImageView(boolean isBottomOfInning) {
+        if (isBottomOfInning)
+            awayArrowImageView.setVisibility(View.INVISIBLE);
+        else
+            awayArrowImageView.setVisibility(View.VISIBLE);
+
+    }
+
+    @Override
+    public void updateHomeArrowImageView(boolean isBottomOfInning) {
+        if (isBottomOfInning)
             homeArrowImageView.setVisibility(View.VISIBLE);
         else
             homeArrowImageView.setVisibility(View.INVISIBLE);

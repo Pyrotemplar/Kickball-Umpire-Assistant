@@ -6,7 +6,7 @@ import com.pyrotemplar.refereehelper.ClickerFragment.ClickerPresenter;
  * Created by Manuel Montes de Oca on 4/25/2017.
  */
 
-public interface ClickerContract {
+interface ClickerContract {
 
     interface View {
         void ballButtonClicked();
@@ -43,11 +43,11 @@ public interface ClickerContract {
 
         void updateRedoLayoutVisibility(boolean isNotClickable);
 
-        void updateInningArrowImageView();
+        void updateInningArrowImageView(boolean isBottomOfInning);
 
-        void updateAwayArrowImageView(boolean isVisible);
+        void updateAwayArrowImageView(boolean isBottomOfInning);
 
-        void updateHomeArrowImageView(boolean isVisible);
+        void updateHomeArrowImageView(boolean isBottomOfInning);
 
         void updateGameClockTextView(String gameClock);
 

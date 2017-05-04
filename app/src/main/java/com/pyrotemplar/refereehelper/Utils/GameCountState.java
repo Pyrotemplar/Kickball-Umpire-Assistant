@@ -14,7 +14,6 @@ public class GameCountState {
     private int outCount;
     private int inning;
     private boolean botOfInning;
-    private boolean rotateInningImage;
 
 
     public int getAwayTeamScore() {
@@ -82,11 +81,4 @@ public class GameCountState {
         this.botOfInning = botOfInning;
     }
 
-    public boolean isRotateInningImage() {
-        return rotateInningImage;
-    }
-
-    public void setRotateInningImage(boolean rotateInningImage) {
-        this.rotateInningImage = rotateInningImage;
-    }
 }

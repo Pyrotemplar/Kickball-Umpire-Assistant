@@ -10,17 +10,17 @@ import java.util.Stack;
  * Created by Manuel Montes de Oca on 4/25/2017.
  */
 
-public class ClickerPresenter implements ClickerContract.Presenter {
+class ClickerPresenter implements ClickerContract.Presenter {
 
     //Game Count states
-    static int awayTeamScore;
-    static int homeTeamScore;
-    static int strikeCount;
-    static int ballCount = 0;
-    static int foulCount;
-    static int outCount;
-    static int inning;
-    private boolean botOfInning;
+    private int awayTeamScore;
+    private int homeTeamScore;
+    private int strikeCount;
+    private int ballCount;
+    private int foulCount;
+    private int outCount;
+    private int inning;
+    private boolean isBottomOfInning;
     private boolean rotateInningImage;
     private boolean threeFoulOption;
     private GameCountState gameCountState;
@@ -30,7 +30,7 @@ public class ClickerPresenter implements ClickerContract.Presenter {
     private Stack<GameCountState> redoStack;
     private final ClickerContract.View mClickerFragmentView;
 
-    public ClickerPresenter(@NonNull ClickerContract.View clickerFragmentView) {
+    ClickerPresenter(@NonNull ClickerContract.View clickerFragmentView) {
         mClickerFragmentView = clickerFragmentView;
         mClickerFragmentView.setPresenter(this);
         undoStack = new Stack<>();
@@ -47,99 +47,108 @@ public class ClickerPresenter implements ClickerContract.Presenter {
         ballCount = 0;
         foulCount = 0;
         outCount = 0;
-        //  gameClockTime = 2700;
         inning = 1;
-        gameCountState = new GameCountState();
-        botOfInning = false;
-
-        //undoStack.clear();
-        // redoStack.clear();
-        mClickerFragmentView.updateAwayArrowImageView(true);
-        mClickerFragmentView.updateHomeArrowImageView(false);
+        isBottomOfInning = false;
+        updateGameCountState();
     }
 
     @Override
     public void incrementBall() {
+        updateGameCountState();
         undoStack.push(gameCountState);
+        redoStack.clear();
+
         ballCount++;
+
+        updateGameCountState();
+        countLogic();
         updatedFields();
     }
 
     @Override
     public void incrementStrike() {
+        updateGameCountState();
         undoStack.push(gameCountState);
+        redoStack.clear();
+
         strikeCount++;
+
+        updateGameCountState();
+        countLogic();
         updatedFields();
     }
 
     @Override
     public void incrementFoul() {
+        updateGameCountState();
         undoStack.push(gameCountState);
+        redoStack.clear();
+
         foulCount++;
+
+        updateGameCountState();
+        countLogic();
         updatedFields();
     }
 
     @Override
     public void incrementOut() {
+        updateGameCountState();
         undoStack.push(gameCountState);
+        redoStack.clear();
+
         outCount++;
+
+        updateGameCountState();
+        countLogic();
         updatedFields();
     }
 
-
     @Override
     public void resetCount() {
+        updateGameCountState();
         undoStack.push(gameCountState);
+        redoStack.clear();
+
         ballCount = 0;
         strikeCount = 0;
         foulCount = 0;
+
+        updateGameCountState();
+        countLogic();
         updatedFields();
     }
 
     @Override
     public void incrementRun() {
+        updateGameCountState();
         undoStack.push(gameCountState);
-        if (botOfInning)
+        redoStack.clear();
+
+        if (isBottomOfInning)
             homeTeamScore++;
         else
             awayTeamScore++;
 
+        updateGameCountState();
         updatedFields();
     }
 
     @Override
     public void updatedFields() {
 
-        updateGameCountState();
-
-        autoMode();
         mClickerFragmentView.updateAwayScoreTextView(Integer.toString(awayTeamScore));
         mClickerFragmentView.updateHomeScoreTextView(Integer.toString(homeTeamScore));
         mClickerFragmentView.updateBallCountTextView(Integer.toString(ballCount));
         mClickerFragmentView.updateStrikeCountTextView(Integer.toString(strikeCount));
-        mClickerFragmentView.updateOutCountTextView(Integer.toString(outCount));
         mClickerFragmentView.updateFoulCountTextView(Integer.toString(foulCount));
-        if (rotateInningImage) {
-            mClickerFragmentView.updateInningArrowImageView();
-            rotateInningImage = false;
-        }
-        if (redoStack.isEmpty())
-            mClickerFragmentView.updateRedoLayoutVisibility(true);
-        else
-            mClickerFragmentView.updateRedoLayoutVisibility(false);
-
-        if (undoStack.isEmpty())
-            mClickerFragmentView.updateUndoLayoutVisibility(true);
-        else
-            mClickerFragmentView.updateUndoLayoutVisibility(false);
-
-        changeTeamInningArrow();
-
-
+        mClickerFragmentView.updateOutCountTextView(Integer.toString(outCount));
         mClickerFragmentView.updateInningTextView(generateInningString(inning));
-        // mClickerFragmentView.updatePlayViewTextView(currentPlay);
-
-
+        mClickerFragmentView.updateRedoLayoutVisibility(redoStack.isEmpty());
+        mClickerFragmentView.updateUndoLayoutVisibility(undoStack.isEmpty());
+        mClickerFragmentView.updateAwayArrowImageView(isBottomOfInning);
+        mClickerFragmentView.updateHomeArrowImageView(isBottomOfInning);
+        mClickerFragmentView.updateInningArrowImageView(isBottomOfInning);
     }
 
     @Override
@@ -154,8 +163,8 @@ public class ClickerPresenter implements ClickerContract.Presenter {
         foulCount = gameCountState.getFoulCount();
         outCount = gameCountState.getOutCount();
         inning = gameCountState.getInning();
-        rotateInningImage = gameCountState.isRotateInningImage();
-        botOfInning = gameCountState.isBotOfInning();
+        isBottomOfInning = gameCountState.isBotOfInning();
+
         updatedFields();
     }
 
@@ -171,10 +180,9 @@ public class ClickerPresenter implements ClickerContract.Presenter {
         foulCount = gameCountState.getFoulCount();
         outCount = gameCountState.getOutCount();
         inning = gameCountState.getInning();
-        rotateInningImage = gameCountState.isRotateInningImage();
-        botOfInning = gameCountState.isBotOfInning();
-        updatedFields();
+        isBottomOfInning = gameCountState.isBotOfInning();
 
+        updatedFields();
     }
 
     private String generateInningString(int inning) {
@@ -190,7 +198,8 @@ public class ClickerPresenter implements ClickerContract.Presenter {
         return inningString;
     }
 
-    private void autoMode() {
+    private void countLogic() {
+
         if (ballCount == 4) {
             ballCount = 0;
             foulCount = 0;
@@ -218,18 +227,7 @@ public class ClickerPresenter implements ClickerContract.Presenter {
             strikeCount = 0;
         }
         if (outCount == 3) {
-            rotateInningImage = true;
-            if (!botOfInning) {
-                botOfInning = true;
-
-            } else if (botOfInning) {
-                if (inning < 9)
-                    inning++;
-                else
-                    inning = 1;
-                botOfInning = false;
-            }
-
+            changeInning();
             outCount = 0;
             ballCount = 0;
             foulCount = 0;
@@ -237,19 +235,15 @@ public class ClickerPresenter implements ClickerContract.Presenter {
         }
     }
 
-    private void changeTeamInningArrow() {
-
-        if (botOfInning) {
-            mClickerFragmentView.updateHomeArrowImageView(true);
-            mClickerFragmentView.updateAwayArrowImageView(false);
-        } else {
-            mClickerFragmentView.updateHomeArrowImageView(false);
-            mClickerFragmentView.updateAwayArrowImageView(true);
-        }
+    private void changeInning() {
+        if (isBottomOfInning) {
+            inning++;
+            isBottomOfInning = false;
+        } else
+            isBottomOfInning = true;
     }
 
     private void updateGameCountState() {
-
         gameCountState = new GameCountState();
         gameCountState.setAwayTeamScore(awayTeamScore);
         gameCountState.setHomeTeamScore(homeTeamScore);
@@ -258,7 +252,7 @@ public class ClickerPresenter implements ClickerContract.Presenter {
         gameCountState.setFoulCount(foulCount);
         gameCountState.setOutCount(outCount);
         gameCountState.setInning(inning);
-        gameCountState.setBotOfInning(botOfInning);
-        gameCountState.setRotateInningImage(rotateInningImage);
+        gameCountState.setBotOfInning(isBottomOfInning);
+
     }
 }
