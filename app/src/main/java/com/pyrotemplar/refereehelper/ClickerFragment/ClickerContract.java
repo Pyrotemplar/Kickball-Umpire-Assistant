@@ -17,6 +17,10 @@ public interface ClickerContract {
 
         void outButtonClicked();
 
+        void undoButtonClicked();
+
+        void redoButtonClicked();
+
         void kickerIsSafeButtonClicked();
 
         void runnerScoredButtonClicked();
@@ -34,6 +38,10 @@ public interface ClickerContract {
         void updateAwayScoreTextView(String awayScore);
 
         void updateInningTextView(String inning);
+
+        void updateUndoLayoutVisibility(boolean isNotClickable);
+
+        void updateRedoLayoutVisibility(boolean isNotClickable);
 
         void updateInningArrowImageView();
 
@@ -63,6 +71,10 @@ public interface ClickerContract {
         void incrementRun();
 
         void updatedFields();
+
+        void undo();
+
+        void redo();
 
     }
 

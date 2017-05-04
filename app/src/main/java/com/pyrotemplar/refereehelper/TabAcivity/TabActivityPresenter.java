@@ -10,10 +10,11 @@ import com.pyrotemplar.refereehelper.R;
 public class TabActivityPresenter implements TabActivityContract.Presenter {
 
     public static final int[] TAB_RES_ID = {
-            R.mipmap.ic_launcher,
-            R.mipmap.game_field_icon,
             R.mipmap.ic_launcher_round,
-            R.mipmap.ic_launcher
+            R.mipmap.ic_launcher_round,
+            R.mipmap.ic_launcher_round,
+            R.mipmap.ic_launcher_round,
+            R.mipmap.ic_launcher_round
     };
     private final TabActivity view;
 

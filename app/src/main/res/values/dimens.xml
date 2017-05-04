@@ -2,4 +2,5 @@
 <resources>
     <dimen name="textSize">20sp</dimen>
     <dimen name="LargeTextSize">25sp</dimen>
+    <dimen name="scoreTextSize">35sp</dimen>
 </resources>

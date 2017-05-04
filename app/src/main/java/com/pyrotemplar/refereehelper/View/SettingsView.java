@@ -10,10 +10,10 @@ import android.view.ViewGroup;
 import com.pyrotemplar.refereehelper.R;
 
 /**
- * Created by Manuel Montes de Oca on 4/25/2017.
+ * Created by Manuel Montes de Oca on 5/4/2017.
  */
 
-public class GamesHistoryFragment extends Fragment {
+public class SettingsView extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {

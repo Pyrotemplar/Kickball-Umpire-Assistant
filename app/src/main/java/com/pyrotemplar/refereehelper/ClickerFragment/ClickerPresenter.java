@@ -4,12 +4,15 @@ import android.support.annotation.NonNull;
 
 import com.pyrotemplar.refereehelper.Utils.GameCountState;
 
+import java.util.Stack;
+
 /**
  * Created by Manuel Montes de Oca on 4/25/2017.
  */
 
 public class ClickerPresenter implements ClickerContract.Presenter {
 
+    //Game Count states
     static int awayTeamScore;
     static int homeTeamScore;
     static int strikeCount;
@@ -17,19 +20,21 @@ public class ClickerPresenter implements ClickerContract.Presenter {
     static int foulCount;
     static int outCount;
     static int inning;
-    static String currentPlay;
-    private static int gameClockTime;
-
-
-    private final ClickerContract.View mClickerFragmentView;
-    private GameCountState gameCountState;
     private boolean botOfInning;
-    private boolean threeFoulOption;
     private boolean rotateInningImage;
+    private boolean threeFoulOption;
+    private GameCountState gameCountState;
+    //private static int gameClockTime;
+
+    private Stack<GameCountState> undoStack;
+    private Stack<GameCountState> redoStack;
+    private final ClickerContract.View mClickerFragmentView;
 
     public ClickerPresenter(@NonNull ClickerContract.View clickerFragmentView) {
         mClickerFragmentView = clickerFragmentView;
         mClickerFragmentView.setPresenter(this);
+        undoStack = new Stack<>();
+        redoStack = new Stack<>();
         initializeCountFields();
         updatedFields();
     }
@@ -42,32 +47,41 @@ public class ClickerPresenter implements ClickerContract.Presenter {
         ballCount = 0;
         foulCount = 0;
         outCount = 0;
-        gameClockTime = 2700;
+        //  gameClockTime = 2700;
         inning = 1;
+        gameCountState = new GameCountState();
+        botOfInning = false;
+
+        //undoStack.clear();
+        // redoStack.clear();
         mClickerFragmentView.updateAwayArrowImageView(true);
         mClickerFragmentView.updateHomeArrowImageView(false);
     }
 
     @Override
     public void incrementBall() {
+        undoStack.push(gameCountState);
         ballCount++;
         updatedFields();
     }
 
     @Override
     public void incrementStrike() {
+        undoStack.push(gameCountState);
         strikeCount++;
         updatedFields();
     }
 
     @Override
     public void incrementFoul() {
+        undoStack.push(gameCountState);
         foulCount++;
         updatedFields();
     }
 
     @Override
     public void incrementOut() {
+        undoStack.push(gameCountState);
         outCount++;
         updatedFields();
     }
@@ -75,6 +89,7 @@ public class ClickerPresenter implements ClickerContract.Presenter {
 
     @Override
     public void resetCount() {
+        undoStack.push(gameCountState);
         ballCount = 0;
         strikeCount = 0;
         foulCount = 0;
@@ -83,6 +98,7 @@ public class ClickerPresenter implements ClickerContract.Presenter {
 
     @Override
     public void incrementRun() {
+        undoStack.push(gameCountState);
         if (botOfInning)
             homeTeamScore++;
         else
@@ -93,6 +109,8 @@ public class ClickerPresenter implements ClickerContract.Presenter {
 
     @Override
     public void updatedFields() {
+
+        updateGameCountState();
 
         autoMode();
         mClickerFragmentView.updateAwayScoreTextView(Integer.toString(awayTeamScore));
@@ -105,34 +123,70 @@ public class ClickerPresenter implements ClickerContract.Presenter {
             mClickerFragmentView.updateInningArrowImageView();
             rotateInningImage = false;
         }
+        if (redoStack.isEmpty())
+            mClickerFragmentView.updateRedoLayoutVisibility(true);
+        else
+            mClickerFragmentView.updateRedoLayoutVisibility(false);
+
+        if (undoStack.isEmpty())
+            mClickerFragmentView.updateUndoLayoutVisibility(true);
+        else
+            mClickerFragmentView.updateUndoLayoutVisibility(false);
+
+        changeTeamInningArrow();
 
 
         mClickerFragmentView.updateInningTextView(generateInningString(inning));
         // mClickerFragmentView.updatePlayViewTextView(currentPlay);
 
+
+    }
+
+    @Override
+    public void undo() {
+
+        redoStack.push(gameCountState);
+        gameCountState = undoStack.pop();
+        awayTeamScore = gameCountState.getAwayTeamScore();
+        homeTeamScore = gameCountState.getHomeTeamScore();
+        strikeCount = gameCountState.getStrikeCount();
+        ballCount = gameCountState.getBallCount();
+        foulCount = gameCountState.getFoulCount();
+        outCount = gameCountState.getOutCount();
+        inning = gameCountState.getInning();
+        rotateInningImage = gameCountState.isRotateInningImage();
+        botOfInning = gameCountState.isBotOfInning();
+        updatedFields();
+    }
+
+    @Override
+    public void redo() {
+
+        undoStack.push(gameCountState);
+        gameCountState = redoStack.pop();
+        awayTeamScore = gameCountState.getAwayTeamScore();
+        homeTeamScore = gameCountState.getHomeTeamScore();
+        strikeCount = gameCountState.getStrikeCount();
+        ballCount = gameCountState.getBallCount();
+        foulCount = gameCountState.getFoulCount();
+        outCount = gameCountState.getOutCount();
+        inning = gameCountState.getInning();
+        rotateInningImage = gameCountState.isRotateInningImage();
+        botOfInning = gameCountState.isBotOfInning();
+        updatedFields();
+
     }
 
     private String generateInningString(int inning) {
-        String inningString = "1st";
+        String inningString;
         if (inning == 1) {
             inningString = "1st";
         } else if (inning == 2) {
             inningString = "2nd";
         } else if (inning == 3) {
             inningString = "3rd";
-        } else if (inning == 4) {
-            inningString = "4th";
-        } else if (inning == 5) {
-            inningString = "5th";
-        } else if (inning == 6) {
-            inningString = "6th";
-        } else if (inning == 7) {
-            inningString = "7th";
-        } else if (inning == 8) {
-            inningString = "8th";
-        } else if (inning == 9) {
-            inningString = "9th";
-        }
+        } else
+            inningString = inning + "th";
         return inningString;
     }
 
@@ -175,7 +229,7 @@ public class ClickerPresenter implements ClickerContract.Presenter {
                     inning = 1;
                 botOfInning = false;
             }
-            changeTeamInningArrow();
+
             outCount = 0;
             ballCount = 0;
             foulCount = 0;
@@ -192,5 +246,19 @@ public class ClickerPresenter implements ClickerContract.Presenter {
             mClickerFragmentView.updateHomeArrowImageView(false);
             mClickerFragmentView.updateAwayArrowImageView(true);
         }
+    }
+
+    private void updateGameCountState() {
+
+        gameCountState = new GameCountState();
+        gameCountState.setAwayTeamScore(awayTeamScore);
+        gameCountState.setHomeTeamScore(homeTeamScore);
+        gameCountState.setStrikeCount(strikeCount);
+        gameCountState.setBallCount(ballCount);
+        gameCountState.setFoulCount(foulCount);
+        gameCountState.setOutCount(outCount);
+        gameCountState.setInning(inning);
+        gameCountState.setBotOfInning(botOfInning);
+        gameCountState.setRotateInningImage(rotateInningImage);
     }
 }

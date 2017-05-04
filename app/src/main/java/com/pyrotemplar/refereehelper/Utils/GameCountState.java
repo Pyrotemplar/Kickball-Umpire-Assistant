@@ -13,7 +13,9 @@ public class GameCountState {
     private int foulCount;
     private int outCount;
     private int inning;
-    private int topOrBot;
+    private boolean botOfInning;
+    private boolean rotateInningImage;
+
 
     public int getAwayTeamScore() {
         return awayTeamScore;
@@ -71,11 +73,20 @@ public class GameCountState {
         this.inning = inning;
     }
 
-    public int getTopOrBot() {
-        return topOrBot;
+
+    public boolean isBotOfInning() {
+        return botOfInning;
     }
 
-    public void setTopOrBot(int topOrBot) {
-        this.topOrBot = topOrBot;
+    public void setBotOfInning(boolean botOfInning) {
+        this.botOfInning = botOfInning;
+    }
+
+    public boolean isRotateInningImage() {
+        return rotateInningImage;
+    }
+
+    public void setRotateInningImage(boolean rotateInningImage) {
+        this.rotateInningImage = rotateInningImage;
     }
 }

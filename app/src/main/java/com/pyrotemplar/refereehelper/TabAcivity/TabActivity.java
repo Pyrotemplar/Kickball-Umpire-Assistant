@@ -41,8 +41,11 @@ public class TabActivity extends AppCompatActivity implements TabActivityContrac
         mPager.setAdapter(mPageAdapter);
         //disable the scrolling of views.
         mPager.setPagingEnabled(false);
+        //start app on clicker tab(2)
+        mPager.setCurrentItem(2);
 
         mTabLayout.setupWithViewPager(mPager);
+
 
         presenter.setTabIcons();
     }

@@ -7,10 +7,9 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
-
 
 import com.pyrotemplar.refereehelper.R;
 
@@ -48,6 +47,11 @@ public class ClickerView extends Fragment implements ClickerContract.View {
     ImageView awayArrowImageView;
     @BindView(R.id.homeArrowImageView)
     ImageView homeArrowImageView;
+
+    @BindView(R.id.undoLayout)
+    LinearLayout undoLayout;
+    @BindView(R.id.redoLayout)
+    LinearLayout redoLayout;
 
     private ClickerContract.Presenter mPresenter;
 
@@ -104,6 +108,18 @@ public class ClickerView extends Fragment implements ClickerContract.View {
         mPresenter.incrementOut();
     }
 
+    @OnClick(R.id.undoLayout)
+    @Override
+    public void undoButtonClicked() {
+        mPresenter.undo();
+    }
+
+    @OnClick(R.id.redoLayout)
+    @Override
+    public void redoButtonClicked() {
+        mPresenter.redo();
+    }
+
     @OnClick(R.id.kickerIsSafeButton)
     @Override
     public void kickerIsSafeButtonClicked() {
@@ -149,6 +165,29 @@ public class ClickerView extends Fragment implements ClickerContract.View {
     @Override
     public void updateInningTextView(String inning) {
         inningCountTextView.setText(inning);
+    }
+
+    @Override
+    public void updateUndoLayoutVisibility(boolean isNotClickable) {
+        if (isNotClickable) {
+            undoLayout.setAlpha(.5f);
+            undoLayout.setClickable(false);
+        } else{
+            undoLayout.setAlpha(1);
+            undoLayout.setClickable(true);
+        }
+
+    }
+
+    @Override
+    public void updateRedoLayoutVisibility(boolean isNotClickable) {
+        if (isNotClickable) {
+            redoLayout.setAlpha(.5f);
+            redoLayout.setClickable(false);
+        } else{
+            redoLayout.setAlpha(1);
+            redoLayout.setClickable(true);
+        }
     }
 
     @Override
