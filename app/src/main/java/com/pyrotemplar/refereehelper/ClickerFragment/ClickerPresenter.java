@@ -21,7 +21,6 @@ class ClickerPresenter implements ClickerContract.Presenter {
     private int outCount;
     private int inning;
     private boolean isBottomOfInning;
-    private boolean rotateInningImage;
     private boolean threeFoulOption;
     private GameCountState gameCountState;
     //private static int gameClockTime;
@@ -236,6 +235,7 @@ class ClickerPresenter implements ClickerContract.Presenter {
     }
 
     private void changeInning() {
+
         if (isBottomOfInning) {
             inning++;
             isBottomOfInning = false;
@@ -244,6 +244,7 @@ class ClickerPresenter implements ClickerContract.Presenter {
     }
 
     private void updateGameCountState() {
+
         gameCountState = new GameCountState();
         gameCountState.setAwayTeamScore(awayTeamScore);
         gameCountState.setHomeTeamScore(homeTeamScore);
@@ -253,6 +254,5 @@ class ClickerPresenter implements ClickerContract.Presenter {
         gameCountState.setOutCount(outCount);
         gameCountState.setInning(inning);
         gameCountState.setBotOfInning(isBottomOfInning);
-
     }
 }

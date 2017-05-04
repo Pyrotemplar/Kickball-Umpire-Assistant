@@ -15,7 +15,6 @@ public class GameCountState {
     private int inning;
     private boolean botOfInning;
 
-
     public int getAwayTeamScore() {
         return awayTeamScore;
     }
@@ -80,5 +79,4 @@ public class GameCountState {
     public void setBotOfInning(boolean botOfInning) {
         this.botOfInning = botOfInning;
     }
-
 }

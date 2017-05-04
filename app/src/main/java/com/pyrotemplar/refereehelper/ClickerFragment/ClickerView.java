@@ -24,7 +24,6 @@ import butterknife.OnClick;
 
 public class ClickerView extends Fragment implements ClickerContract.View {
 
-
     @BindView(R.id.awayTeamScoreTextView)
     TextView awayTeamScoreTextView;
     @BindView(R.id.homeTeamScoreTextView)
@@ -47,7 +46,6 @@ public class ClickerView extends Fragment implements ClickerContract.View {
     ImageView awayArrowImageView;
     @BindView(R.id.homeArrowImageView)
     ImageView homeArrowImageView;
-
     @BindView(R.id.undoLayout)
     LinearLayout undoLayout;
     @BindView(R.id.redoLayout)
@@ -61,11 +59,6 @@ public class ClickerView extends Fragment implements ClickerContract.View {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
 
         View rootView = inflater.inflate(R.layout.clicker_layout_option_2, null);
-
-
-        //   FrameLayout frameLayout = (FrameLayout) rootView.findViewById(R.id.frameLayout);
-        // View rightHandLayoutView = inflater.inflate(R.layout.left_hand_click_layout, null);
-        // frameLayout.addView(rightHandLayoutView);
         ButterKnife.bind(this, rootView);
 
         new ClickerPresenter(this);
@@ -81,7 +74,6 @@ public class ClickerView extends Fragment implements ClickerContract.View {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-
     }
 
     @OnClick(R.id.ballLayout)
@@ -169,6 +161,7 @@ public class ClickerView extends Fragment implements ClickerContract.View {
 
     @Override
     public void updateUndoLayoutVisibility(boolean isNotClickable) {
+
         if (isNotClickable) {
             undoLayout.setAlpha(.5f);
             undoLayout.setClickable(false);
@@ -181,6 +174,7 @@ public class ClickerView extends Fragment implements ClickerContract.View {
 
     @Override
     public void updateRedoLayoutVisibility(boolean isNotClickable) {
+
         if (isNotClickable) {
             redoLayout.setAlpha(.5f);
             redoLayout.setClickable(false);
@@ -192,6 +186,7 @@ public class ClickerView extends Fragment implements ClickerContract.View {
 
     @Override
     public void updateInningArrowImageView(boolean isBottomOfInning) {
+
         if (isBottomOfInning)
             inningArrowImageView.setRotation(180);
         else
