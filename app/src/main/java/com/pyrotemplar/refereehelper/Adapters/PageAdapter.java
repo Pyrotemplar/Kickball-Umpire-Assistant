@@ -9,7 +9,7 @@ import com.pyrotemplar.refereehelper.ClickerFragment.ClickerView;
 import com.pyrotemplar.refereehelper.View.ClockFragment;
 import com.pyrotemplar.refereehelper.View.GamesHistoryFragment;
 import com.pyrotemplar.refereehelper.View.RulesFragment;
-import com.pyrotemplar.refereehelper.View.SettingsView;
+import com.pyrotemplar.refereehelper.Settings.SettingsView;
 
 /**
  * Created by Manuel Montes de Oca on 4/21/2017.
