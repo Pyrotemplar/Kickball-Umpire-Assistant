@@ -1,9 +1,12 @@
 package com.pyrotemplar.refereehelper.ClickerFragment;
 
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.preference.PreferenceManager;
+import android.view.HapticFeedbackConstants;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,11 +21,12 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 
+
 /**
  * Created by Manuel Montes de Oca on 4/21/2017.
  */
 
-public class ClickerView extends Fragment implements ClickerContract.View {
+public class ClickerView extends Fragment implements ClickerContract.View{
 
     @BindView(R.id.awayTeamScoreTextView)
     TextView awayTeamScoreTextView;
@@ -51,6 +55,10 @@ public class ClickerView extends Fragment implements ClickerContract.View {
     @BindView(R.id.redoLayout)
     LinearLayout redoLayout;
 
+    public static boolean isHapticFeedbackEnabled;
+
+    private SharedPreferences sharedPreferences;
+
     private ClickerContract.Presenter mPresenter;
 
 
@@ -60,11 +68,13 @@ public class ClickerView extends Fragment implements ClickerContract.View {
 
         View rootView = inflater.inflate(R.layout.clicker_layout_option_2, null);
         ButterKnife.bind(this, rootView);
+        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getContext());
 
         new ClickerPresenter(this);
 
         return rootView;
     }
+
 
     @Override
     public void setPresenter(ClickerPresenter presenter) {
@@ -74,54 +84,74 @@ public class ClickerView extends Fragment implements ClickerContract.View {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+
     }
 
     @OnClick(R.id.ballLayout)
     @Override
-    public void ballButtonClicked() {
+    public void ballButtonClicked(View view) {
+
         mPresenter.incrementBall();
+        if (isHapticFeedbackEnabled)
+        hapticFeedback(view);
+
     }
+
 
     @OnClick(R.id.strikeLayout)
     @Override
-    public void strikeButtonClicked() {
+    public void strikeButtonClicked(View view) {
         mPresenter.incrementStrike();
+        if (isHapticFeedbackEnabled)
+            hapticFeedback(view);
     }
 
     @OnClick(R.id.foulLayout)
     @Override
-    public void foulButtonClicked() {
+    public void foulButtonClicked(View view) {
         mPresenter.incrementFoul();
+        if (isHapticFeedbackEnabled)
+            hapticFeedback(view);
     }
 
     @OnClick(R.id.outLayout)
     @Override
-    public void outButtonClicked() {
+    public void outButtonClicked(View view) {
         mPresenter.incrementOut();
+        if (isHapticFeedbackEnabled)
+            hapticFeedback(view);
     }
 
     @OnClick(R.id.undoLayout)
     @Override
-    public void undoButtonClicked() {
+    public void undoButtonClicked(View view) {
         mPresenter.undo();
+        if (isHapticFeedbackEnabled)
+            hapticFeedback(view);
     }
 
     @OnClick(R.id.redoLayout)
     @Override
-    public void redoButtonClicked() {
+    public void redoButtonClicked(View view) {
         mPresenter.redo();
+        if (isHapticFeedbackEnabled)
+            hapticFeedback(view);
     }
 
     @OnClick(R.id.kickerIsSafeButton)
     @Override
-    public void kickerIsSafeButtonClicked() {
+    public void kickerIsSafeButtonClicked(View view) {
         mPresenter.resetCount();
+        if (isHapticFeedbackEnabled)
+            hapticFeedback(view);
     }
 
     @OnClick(R.id.runnerScoredButton)
     @Override
-    public void runnerScoredButtonClicked() {
+    public void runnerScoredButtonClicked(View view) {
         mPresenter.incrementRun();
+        if (isHapticFeedbackEnabled)
+            hapticFeedback(view);
     }
 
     @Override
@@ -219,5 +249,19 @@ public class ClickerView extends Fragment implements ClickerContract.View {
     public void updatePlayViewTextView(String playString) {
         //   playUpdateTextView.setText(playString);
     }
+
+    private void hapticFeedback(View view) {
+
+        if (view.isHapticFeedbackEnabled()) {
+            view.setHapticFeedbackEnabled(true);
+        }
+        view.performHapticFeedback(HapticFeedbackConstants.KEYBOARD_TAP);
+    }
+   /* @Override
+     public void updateSharePreferences(){
+
+        isHapticFeedbackEnabled = sharedPreferences.getBoolean(getResources().getString(R.string.SP_HAPTIC_FEEDBACK_SETTINGS_KEY), false);
+        isThreeFoulOptionEnabled = sharedPreferences.getBoolean(getResources().getString(R.string.SP_THREE_FOULS_SETTINGS_KEY), false);
+    }*/
 
 }

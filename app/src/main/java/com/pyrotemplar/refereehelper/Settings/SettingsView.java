@@ -7,17 +7,21 @@ import android.support.v7.preference.PreferenceManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
+import com.pyrotemplar.refereehelper.ClickerFragment.ClickerPresenter;
+import com.pyrotemplar.refereehelper.ClickerFragment.ClickerView;
 import com.pyrotemplar.refereehelper.R;
 
 /**
  * Created by Manuel Montes de Oca on 5/4/2017.
  */
 
-public class SettingsView extends PreferenceFragmentCompat implements SharedPreferences.OnSharedPreferenceChangeListener {
+public class SettingsView extends PreferenceFragmentCompat implements SharedPreferences.OnSharedPreferenceChangeListener, SettingsContract.View {
 
 
     SharedPreferences sharedPreferences;
+    private SettingsContract.Presenter mPresenter;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -31,7 +35,15 @@ public class SettingsView extends PreferenceFragmentCompat implements SharedPref
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = super.onCreateView(inflater, container, savedInstanceState);
         rootView.setBackgroundResource(R.drawable.main_background);
+
+        new SettingsPresenter(this);
+
         return rootView;
+    }
+
+    @Override
+    public void setPresenter(SettingsPresenter presenter) {
+        mPresenter = presenter;
     }
 
     @Override
@@ -44,7 +56,10 @@ public class SettingsView extends PreferenceFragmentCompat implements SharedPref
 
     @Override
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
-
+        if(key == getResources().getString(R.string.SP_HAPTIC_FEEDBACK_SETTINGS_KEY))
+        ClickerView.isHapticFeedbackEnabled = sharedPreferences.getBoolean(key, false);
+        if(key == getResources().getString(R.string.SP_THREE_FOULS_SETTINGS_KEY))
+            ClickerPresenter.isThreeFoulOptionEnabled = sharedPreferences.getBoolean(key, false);
 
     }
 

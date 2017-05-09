@@ -4,5 +4,10 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
+
+    <!--SharePreference Keys-->
     <string name="setting_share_preference_key">PreferenceKey</string>
+    <string name="SP_HAPTIC_FEEDBACK_SETTINGS_KEY">hapticFeedbackSettingKey</string>
+    <string name="SP_THREE_FOULS_SETTINGS_KEY">threeFoulSettingKey</string>
+
 </resources>

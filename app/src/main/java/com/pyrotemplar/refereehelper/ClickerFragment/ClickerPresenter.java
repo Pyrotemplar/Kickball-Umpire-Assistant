@@ -10,7 +10,7 @@ import java.util.Stack;
  * Created by Manuel Montes de Oca on 4/25/2017.
  */
 
-class ClickerPresenter implements ClickerContract.Presenter {
+public class ClickerPresenter implements ClickerContract.Presenter {
 
     //Game Count states
     private int awayTeamScore;
@@ -21,7 +21,7 @@ class ClickerPresenter implements ClickerContract.Presenter {
     private int outCount;
     private int inning;
     private boolean isBottomOfInning;
-    private boolean threeFoulOption;
+    public static boolean isThreeFoulOptionEnabled;
     private GameCountState gameCountState;
     //private static int gameClockTime;
 
@@ -97,6 +97,9 @@ class ClickerPresenter implements ClickerContract.Presenter {
         redoStack.clear();
 
         outCount++;
+        ballCount = 0;
+        strikeCount = 0;
+        foulCount = 0;
 
         updateGameCountState();
         countLogic();
@@ -204,7 +207,7 @@ class ClickerPresenter implements ClickerContract.Presenter {
             foulCount = 0;
             strikeCount = 0;
         }
-        if (threeFoulOption) {
+        if (isThreeFoulOptionEnabled) {
             if (foulCount == 3) {
                 outCount++;
                 ballCount = 0;

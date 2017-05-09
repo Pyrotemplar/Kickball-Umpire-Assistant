@@ -1,7 +1,5 @@
 package com.pyrotemplar.refereehelper.ClickerFragment;
 
-import com.pyrotemplar.refereehelper.ClickerFragment.ClickerPresenter;
-
 /**
  * Created by Manuel Montes de Oca on 4/25/2017.
  */
@@ -9,21 +7,21 @@ import com.pyrotemplar.refereehelper.ClickerFragment.ClickerPresenter;
 interface ClickerContract {
 
     interface View {
-        void ballButtonClicked();
+        void ballButtonClicked(android.view.View view);
 
-        void strikeButtonClicked();
+        void strikeButtonClicked(android.view.View view);
 
-        void foulButtonClicked();
+        void foulButtonClicked(android.view.View view);
 
-        void outButtonClicked();
+        void outButtonClicked(android.view.View view);
 
-        void undoButtonClicked();
+        void undoButtonClicked(android.view.View view);
 
-        void redoButtonClicked();
+        void redoButtonClicked(android.view.View view);
 
-        void kickerIsSafeButtonClicked();
+        void kickerIsSafeButtonClicked(android.view.View view);
 
-        void runnerScoredButtonClicked();
+        void runnerScoredButtonClicked(android.view.View view);
 
         void updateBallCountTextView(String ballCount);
 
