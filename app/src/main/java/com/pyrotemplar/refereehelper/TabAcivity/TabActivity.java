@@ -44,7 +44,7 @@ public class TabActivity extends AppCompatActivity implements TabActivityContrac
         //disable the scrolling of views.
         mPager.setPagingEnabled(false);
         //start app on clicker tab(2)
-        mPager.setCurrentItem(2);
+      //  mPager.setCurrentItem(2);
 
         mPager.setOffscreenPageLimit(2);
 
@@ -61,14 +61,17 @@ public class TabActivity extends AppCompatActivity implements TabActivityContrac
     }
 
     @Override
-    public void showTabIcons(int location, int resId) {
+    public void showTabIcons(int location, int tabIconId, String IconText) {
 
         // Populates Tabs with icons
-        ImageView imageView = new ImageView(this);
-        imageView.setImageResource(resId);
-        imageView.setPadding(0,10,0,20);
+         //  ImageView imageView = new ImageView(this);
+         //  imageView.setImageResource(tabIconId);
+        //   imageView.setPadding(0,10,0,20);
 
-        mTabLayout.getTabAt(location).setCustomView(imageView);
+          //mTabLayout.getTabAt(location).setCustomView(imageView);
+
+        mTabLayout.getTabAt(location).setIcon(tabIconId);
+        mTabLayout.getTabAt(location).setText(IconText);
     }
 
     @Override

@@ -9,7 +9,7 @@ import android.support.design.widget.TabLayout;
 
 interface TabActivityContract {
     interface View {
-        void showTabIcons(int location, int resId);
+        void showTabIcons(int location, int tabIconId, String IconText);
     }
 
     interface Presenter {

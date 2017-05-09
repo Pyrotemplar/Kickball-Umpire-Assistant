@@ -9,12 +9,13 @@ import com.pyrotemplar.refereehelper.R;
 
 public class TabActivityPresenter implements TabActivityContract.Presenter {
 
-    public static final int[] TAB_RES_ID = {
-            R.mipmap.ic_launcher_round,
-            R.mipmap.ic_launcher_round,
-            R.mipmap.ic_launcher_round,
+    public static final int[] TAB_ICON_ID = {
             R.mipmap.ic_launcher_round,
             R.mipmap.ic_launcher_round
+    };
+    public static final String[] TAB_ICON_TEXT = {
+            "Clicker",
+            "Settings"
     };
     private final TabActivity view;
 
@@ -24,8 +25,8 @@ public class TabActivityPresenter implements TabActivityContract.Presenter {
 
     @Override
     public void setTabIcons() {
-        for (int i = 0; i < TAB_RES_ID.length; i++) {
-            view.showTabIcons(i, TAB_RES_ID[i]);
+        for (int i = 0; i < TAB_ICON_ID.length; i++) {
+            view.showTabIcons(i, TAB_ICON_ID[i],TAB_ICON_TEXT[i]);
         }
     }
 }
