@@ -187,6 +187,11 @@ public class ClickerPresenter implements ClickerContract.Presenter {
         updatedFields();
     }
 
+    @Override
+    public void setThreeFoulOption(boolean isThreeFoulOptionEnabled) {
+        this.isThreeFoulOptionEnabled = isThreeFoulOptionEnabled;
+    }
+
     private String generateInningString(int inning) {
         String inningString;
         if (inning == 1) {

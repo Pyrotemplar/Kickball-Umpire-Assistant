@@ -51,6 +51,8 @@ interface ClickerContract {
 
         void updatePlayViewTextView(String playString);
 
+        void updateSharePreferences();
+
         void setPresenter(ClickerPresenter clickerPresenter);
     }
 
@@ -74,6 +76,7 @@ interface ClickerContract {
 
         void redo();
 
+        void setThreeFoulOption(boolean isThreeFoulOptionEnabled);
     }
 
     interface Model {

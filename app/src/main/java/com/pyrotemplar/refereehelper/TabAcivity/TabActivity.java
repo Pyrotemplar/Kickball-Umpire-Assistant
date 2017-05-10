@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v7.app.AppCompatActivity;
-import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.pyrotemplar.refereehelper.Adapters.PageAdapter;
@@ -45,19 +44,9 @@ public class TabActivity extends AppCompatActivity implements TabActivityContrac
         mPager.setPagingEnabled(false);
         //start app on clicker tab(2)
       //  mPager.setCurrentItem(2);
-
         mPager.setOffscreenPageLimit(2);
-
         mTabLayout.setupWithViewPager(mPager);
-
-
         presenter.setTabIcons();
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-
     }
 
     @Override

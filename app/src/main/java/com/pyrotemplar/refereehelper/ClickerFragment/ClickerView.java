@@ -21,12 +21,11 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 
-
 /**
  * Created by Manuel Montes de Oca on 4/21/2017.
  */
 
-public class ClickerView extends Fragment implements ClickerContract.View{
+public class ClickerView extends Fragment implements ClickerContract.View {
 
     @BindView(R.id.awayTeamScoreTextView)
     TextView awayTeamScoreTextView;
@@ -55,11 +54,11 @@ public class ClickerView extends Fragment implements ClickerContract.View{
     @BindView(R.id.redoLayout)
     LinearLayout redoLayout;
 
-    public static boolean isHapticFeedbackEnabled;
-
+    private boolean isHapticFeedbackEnabled;
     private SharedPreferences sharedPreferences;
 
     private ClickerContract.Presenter mPresenter;
+    private boolean isViewShown;
 
 
     @Nullable
@@ -71,6 +70,10 @@ public class ClickerView extends Fragment implements ClickerContract.View{
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getContext());
 
         new ClickerPresenter(this);
+        if (!isViewShown) {
+            //  updateSharePreferences() contains logic to update Share preference when page is selected
+            updateSharePreferences();
+        }
 
         return rootView;
     }
@@ -93,7 +96,7 @@ public class ClickerView extends Fragment implements ClickerContract.View{
 
         mPresenter.incrementBall();
         if (isHapticFeedbackEnabled)
-        hapticFeedback(view);
+            hapticFeedback(view);
 
     }
 
@@ -199,7 +202,6 @@ public class ClickerView extends Fragment implements ClickerContract.View{
             undoLayout.setAlpha(1);
             undoLayout.setClickable(true);
         }
-
     }
 
     @Override
@@ -257,11 +259,24 @@ public class ClickerView extends Fragment implements ClickerContract.View{
         }
         view.performHapticFeedback(HapticFeedbackConstants.KEYBOARD_TAP);
     }
-   /* @Override
-     public void updateSharePreferences(){
+
+    @Override
+    public void updateSharePreferences() {
 
         isHapticFeedbackEnabled = sharedPreferences.getBoolean(getResources().getString(R.string.SP_HAPTIC_FEEDBACK_SETTINGS_KEY), false);
-        isThreeFoulOptionEnabled = sharedPreferences.getBoolean(getResources().getString(R.string.SP_THREE_FOULS_SETTINGS_KEY), false);
-    }*/
+        mPresenter.setThreeFoulOption(sharedPreferences.getBoolean(getResources().getString(R.string.SP_THREE_FOULS_SETTINGS_KEY), false));
+    }
 
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+
+        if (getView() != null) {
+            isViewShown = true;
+            //  updateSharePreferences() contains logic to update Share preference when page is selected
+            updateSharePreferences();
+        } else {
+            isViewShown = false;
+        }
+    }
 }
