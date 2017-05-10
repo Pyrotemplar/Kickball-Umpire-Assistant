@@ -2,6 +2,7 @@ package com.pyrotemplar.refereehelper.ClickerFragment;
 
 import android.support.annotation.NonNull;
 
+import com.pyrotemplar.refereehelper.Utils.ColorPickerDialogFragment;
 import com.pyrotemplar.refereehelper.Utils.GameCountState;
 
 import java.util.Stack;
@@ -23,6 +24,7 @@ public class ClickerPresenter implements ClickerContract.Presenter {
     private boolean isBottomOfInning;
     public static boolean isThreeFoulOptionEnabled;
     private GameCountState gameCountState;
+    private ColorPickerDialogFragment colorPickerDialogFragment;
     //private static int gameClockTime;
 
     private Stack<GameCountState> undoStack;
@@ -49,6 +51,16 @@ public class ClickerPresenter implements ClickerContract.Presenter {
         inning = 1;
         isBottomOfInning = false;
         updateGameCountState();
+    }
+
+    @Override
+    public void updateAwayTeamBanner() {
+
+    }
+
+    @Override
+    public void updateHomeTeamBanner() {
+
     }
 
     @Override
@@ -263,4 +275,5 @@ public class ClickerPresenter implements ClickerContract.Presenter {
         gameCountState.setInning(inning);
         gameCountState.setBotOfInning(isBottomOfInning);
     }
+
 }

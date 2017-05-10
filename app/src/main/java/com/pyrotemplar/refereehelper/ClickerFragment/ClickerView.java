@@ -1,6 +1,8 @@
 package com.pyrotemplar.refereehelper.ClickerFragment;
 
 
+import android.app.Activity;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -13,8 +15,10 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.pyrotemplar.refereehelper.R;
+import com.pyrotemplar.refereehelper.Utils.ColorPickerDialogFragment;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -56,6 +60,7 @@ public class ClickerView extends Fragment implements ClickerContract.View {
 
     private boolean isHapticFeedbackEnabled;
     private SharedPreferences sharedPreferences;
+    private ColorPickerDialogFragment colorPickerDialogFragment;
 
     private ClickerContract.Presenter mPresenter;
     private boolean isViewShown;
@@ -68,6 +73,9 @@ public class ClickerView extends Fragment implements ClickerContract.View {
         View rootView = inflater.inflate(R.layout.clicker_layout_option_2, null);
         ButterKnife.bind(this, rootView);
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getContext());
+        colorPickerDialogFragment = new ColorPickerDialogFragment();
+        colorPickerDialogFragment.setTargetFragment(this, 1);
+
 
         new ClickerPresenter(this);
         if (!isViewShown) {
@@ -78,6 +86,15 @@ public class ClickerView extends Fragment implements ClickerContract.View {
         return rootView;
     }
 
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == Activity.RESULT_OK) {
+            //todo: update the teams name and color from intent.
+            Toast.makeText(getContext(), "Done", Toast.LENGTH_SHORT).show();
+        }
+
+    }
 
     @Override
     public void setPresenter(ClickerPresenter presenter) {
@@ -90,6 +107,20 @@ public class ClickerView extends Fragment implements ClickerContract.View {
 
     }
 
+    @OnClick(R.id.awayTeamBannerLayout)
+    @Override
+    public void AwayTeamButtonClicked(View view) {
+        colorPickerDialogFragment.show(getFragmentManager(), "testName");
+        mPresenter.updateAwayTeamBanner();
+    }
+
+    @OnClick(R.id.homeTeamBannerLayout)
+    @Override
+    public void homeTeamButtonClicked(View view) {
+        colorPickerDialogFragment.show(getFragmentManager(), "testName");
+        mPresenter.updateHomeTeamBanner();
+    }
+
     @OnClick(R.id.ballLayout)
     @Override
     public void ballButtonClicked(View view) {
@@ -99,7 +130,6 @@ public class ClickerView extends Fragment implements ClickerContract.View {
             hapticFeedback(view);
 
     }
-
 
     @OnClick(R.id.strikeLayout)
     @Override
