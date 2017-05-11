@@ -4,6 +4,8 @@ package com.pyrotemplar.refereehelper.ClickerFragment;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
+import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -15,14 +17,14 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.pyrotemplar.refereehelper.R;
-import com.pyrotemplar.refereehelper.Utils.ColorPickerDialogFragment;
+import com.pyrotemplar.refereehelper.Utils.NameAndColorPickerDialogFragment;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import butterknife.OnLongClick;
 
 
 /**
@@ -30,6 +32,14 @@ import butterknife.OnClick;
  */
 
 public class ClickerView extends Fragment implements ClickerContract.View {
+
+    @BindView(R.id.awayTeamNameTextView)
+    TextView awayTeamNameTextView;
+    @BindView(R.id.homeTeamNameTextView)
+    TextView homeTeamNameTextView;
+
+    @BindView(R.id.homeTeamBannerLayout)
+    LinearLayout homeTeamBannerLayout;
 
     @BindView(R.id.awayTeamScoreTextView)
     TextView awayTeamScoreTextView;
@@ -60,7 +70,8 @@ public class ClickerView extends Fragment implements ClickerContract.View {
 
     private boolean isHapticFeedbackEnabled;
     private SharedPreferences sharedPreferences;
-    private ColorPickerDialogFragment colorPickerDialogFragment;
+    private NameAndColorPickerDialogFragment nameAndColorPickerDialogFragment;
+    private Bundle colorPickerArgs;
 
     private ClickerContract.Presenter mPresenter;
     private boolean isViewShown;
@@ -73,8 +84,9 @@ public class ClickerView extends Fragment implements ClickerContract.View {
         View rootView = inflater.inflate(R.layout.clicker_layout_option_2, null);
         ButterKnife.bind(this, rootView);
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getContext());
-        colorPickerDialogFragment = new ColorPickerDialogFragment();
-        colorPickerDialogFragment.setTargetFragment(this, 1);
+        nameAndColorPickerDialogFragment = new NameAndColorPickerDialogFragment();
+        nameAndColorPickerDialogFragment.setTargetFragment(this, 1);
+        colorPickerArgs = new Bundle();
 
 
         new ClickerPresenter(this);
@@ -82,6 +94,9 @@ public class ClickerView extends Fragment implements ClickerContract.View {
             //  updateSharePreferences() contains logic to update Share preference when page is selected
             updateSharePreferences();
         }
+
+        awayTeamNameTextView.setSelected(true);
+        homeTeamNameTextView.setSelected(true);
 
         return rootView;
     }
@@ -91,7 +106,11 @@ public class ClickerView extends Fragment implements ClickerContract.View {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == Activity.RESULT_OK) {
             //todo: update the teams name and color from intent.
-            Toast.makeText(getContext(), "Done", Toast.LENGTH_SHORT).show();
+            if (data.getStringExtra("caller") == "AwayTeamButton")
+                mPresenter.updateAwayTeamBanner(data.getStringExtra("teamName"), data.getIntExtra("teamColor", 0));
+            else
+                mPresenter.updateHomeTeamBanner(data.getStringExtra("teamName"), data.getIntExtra("teamColor", 0));
+
         }
 
     }
@@ -107,18 +126,32 @@ public class ClickerView extends Fragment implements ClickerContract.View {
 
     }
 
-    @OnClick(R.id.awayTeamBannerLayout)
+    @OnLongClick(R.id.awayTeamBannerLayout)
     @Override
-    public void AwayTeamButtonClicked(View view) {
-        colorPickerDialogFragment.show(getFragmentManager(), "testName");
-        mPresenter.updateAwayTeamBanner();
+    public boolean AwayTeamButtonLongClicked(View view) {
+        colorPickerArgs.putString("buttonPressed", "AwayTeamButton");
+        colorPickerArgs.putString("teamName", awayTeamNameTextView.getText().toString());
+        nameAndColorPickerDialogFragment.setArguments(colorPickerArgs);
+        nameAndColorPickerDialogFragment.show(getFragmentManager(), "TAG");
+        return true;
     }
 
-    @OnClick(R.id.homeTeamBannerLayout)
+    @OnLongClick(R.id.homeTeamBannerLayout)
     @Override
-    public void homeTeamButtonClicked(View view) {
-        colorPickerDialogFragment.show(getFragmentManager(), "testName");
-        mPresenter.updateHomeTeamBanner();
+    public boolean homeTeamButtonLongClicked(View view) {
+        colorPickerArgs.putString("buttonPressed", "HomeTeamButton");
+        colorPickerArgs.putString("teamName", homeTeamNameTextView.getText().toString());
+        nameAndColorPickerDialogFragment.setArguments(colorPickerArgs);
+        nameAndColorPickerDialogFragment.show(getFragmentManager(), "TAG");
+        return true;
+    }
+    @OnClick({R.id.awayTeamBannerLayout, R.id.homeTeamBannerLayout, R.id.runnerScoredButton})
+    @Override()
+    public void incrementRunButtonClicked(View view) {
+
+        mPresenter.incrementRun(view.getId());
+        if (isHapticFeedbackEnabled)
+            hapticFeedback(view);
     }
 
     @OnClick(R.id.ballLayout)
@@ -175,14 +208,6 @@ public class ClickerView extends Fragment implements ClickerContract.View {
     @Override
     public void kickerIsSafeButtonClicked(View view) {
         mPresenter.resetCount();
-        if (isHapticFeedbackEnabled)
-            hapticFeedback(view);
-    }
-
-    @OnClick(R.id.runnerScoredButton)
-    @Override
-    public void runnerScoredButtonClicked(View view) {
-        mPresenter.incrementRun();
         if (isHapticFeedbackEnabled)
             hapticFeedback(view);
     }
@@ -270,6 +295,26 @@ public class ClickerView extends Fragment implements ClickerContract.View {
             homeArrowImageView.setVisibility(View.VISIBLE);
         else
             homeArrowImageView.setVisibility(View.INVISIBLE);
+    }
+
+    @Override
+    public void updateAwayTeamBannerView(String awayTeamName, int teamColor) {
+        awayTeamNameTextView.setText(awayTeamName);
+        if (teamColor != 0) {
+            GradientDrawable backgroundGradient = (GradientDrawable) awayTeamNameTextView.getBackground();
+            backgroundGradient.setColor(teamColor);
+        }
+
+    }
+
+    @Override
+    public void updateHomeTeamBannerView(String teamName, int teamColor) {
+
+        homeTeamNameTextView.setText(teamName);
+        if (teamColor != 0) {
+            GradientDrawable backgroundGradient = (GradientDrawable) homeTeamNameTextView.getBackground();
+            backgroundGradient.setColors(new int[]{Color.WHITE, teamColor});
+        }
     }
 
     @Override

@@ -7,9 +7,11 @@ package com.pyrotemplar.refereehelper.ClickerFragment;
 interface ClickerContract {
 
     interface View {
-        void AwayTeamButtonClicked(android.view.View view);
+        boolean AwayTeamButtonLongClicked(android.view.View view);
 
-        void homeTeamButtonClicked(android.view.View view);
+        boolean homeTeamButtonLongClicked(android.view.View view);
+
+        void incrementRunButtonClicked(android.view.View view);
 
         void ballButtonClicked(android.view.View view);
 
@@ -24,8 +26,6 @@ interface ClickerContract {
         void redoButtonClicked(android.view.View view);
 
         void kickerIsSafeButtonClicked(android.view.View view);
-
-        void runnerScoredButtonClicked(android.view.View view);
 
         void updateBallCountTextView(String ballCount);
 
@@ -51,6 +51,10 @@ interface ClickerContract {
 
         void updateHomeArrowImageView(boolean isBottomOfInning);
 
+        void updateAwayTeamBannerView(String awayTeamName, int teamColor);
+
+        void updateHomeTeamBannerView(String awayTeamName, int teamColor);
+
         void updateGameClockTextView(String gameClock);
 
         void updatePlayViewTextView(String playString);
@@ -62,9 +66,9 @@ interface ClickerContract {
 
     interface Presenter {
 
-        void updateAwayTeamBanner();
+        void updateAwayTeamBanner(String teamName, int color);
 
-        void updateHomeTeamBanner();
+        void updateHomeTeamBanner(String teamName, int color);
 
         void incrementBall();
 
@@ -76,8 +80,7 @@ interface ClickerContract {
 
         void resetCount();
 
-
-        void incrementRun();
+        void incrementRun(int id);
 
         void updatedFields();
 

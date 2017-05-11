@@ -2,7 +2,7 @@ package com.pyrotemplar.refereehelper.ClickerFragment;
 
 import android.support.annotation.NonNull;
 
-import com.pyrotemplar.refereehelper.Utils.ColorPickerDialogFragment;
+import com.pyrotemplar.refereehelper.R;
 import com.pyrotemplar.refereehelper.Utils.GameCountState;
 
 import java.util.Stack;
@@ -14,6 +14,10 @@ import java.util.Stack;
 public class ClickerPresenter implements ClickerContract.Presenter {
 
     //Game Count states
+    private String awayTeamName;
+    private String homeTeamName;
+    private int awayTeamColor;
+    private int homeTeamColor;
     private int awayTeamScore;
     private int homeTeamScore;
     private int strikeCount;
@@ -24,12 +28,12 @@ public class ClickerPresenter implements ClickerContract.Presenter {
     private boolean isBottomOfInning;
     public static boolean isThreeFoulOptionEnabled;
     private GameCountState gameCountState;
-    private ColorPickerDialogFragment colorPickerDialogFragment;
-    //private static int gameClockTime;
 
+    //private static int gameClockTime;
     private Stack<GameCountState> undoStack;
     private Stack<GameCountState> redoStack;
     private final ClickerContract.View mClickerFragmentView;
+
 
     ClickerPresenter(@NonNull ClickerContract.View clickerFragmentView) {
         mClickerFragmentView = clickerFragmentView;
@@ -42,6 +46,10 @@ public class ClickerPresenter implements ClickerContract.Presenter {
 
     private void initializeCountFields() {
 
+        awayTeamName = "Away";
+        homeTeamName = "Home";
+        awayTeamColor = 0;
+        homeTeamColor = 0;
         awayTeamScore = 0;
         homeTeamScore = 0;
         strikeCount = 0;
@@ -50,17 +58,25 @@ public class ClickerPresenter implements ClickerContract.Presenter {
         outCount = 0;
         inning = 1;
         isBottomOfInning = false;
+        mClickerFragmentView.updateAwayTeamBannerView(awayTeamName, awayTeamColor);
+        mClickerFragmentView.updateHomeTeamBannerView(homeTeamName, homeTeamColor);
         updateGameCountState();
     }
 
     @Override
-    public void updateAwayTeamBanner() {
+    public void updateAwayTeamBanner(String teamName, int color) {
+        awayTeamColor = color;
+        awayTeamName = teamName;
+        mClickerFragmentView.updateAwayTeamBannerView(awayTeamName, awayTeamColor);
 
     }
 
     @Override
-    public void updateHomeTeamBanner() {
+    public void updateHomeTeamBanner(String teamName, int color) {
 
+        homeTeamColor = color;
+        homeTeamName = teamName;
+        mClickerFragmentView.updateHomeTeamBannerView(homeTeamName, homeTeamColor);
     }
 
     @Override
@@ -134,22 +150,27 @@ public class ClickerPresenter implements ClickerContract.Presenter {
     }
 
     @Override
-    public void incrementRun() {
-        updateGameCountState();
-        undoStack.push(gameCountState);
-        redoStack.clear();
+    public void incrementRun(int id) {
+        if ((isBottomOfInning && id == R.id.homeTeamBannerLayout) ||
+                (!isBottomOfInning && id == R.id.awayTeamBannerLayout) || id == R.id.runnerScoredButton) {
+            updateGameCountState();
+            undoStack.push(gameCountState);
+            redoStack.clear();
 
-        if (isBottomOfInning)
-            homeTeamScore++;
-        else
-            awayTeamScore++;
+            if (isBottomOfInning)
+                homeTeamScore++;
+            else
+                awayTeamScore++;
 
-        updateGameCountState();
-        updatedFields();
+            updateGameCountState();
+            updatedFields();
+        }
     }
 
     @Override
     public void updatedFields() {
+
+        //todo: rework logic so the team name and color is not updated after each action and only at the start and when user changes name or color
 
         mClickerFragmentView.updateAwayScoreTextView(Integer.toString(awayTeamScore));
         mClickerFragmentView.updateHomeScoreTextView(Integer.toString(homeTeamScore));
