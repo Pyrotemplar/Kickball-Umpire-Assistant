@@ -190,7 +190,7 @@
         android:layout_width="75dp"
         android:layout_height="wrap_content"
         android:layout_marginLeft="16dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="16dp"
         android:background="@drawable/ball_button_press_animation"
         android:clickable="true"
         android:orientation="vertical"
@@ -230,7 +230,7 @@
         android:layout_width="75dp"
         android:layout_height="wrap_content"
         android:layout_marginLeft="0dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="16dp"
         android:background="@drawable/strike_button_press_animation"
         android:clickable="true"
         android:orientation="vertical"
@@ -269,7 +269,7 @@
         android:layout_width="75dp"
         android:layout_height="wrap_content"
         android:layout_marginLeft="0dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="16dp"
         android:background="@drawable/foul_button_press_animation"
         android:clickable="true"
         android:orientation="vertical"
@@ -355,7 +355,7 @@
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="16dp"
         android:background="@drawable/runner_scored_button_press_animation"
         android:text="Kicker is safe!"
         android:textAllCaps="false"
@@ -367,7 +367,8 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/ballLayout"
         tools:layout_constraintLeft_creator="1"
-        tools:layout_constraintRight_creator="1" />
+        tools:layout_constraintRight_creator="1"
+        app:layout_constraintHorizontal_bias="0.0" />
 
     <Button
         android:id="@+id/runnerScoredButton"
