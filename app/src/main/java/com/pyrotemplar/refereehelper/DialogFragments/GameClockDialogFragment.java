@@ -1,4 +1,4 @@
-package com.pyrotemplar.refereehelper.Utils;
+package com.pyrotemplar.refereehelper.DialogFragments;
 
 import android.app.Activity;
 import android.app.Dialog;
@@ -8,50 +8,52 @@ import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AlertDialog;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Switch;
 
-import com.larswerkman.holocolorpicker.ColorPicker;
+import com.pyrotemplar.refereehelper.ClickerFragment.ClickerView;
 import com.pyrotemplar.refereehelper.R;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
- * Created by Manuel Montes de Oca on 5/10/2017.
+ * Created by Manny on 5/12/2017.
  */
 
-public class NameAndColorPickerDialogFragment extends DialogFragment{
+public class GameClockDialogFragment extends DialogFragment {
 
-    @BindView(R.id.dialogNameEditView)
-    EditText nameView;
-    @BindView(R.id.colorPicker)
-    ColorPicker colorPicker;
-
+    @BindView(R.id.timeEditTextView)
+    EditText timeEditTextView;
+  //  @BindView(R.id.countUpSwitch)
+   // Switch countUpSwitch;
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
 
-        View view = View.inflate(getContext(), R.layout.color_picker_promp_layout, null);
+        View view = View.inflate(getContext(), R.layout.game_clock_prompt_layout, null);
         ButterKnife.bind(this, view);
 
+
         Bundle mArgs = getArguments();
-        final String buttonPressed = mArgs.getString("buttonPressed");
-        nameView.append(mArgs.getString("teamName"));
-        colorPicker.setShowOldCenterColor(false);
+        final String buttonPressed = mArgs.getString(ClickerView.GAME_CLOCK_BUTTONS_PRESSED);
+        timeEditTextView.append(mArgs.getString("gameClockTime"));
+
+     //   countUpSwitch.setChecked(mArgs.getBoolean("isCountUpEnabled"));
+
 
         // Use the Builder class for convenient dialog construction
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        builder.setTitle("Team Name and Color").setMessage("Change Team Name and Color").setView(view)
+        builder.setTitle("Game Clock").setMessage("Adjust Game Clock").setView(view)
                 .setPositiveButton("Done", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         getActivity().getIntent().putExtra("caller", buttonPressed);
-                        getActivity().getIntent().putExtra("teamName", nameView.getText().toString());
-                        getActivity().getIntent().putExtra("teamColor", colorPicker.getColor());
+                        getActivity().getIntent().putExtra("newTime", timeEditTextView.getText().toString());
+                   //     getActivity().getIntent().putExtra("isCountUpEnabled", countUpSwitch.isChecked());
 
-                       // getActivity().getIntent().put
-                        getTargetFragment().onActivityResult(1, Activity.RESULT_OK, getActivity().getIntent());
+                        getTargetFragment().onActivityResult(2, Activity.RESULT_OK, getActivity().getIntent());
                     }
                 })
-                .setNegativeButton("cancel", new DialogInterface.OnClickListener() {
+                .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
 
                     }
@@ -62,5 +64,4 @@ public class NameAndColorPickerDialogFragment extends DialogFragment{
         alertDialog.getWindow().setBackgroundDrawableResource(R.color.colorPrimary);
         return alertDialog;
     }
-
 }

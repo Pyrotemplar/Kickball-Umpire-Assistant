@@ -1,7 +1,8 @@
 package com.pyrotemplar.refereehelper.Utils;
 
 import android.os.CountDownTimer;
-import android.widget.TextView;
+
+import com.pyrotemplar.refereehelper.ClickerFragment.ClickerPresenter;
 
 import java.util.concurrent.TimeUnit;
 
@@ -10,28 +11,28 @@ import java.util.concurrent.TimeUnit;
  */
 
 public class GameTimer extends CountDownTimer {
-    TextView timerView;
-    long UntilFinished;
+    ClickerPresenter mPresenter;
+    public long millisUntilFinished;
 
-    public GameTimer(long millisInFuture, long countDownInterval, TextView timerView) {
+    public GameTimer(long millisInFuture, long countDownInterval, ClickerPresenter mPresenter) {
         super(millisInFuture, countDownInterval);
-        this.timerView = timerView;
+        this.mPresenter=mPresenter;
         onTick(millisInFuture);
     }
 
     @Override
     public void onTick(long millisUntilFinished) {
-        long millis = millisUntilFinished;
-        String ms = String.format("%02d:%02d",
-                TimeUnit.MILLISECONDS.toMinutes(millis),
-                TimeUnit.MILLISECONDS.toSeconds(millis) - TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(millis)));
-        UntilFinished = millis;
-        timerView.setText(ms);
+
+
+        this.millisUntilFinished  = millisUntilFinished;
+
+        mPresenter.updateGameClock(millisUntilFinished);
+
 
     }
 
     @Override
     public void onFinish() {
-        timerView.setText("Times Up");
+        mPresenter.updateGameClock(0l);
     }
 }

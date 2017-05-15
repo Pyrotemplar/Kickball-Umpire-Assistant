@@ -18,8 +18,9 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.pyrotemplar.refereehelper.DialogFragments.GameClockDialogFragment;
 import com.pyrotemplar.refereehelper.R;
-import com.pyrotemplar.refereehelper.Utils.NameAndColorPickerDialogFragment;
+import com.pyrotemplar.refereehelper.DialogFragments.NameAndColorPickerDialogFragment;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -32,6 +33,9 @@ import butterknife.OnLongClick;
  */
 
 public class ClickerView extends Fragment implements ClickerContract.View {
+
+    public final static String SCORE_BOARD_BUTTONS_PRESSED = "scoreboardButtonPressed";
+    public final static String GAME_CLOCK_BUTTONS_PRESSED = "gameClockButtonPressed";
 
     @BindView(R.id.awayTeamNameTextView)
     TextView awayTeamNameTextView;
@@ -71,7 +75,8 @@ public class ClickerView extends Fragment implements ClickerContract.View {
     private boolean isHapticFeedbackEnabled;
     private SharedPreferences sharedPreferences;
     private NameAndColorPickerDialogFragment nameAndColorPickerDialogFragment;
-    private Bundle colorPickerArgs;
+    private GameClockDialogFragment gameClockDialogFragment;
+    private Bundle mArgs;
 
     private ClickerContract.Presenter mPresenter;
     private boolean isViewShown;
@@ -84,9 +89,14 @@ public class ClickerView extends Fragment implements ClickerContract.View {
         View rootView = inflater.inflate(R.layout.clicker_layout_option_2, null);
         ButterKnife.bind(this, rootView);
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getContext());
+
         nameAndColorPickerDialogFragment = new NameAndColorPickerDialogFragment();
         nameAndColorPickerDialogFragment.setTargetFragment(this, 1);
-        colorPickerArgs = new Bundle();
+
+        gameClockDialogFragment = new GameClockDialogFragment();
+        gameClockDialogFragment.setTargetFragment(this, 2);
+
+        mArgs = new Bundle();
 
 
         new ClickerPresenter(this);
@@ -95,6 +105,7 @@ public class ClickerView extends Fragment implements ClickerContract.View {
             updateSharePreferences();
         }
 
+        // set selected textview to true to enable marquee scrolling feature
         awayTeamNameTextView.setSelected(true);
         homeTeamNameTextView.setSelected(true);
 
@@ -106,14 +117,19 @@ public class ClickerView extends Fragment implements ClickerContract.View {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == Activity.RESULT_OK) {
             //todo: update the teams name and color from intent.
-            if (data.getStringExtra("caller") == "AwayTeamButton")
+
+
+            if (data.getStringExtra("caller") == "awayTeamButton")
                 mPresenter.updateAwayTeamBanner(data.getStringExtra("teamName"), data.getIntExtra("teamColor", 0));
-            else
+            else if (data.getStringExtra("caller") == "homeTeamButton")
                 mPresenter.updateHomeTeamBanner(data.getStringExtra("teamName"), data.getIntExtra("teamColor", 0));
-
-        }
-
+            else if (data.getStringExtra("caller") == "gameClockButton"){
+                mPresenter.setGameClockString(Integer.parseInt(data.getStringExtra("newTime")));
+                mPresenter.startStopGameClock(true);
+            }
     }
+
+}
 
     @Override
     public void setPresenter(ClickerPresenter presenter) {
@@ -129,28 +145,34 @@ public class ClickerView extends Fragment implements ClickerContract.View {
     @OnLongClick(R.id.awayTeamBannerLayout)
     @Override
     public boolean AwayTeamButtonLongClicked(View view) {
-        colorPickerArgs.putString("buttonPressed", "AwayTeamButton");
-        colorPickerArgs.putString("teamName", awayTeamNameTextView.getText().toString());
-        nameAndColorPickerDialogFragment.setArguments(colorPickerArgs);
+        mArgs.putString(SCORE_BOARD_BUTTONS_PRESSED, "awayTeamButton");
+        mArgs.putString("teamName", awayTeamNameTextView.getText().toString());
+        nameAndColorPickerDialogFragment.setArguments(mArgs);
         nameAndColorPickerDialogFragment.show(getFragmentManager(), "TAG");
+        if (isHapticFeedbackEnabled)
+            hapticFeedback(view);
         return true;
     }
 
     @OnLongClick(R.id.homeTeamBannerLayout)
     @Override
     public boolean homeTeamButtonLongClicked(View view) {
-        colorPickerArgs.putString("buttonPressed", "HomeTeamButton");
-        colorPickerArgs.putString("teamName", homeTeamNameTextView.getText().toString());
-        nameAndColorPickerDialogFragment.setArguments(colorPickerArgs);
+
+        mArgs.putString(SCORE_BOARD_BUTTONS_PRESSED, "homeTeamButton");
+        mArgs.putString("teamName", homeTeamNameTextView.getText().toString());
+        nameAndColorPickerDialogFragment.setArguments(mArgs);
         nameAndColorPickerDialogFragment.show(getFragmentManager(), "TAG");
+        if (isHapticFeedbackEnabled)
+            hapticFeedback(view);
         return true;
     }
+
     @OnClick({R.id.awayTeamBannerLayout, R.id.homeTeamBannerLayout, R.id.runnerScoredButton})
     @Override()
     public void incrementRunButtonClicked(View view) {
 
-        mPresenter.incrementRun(view.getId());
-        if (isHapticFeedbackEnabled)
+        //mPresenter.incrementRun(view.getId());
+        if (mPresenter.incrementRun(view.getId()) && isHapticFeedbackEnabled )
             hapticFeedback(view);
     }
 
@@ -210,6 +232,27 @@ public class ClickerView extends Fragment implements ClickerContract.View {
         mPresenter.resetCount();
         if (isHapticFeedbackEnabled)
             hapticFeedback(view);
+    }
+
+    @OnClick(R.id.gameClockLayout)
+    @Override
+    public void gameClockButtonClicked(View view) {
+        mPresenter.startStopGameClock(false);
+        if (isHapticFeedbackEnabled)
+            hapticFeedback(view);
+    }
+
+    @OnLongClick(R.id.gameClockLayout)
+    @Override
+    public boolean gameClockButtonLongClicked(View view) {
+        mArgs.putString(GAME_CLOCK_BUTTONS_PRESSED, "gameClockButton");
+        mArgs.putString("gameClockTime", gameClockTextView.getText().toString().substring(0, gameClockTextView.getText().toString().length() - 3));
+        gameClockDialogFragment.setArguments(mArgs);
+        mPresenter.startStopGameClock(true);
+        gameClockDialogFragment.show(getFragmentManager(), "TAG");
+        if (isHapticFeedbackEnabled)
+            hapticFeedback(view);
+        return true;
     }
 
     @Override

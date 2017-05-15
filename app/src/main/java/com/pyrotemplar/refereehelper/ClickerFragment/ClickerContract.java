@@ -27,6 +27,10 @@ interface ClickerContract {
 
         void kickerIsSafeButtonClicked(android.view.View view);
 
+        void gameClockButtonClicked(android.view.View view);
+
+        boolean gameClockButtonLongClicked(android.view.View view);
+
         void updateBallCountTextView(String ballCount);
 
         void updateStrikeCountTextView(String StrikeCount);
@@ -80,7 +84,9 @@ interface ClickerContract {
 
         void resetCount();
 
-        void incrementRun(int id);
+        void setGameClockString(int newTime);
+
+        boolean incrementRun(int id);
 
         void updatedFields();
 
@@ -89,6 +95,10 @@ interface ClickerContract {
         void redo();
 
         void setThreeFoulOption(boolean isThreeFoulOptionEnabled);
+
+        void startStopGameClock(boolean newTime);
+
+        void updateGameClock(long millisUntilFinished);
     }
 
     interface Model {

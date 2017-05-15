@@ -4,8 +4,10 @@ import android.support.annotation.NonNull;
 
 import com.pyrotemplar.refereehelper.R;
 import com.pyrotemplar.refereehelper.Utils.GameCountState;
+import com.pyrotemplar.refereehelper.Utils.GameTimer;
 
 import java.util.Stack;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Created by Manuel Montes de Oca on 4/25/2017.
@@ -25,14 +27,17 @@ public class ClickerPresenter implements ClickerContract.Presenter {
     private int foulCount;
     private int outCount;
     private int inning;
+    private int gameClockTime;
     private boolean isBottomOfInning;
     public static boolean isThreeFoulOptionEnabled;
     private GameCountState gameCountState;
+    private GameTimer gameTimer;
 
-    //private static int gameClockTime;
+
     private Stack<GameCountState> undoStack;
     private Stack<GameCountState> redoStack;
     private final ClickerContract.View mClickerFragmentView;
+    private boolean isGameClockRunning;
 
 
     ClickerPresenter(@NonNull ClickerContract.View clickerFragmentView) {
@@ -57,9 +62,11 @@ public class ClickerPresenter implements ClickerContract.Presenter {
         foulCount = 0;
         outCount = 0;
         inning = 1;
+        gameClockTime = 2700 * 1000;
         isBottomOfInning = false;
         mClickerFragmentView.updateAwayTeamBannerView(awayTeamName, awayTeamColor);
         mClickerFragmentView.updateHomeTeamBannerView(homeTeamName, homeTeamColor);
+        initializeGameClock();
         updateGameCountState();
     }
 
@@ -149,8 +156,13 @@ public class ClickerPresenter implements ClickerContract.Presenter {
         updatedFields();
     }
 
+    public void setGameClockString(int newTime) {
+        gameClockTime = newTime * 60 * 1000;
+        initializeGameClock();
+    }
+
     @Override
-    public void incrementRun(int id) {
+    public boolean incrementRun(int id) {
         if ((isBottomOfInning && id == R.id.homeTeamBannerLayout) ||
                 (!isBottomOfInning && id == R.id.awayTeamBannerLayout) || id == R.id.runnerScoredButton) {
             updateGameCountState();
@@ -164,7 +176,10 @@ public class ClickerPresenter implements ClickerContract.Presenter {
 
             updateGameCountState();
             updatedFields();
+
+            return true;
         }
+        return false;
     }
 
     @Override
@@ -223,6 +238,38 @@ public class ClickerPresenter implements ClickerContract.Presenter {
     @Override
     public void setThreeFoulOption(boolean isThreeFoulOptionEnabled) {
         this.isThreeFoulOptionEnabled = isThreeFoulOptionEnabled;
+    }
+
+    @Override
+    public void startStopGameClock(boolean newTime) {
+
+        if (isGameClockRunning) {
+            gameTimer.cancel();
+            gameClockTime = (int) gameTimer.millisUntilFinished;
+
+            gameTimer = new GameTimer(gameClockTime, 1000, this);
+            isGameClockRunning = false;
+        } else {
+            if (!newTime) {
+                gameTimer.start();
+                isGameClockRunning = true;
+            }
+        }
+
+    }
+
+    @Override
+    public void updateGameClock(long millisUntilFinished) {
+        String GameClockString;
+        if (millisUntilFinished != 0l) {
+            GameClockString = String.format("%02d:%02d",
+                    TimeUnit.MILLISECONDS.toMinutes(millisUntilFinished),
+                    TimeUnit.MILLISECONDS.toSeconds(millisUntilFinished) - TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(millisUntilFinished)));
+        } else {
+            GameClockString = "Time's Up";
+        }
+
+        mClickerFragmentView.updateGameClockTextView(GameClockString);
     }
 
     private String generateInningString(int inning) {
@@ -296,5 +343,18 @@ public class ClickerPresenter implements ClickerContract.Presenter {
         gameCountState.setInning(inning);
         gameCountState.setBotOfInning(isBottomOfInning);
     }
+
+    public void initializeGameClock() {
+        //isGameClockRunning = false;
+        gameTimer = new GameTimer(gameClockTime, 1000, this);
+        gameTimer.start();
+        gameTimer.cancel();
+        gameClockTime = (int) gameTimer.millisUntilFinished;
+    }
+
+    private void gameClock(int length) {
+       // gameTimer = new GameTimer(length, 1000, this);
+    }
+
 
 }
