@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/main_background"
     android:orientation="vertical">
 
 
@@ -30,8 +29,9 @@
 
         <TextView
             android:id="@+id/awayTeamNameTextView"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:gravity="center"
             android:layout_gravity="center"
             android:layout_marginLeft="5dp"
             android:layout_marginRight="5dp"
@@ -99,9 +99,10 @@
 
         <TextView
             android:id="@+id/homeTeamNameTextView"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_gravity="center"
+            android:gravity="center"
             android:layout_marginLeft="5dp"
             android:layout_marginRight="5dp"
             android:ellipsize="marquee"
@@ -400,7 +401,7 @@
         android:layout_marginBottom="16dp"
         android:layout_marginLeft="16dp"
         android:layout_marginStart="16dp"
-        android:background="@drawable/out_button_press_animation"
+        android:background="@drawable/game_clock_button_press_animation"
         android:clickable="true"
         android:longClickable="true"
         android:orientation="vertical"

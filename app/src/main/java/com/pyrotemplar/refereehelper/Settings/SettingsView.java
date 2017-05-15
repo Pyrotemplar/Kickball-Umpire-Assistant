@@ -31,7 +31,7 @@ public class SettingsView extends PreferenceFragmentCompat implements SharedPref
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = super.onCreateView(inflater, container, savedInstanceState);
-        rootView.setBackgroundResource(R.drawable.main_background);
+        //rootView.setBackgroundResource(R.drawable.main_background);
 
         new SettingsPresenter(this);
 

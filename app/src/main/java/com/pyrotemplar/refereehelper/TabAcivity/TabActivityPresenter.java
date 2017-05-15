@@ -10,8 +10,8 @@ import com.pyrotemplar.refereehelper.R;
 public class TabActivityPresenter implements TabActivityContract.Presenter {
 
     public static final int[] TAB_ICON_ID = {
-            R.mipmap.ic_launcher_round,
-            R.mipmap.ic_launcher_round
+            R.mipmap.ic_clicker_icon_gray,
+            R.drawable.ic_settings_black_48dp
     };
     public static final String[] TAB_ICON_TEXT = {
             "Clicker",

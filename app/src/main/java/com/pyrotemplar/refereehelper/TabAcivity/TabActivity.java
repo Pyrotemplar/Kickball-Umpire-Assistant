@@ -1,11 +1,14 @@
 package com.pyrotemplar.refereehelper.TabAcivity;
 
 import android.os.Bundle;
+import android.provider.Settings;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.Toast;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
 import com.pyrotemplar.refereehelper.Adapters.PageAdapter;
 import com.pyrotemplar.refereehelper.R;
 import com.pyrotemplar.refereehelper.Utils.NonSwipeViewPager;
@@ -24,6 +27,8 @@ public class TabActivity extends AppCompatActivity implements TabActivityContrac
     TabLayout mTabLayout;
     @BindView(R.id.pager)
     NonSwipeViewPager mPager;
+    @BindView(R.id.adView)
+    AdView adView;
 
     private PageAdapter mPageAdapter;
     private TabActivityPresenter presenter;
@@ -47,6 +52,17 @@ public class TabActivity extends AppCompatActivity implements TabActivityContrac
         mPager.setOffscreenPageLimit(2);
         mTabLayout.setupWithViewPager(mPager);
         presenter.setTabIcons();
+
+        AdRequest adRequest = new AdRequest.Builder().addTestDevice(AdRequest.DEVICE_ID_EMULATOR).
+                addTestDevice(Settings.Secure.getString(getApplicationContext().getContentResolver(),
+                Settings.Secure.ANDROID_ID)).build();
+
+        // change request to this line for publishing.
+        //AdRequest adRequest = new AdRequest.Builder().build();
+
+        adView.loadAd(adRequest);
+
+
     }
 
     @Override
