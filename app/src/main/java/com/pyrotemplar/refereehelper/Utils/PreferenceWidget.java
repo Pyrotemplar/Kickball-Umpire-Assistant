@@ -10,6 +10,7 @@ import android.widget.Toast;
 
 
 import com.michaelmuenzer.android.scrollablennumberpicker.ScrollableNumberPicker;
+import com.michaelmuenzer.android.scrollablennumberpicker.ScrollableNumberPickerListener;
 import com.pyrotemplar.refereehelper.R;
 
 
@@ -43,7 +44,14 @@ public class PreferenceWidget extends Preference {
     public void onBindViewHolder(PreferenceViewHolder holder) {
         super.onBindViewHolder(holder);
         scrollableNumberPicker = (ScrollableNumberPicker) holder.findViewById(R.id.number_picker);
-        Toast.makeText(getContext(), "clicked", Toast.LENGTH_SHORT).show();
+        //scrollableNumberPicker.setClickable(true);
+
+        scrollableNumberPicker.setListener(new ScrollableNumberPickerListener() {
+            @Override
+            public void onNumberPicked(int value) {
+                Toast.makeText(getContext(), scrollableNumberPicker.getValue()+"", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     public int getValue(){
