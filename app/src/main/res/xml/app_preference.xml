@@ -14,6 +14,13 @@
             android:summary="Phone will vibrate when buttons are touched"
             android:title="Vibrate on touch" />
 
+        <Preference
+            android:key="pref_key_sms_delete_limit"
+            android:layout="@layout/testng_layout"
+            android:summary="test Summary"
+            android:title="tittle" />
+
+
         <!--   <EditTextPreference android:title="Your Name"
               android:key="username"
               android:summary="Please provide your username"></EditTextPreference>
@@ -96,5 +103,6 @@
             android:summary="summary_child_preference" />
  -->
     </PreferenceCategory>
+
 
 </PreferenceScreen>
