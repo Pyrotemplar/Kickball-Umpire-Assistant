@@ -9,6 +9,7 @@
     app:snp_buttonIconRight="@drawable/ic_add_circle_outline_black_24dp"
     app:snp_buttonTouchScaleFactor="0"
     app:snp_maxValue="2"
+    app:snp_value_text_color="@color/black"
     app:snp_value_text_size="25sp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android" />

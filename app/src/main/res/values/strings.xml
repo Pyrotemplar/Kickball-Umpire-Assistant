@@ -9,5 +9,8 @@
     <string name="setting_share_preference_key">PreferenceKey</string>
     <string name="SP_HAPTIC_FEEDBACK_SETTINGS_KEY">hapticFeedbackSettingKey</string>
     <string name="SP_THREE_FOULS_SETTINGS_KEY">threeFoulSettingKey</string>
+    <string name="SP_STARTING_BALL_COUNT_KEY">StartingBallCountSettingKey</string>
+    <string name="SP_STARTING_STRIKE_COUNT_KEY">StartingStrikeCountSettingKey</string>
+    <string name="SP_STARTING_FOUL_COUNT_KEY">StartingFoulCountSettingKey</string>
 
 </resources>

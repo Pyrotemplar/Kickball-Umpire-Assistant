@@ -366,8 +366,10 @@ public class ClickerView extends Fragment implements ClickerContract.View {
     }
 
     @Override
-    public void updatePlayViewTextView(String playString) {
-        //   playUpdateTextView.setText(playString);
+    public void setStartingCount( ) {
+       mPresenter.setStartingCount(sharedPreferences.getInt(getResources().getString(R.string.SP_STARTING_BALL_COUNT_KEY), 0),
+               sharedPreferences.getInt(getResources().getString(R.string.SP_STARTING_STRIKE_COUNT_KEY), 0),
+               sharedPreferences.getInt(getResources().getString(R.string.SP_STARTING_FOUL_COUNT_KEY), 0));
     }
 
     private void hapticFeedback(View view) {
@@ -382,6 +384,7 @@ public class ClickerView extends Fragment implements ClickerContract.View {
     public void updateSharePreferences() {
 
         isHapticFeedbackEnabled = sharedPreferences.getBoolean(getResources().getString(R.string.SP_HAPTIC_FEEDBACK_SETTINGS_KEY), false);
+        setStartingCount();
         mPresenter.setThreeFoulOption(sharedPreferences.getBoolean(getResources().getString(R.string.SP_THREE_FOULS_SETTINGS_KEY), false));
     }
 

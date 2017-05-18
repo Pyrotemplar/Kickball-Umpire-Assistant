@@ -26,6 +26,9 @@ public class ClickerPresenter implements ClickerContract.Presenter {
     private int ballCount;
     private int foulCount;
     private int outCount;
+    private int startingBallCount;
+    private int startingStrikeCount;
+    private int startingFoulCount;
     private int inning;
     private int gameClockTime;
     private boolean isBottomOfInning;
@@ -57,9 +60,9 @@ public class ClickerPresenter implements ClickerContract.Presenter {
         homeTeamColor = 0;
         awayTeamScore = 0;
         homeTeamScore = 0;
-        strikeCount = 0;
-        ballCount = 0;
-        foulCount = 0;
+        strikeCount = startingStrikeCount;
+        ballCount = startingBallCount;
+        foulCount = startingFoulCount;
         outCount = 0;
         inning = 1;
         gameClockTime = 2700 * 1000;
@@ -132,9 +135,9 @@ public class ClickerPresenter implements ClickerContract.Presenter {
         redoStack.clear();
 
         outCount++;
-        ballCount = 0;
-        strikeCount = 0;
-        foulCount = 0;
+        ballCount = startingBallCount;
+        strikeCount = startingStrikeCount;
+        foulCount = startingFoulCount;
 
         updateGameCountState();
         countLogic();
@@ -147,9 +150,9 @@ public class ClickerPresenter implements ClickerContract.Presenter {
         undoStack.push(gameCountState);
         redoStack.clear();
 
-        ballCount = 0;
-        strikeCount = 0;
-        foulCount = 0;
+        ballCount = startingBallCount;
+        strikeCount = startingStrikeCount;
+        foulCount = startingFoulCount;
 
         updateGameCountState();
         countLogic();
@@ -288,37 +291,37 @@ public class ClickerPresenter implements ClickerContract.Presenter {
     private void countLogic() {
 
         if (ballCount == 4) {
-            ballCount = 0;
-            foulCount = 0;
-            strikeCount = 0;
+            ballCount = startingBallCount;
+            strikeCount = startingStrikeCount;
+            foulCount = startingFoulCount;
         }
         if (isThreeFoulOptionEnabled) {
             if (foulCount == 3) {
                 outCount++;
-                ballCount = 0;
-                foulCount = 0;
-                strikeCount = 0;
+                ballCount = startingBallCount;
+                strikeCount = startingStrikeCount;
+                foulCount = startingFoulCount;
             }
         } else {
             if (foulCount == 4) {
                 outCount++;
-                ballCount = 0;
-                foulCount = 0;
-                strikeCount = 0;
+                ballCount = startingBallCount;
+                strikeCount = startingStrikeCount;
+                foulCount = startingFoulCount;
             }
         }
         if (strikeCount == 3) {
             outCount++;
-            ballCount = 0;
-            foulCount = 0;
-            strikeCount = 0;
+            ballCount = startingBallCount;
+            strikeCount = startingStrikeCount;
+            foulCount = startingFoulCount;
         }
         if (outCount == 3) {
             changeInning();
             outCount = 0;
-            ballCount = 0;
-            foulCount = 0;
-            strikeCount = 0;
+            ballCount = startingBallCount;
+            strikeCount = startingStrikeCount;
+            foulCount = startingFoulCount;
         }
     }
 
@@ -352,9 +355,20 @@ public class ClickerPresenter implements ClickerContract.Presenter {
         gameClockTime = (int) gameTimer.millisUntilFinished;
     }
 
-    private void gameClock(int length) {
-       // gameTimer = new GameTimer(length, 1000, this);
+    public void setStartingCount(int startingBallCount, int startingStrikeCount, int startingFoulCount){
+        this.startingBallCount = startingBallCount;
+        this.startingStrikeCount = startingStrikeCount;
+        this.startingFoulCount = startingFoulCount;
+
+        strikeCount = startingStrikeCount;
+        ballCount = startingBallCount;
+        foulCount = startingFoulCount;
+
+        updatedFields();
+
+
     }
+
 
 
 }

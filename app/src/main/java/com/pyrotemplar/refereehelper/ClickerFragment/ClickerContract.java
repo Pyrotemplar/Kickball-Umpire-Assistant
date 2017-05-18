@@ -61,7 +61,7 @@ interface ClickerContract {
 
         void updateGameClockTextView(String gameClock);
 
-        void updatePlayViewTextView(String playString);
+        void setStartingCount();
 
         void updateSharePreferences();
 
@@ -99,6 +99,8 @@ interface ClickerContract {
         void startStopGameClock(boolean newTime);
 
         void updateGameClock(long millisUntilFinished);
+
+        void setStartingCount(int startingBallCount, int startingStrikeCount, int startingFoulCount);
     }
 
     interface Model {

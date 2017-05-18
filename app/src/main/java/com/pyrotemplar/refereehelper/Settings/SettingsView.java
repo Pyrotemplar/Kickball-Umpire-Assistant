@@ -32,6 +32,7 @@ public class SettingsView extends PreferenceFragmentCompat implements SharedPref
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+
         // Load the preferences from an XML resource
         addPreferencesFromResource(R.xml.app_preference);
     }
@@ -62,14 +63,11 @@ public class SettingsView extends PreferenceFragmentCompat implements SharedPref
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        ButterKnife.bind(this, view);
-
 
     }
 
     @Override
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
-       // Toast.makeText(getContext(), sharedPreferences.getInt("startingBalls",5)+"", Toast.LENGTH_SHORT).show();
     }
 
     @Override

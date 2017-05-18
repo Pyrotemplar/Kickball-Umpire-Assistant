@@ -20,9 +20,30 @@ import com.pyrotemplar.refereehelper.R;
 
 public class PreferenceWidget extends Preference {
 
-    public ScrollableNumberPicker scrollableNumberPicker;
-    private int mTime;
+    private ScrollableNumberPicker scrollableNumberPicker;
 
+    @Override
+    public void onBindViewHolder(PreferenceViewHolder holder) {
+        super.onBindViewHolder(holder);
+        scrollableNumberPicker = (ScrollableNumberPicker) holder.findViewById(R.id.number_picker);
+        scrollableNumberPicker.setValue(PreferenceWidget.this.getPersistedInt(0));
+        scrollableNumberPicker.setListener(new ScrollableNumberPickerListener() {
+            @Override
+            public void onNumberPicked(int value) {
+                PreferenceWidget.this.persistInt(value);
+            }
+        });
+    }
+
+    @Override
+    protected void onClick() {
+        super.onClick();
+        scrollableNumberPicker.setValue(scrollableNumberPicker.getValue()+1);
+    }
+
+    public PreferenceWidget(Context context) {
+        super(context);
+    }
 
     public PreferenceWidget(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
@@ -35,29 +56,6 @@ public class PreferenceWidget extends Preference {
     public PreferenceWidget(Context context, AttributeSet attrs) {
         super(context, attrs);
     }
-
-    public PreferenceWidget(Context context) {
-        super(context);
-    }
-
-    @Override
-    public void onBindViewHolder(PreferenceViewHolder holder) {
-        super.onBindViewHolder(holder);
-        scrollableNumberPicker = (ScrollableNumberPicker) holder.findViewById(R.id.number_picker);
-        //scrollableNumberPicker.setClickable(true);
-
-        scrollableNumberPicker.setListener(new ScrollableNumberPickerListener() {
-            @Override
-            public void onNumberPicked(int value) {
-                Toast.makeText(getContext(), scrollableNumberPicker.getValue()+"", Toast.LENGTH_SHORT).show();
-            }
-        });
-    }
-
-    public int getValue(){
-       return scrollableNumberPicker.getValue();
-    }
-
 
 
 }
