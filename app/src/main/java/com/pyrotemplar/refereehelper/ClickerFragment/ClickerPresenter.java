@@ -276,16 +276,18 @@ public class ClickerPresenter implements ClickerContract.Presenter {
     }
 
     private String generateInningString(int inning) {
-        String inningString;
-        if (inning == 1) {
-            inningString = "1st";
-        } else if (inning == 2) {
-            inningString = "2nd";
-        } else if (inning == 3) {
-            inningString = "3rd";
-        } else
-            inningString = inning + "th";
-        return inningString;
+
+        int mod100 = inning % 100;
+        int mod10 = inning % 10;
+        if(mod10 == 1 && mod100 != 11) {
+            return inning + "st";
+        } else if(mod10 == 2 && mod100 != 12) {
+            return inning + "nd";
+        } else if(mod10 == 3 && mod100 != 13) {
+            return inning + "rd";
+        } else {
+            return inning + "th";
+        }
     }
 
     private void countLogic() {

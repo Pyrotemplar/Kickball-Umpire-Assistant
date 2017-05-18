@@ -4,6 +4,10 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
+    <!--Message String-->
+    <string name="MS_ERROR_WARNING_EDIT_GAME_CLOCK">Must be between 1 - 180 Minutes</string>
+    <string name="MS_HINT_EDIT_GAME_CLOCK">Enter in Minutes between 1 - 180</string>
+
 
     <!--SharePreference Keys-->
     <string name="setting_share_preference_key">PreferenceKey</string>
@@ -12,5 +16,7 @@
     <string name="SP_STARTING_BALL_COUNT_KEY">StartingBallCountSettingKey</string>
     <string name="SP_STARTING_STRIKE_COUNT_KEY">StartingStrikeCountSettingKey</string>
     <string name="SP_STARTING_FOUL_COUNT_KEY">StartingFoulCountSettingKey</string>
+    <string name="SP_STARTING_OUT_COUNT_KEY">StartingOutCountSettingKey</string>
+    <string name="SP_MAX_NUMBER_INNING_KEY">MaxNumberOfInningSettingKey</string>
 
 </resources>
