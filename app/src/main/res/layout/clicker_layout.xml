@@ -6,10 +6,9 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-
     <LinearLayout
         android:id="@+id/awayTeamBannerLayout"
-        android:layout_width="96dp"
+        android:layout_width="110dp"
         android:layout_height="wrap_content"
         android:layout_marginLeft="16dp"
         android:layout_marginStart="16dp"
@@ -31,37 +30,38 @@
             android:id="@+id/awayTeamNameTextView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:gravity="center"
             android:layout_gravity="center"
             android:layout_marginLeft="5dp"
             android:layout_marginRight="5dp"
             android:background="@drawable/team_name_background"
             android:ellipsize="marquee"
+            android:gravity="center"
             android:marqueeRepeatLimit="marquee_forever"
             android:maxLines="1"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:scrollHorizontally="true"
             android:shadowColor="#000000"
             android:shadowRadius="3"
-            android:paddingLeft="5dp"
-            android:paddingRight="5dp"
-            android:scrollHorizontally="true"
             android:singleLine="true"
-            tools:text="Away"
             android:textAllCaps="true"
             android:textColor="@color/colorPrimaryText"
             android:textSize="@dimen/textSize"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            tools:text="Away" />
 
         <TextView
             android:id="@+id/awayTeamScoreTextView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center"
-            tools:text="5"
+            android:paddingBottom="5dp"
             android:shadowColor="#000000"
             android:shadowRadius="3"
             android:textColor="@color/colorPrimaryText"
             android:textSize="@dimen/scoreTextSize"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            tools:text="5" />
 
     </LinearLayout>
 
@@ -80,9 +80,8 @@
 
     <LinearLayout
         android:id="@+id/homeTeamBannerLayout"
-        android:layout_width="96dp"
+        android:layout_width="110dp"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="0dp"
         android:layout_marginTop="8dp"
         android:background="@drawable/scoreboard_home_button_press_animation"
         android:clickable="true"
@@ -102,36 +101,37 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_gravity="center"
-            android:gravity="center"
             android:layout_marginLeft="5dp"
             android:layout_marginRight="5dp"
+            android:background="@drawable/team_name_background"
             android:ellipsize="marquee"
+            android:gravity="center"
             android:lines="1"
+            android:marqueeRepeatLimit="marquee_forever"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:scrollHorizontally="true"
             android:shadowColor="#000000"
             android:shadowRadius="3"
-            android:background="@drawable/team_name_background"
-            android:marqueeRepeatLimit="marquee_forever"
-            android:paddingLeft="5dp"
-            android:paddingRight="5dp"
-            android:scrollHorizontally="true"
             android:singleLine="true"
-            tools:text="Home"
             android:textAllCaps="true"
             android:textColor="@color/colorPrimaryText"
             android:textSize="@dimen/textSize"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            tools:text="Home" />
 
         <TextView
             android:id="@+id/homeTeamScoreTextView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center"
-            tools:text="1"
+            android:paddingBottom="5dp"
             android:shadowColor="#000000"
             android:shadowRadius="3"
             android:textColor="@color/colorPrimaryText"
             android:textSize="@dimen/scoreTextSize"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            tools:text="1" />
     </LinearLayout>
 
     <TextView
@@ -141,10 +141,11 @@
         android:layout_marginEnd="16dp"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="16dp"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
-        android:text="Inning"
         android:shadowColor="#000000"
         android:shadowRadius="3"
+        android:text="Inning"
         android:textColor="@color/colorPrimaryText"
         android:textSize="@dimen/LargeTextSize"
         android:textStyle="bold"
@@ -159,11 +160,9 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
         android:layout_marginLeft="15dp"
-        android:layout_marginRight="8dp"
+        android:layout_marginRight="16dp"
         android:layout_marginStart="15dp"
-        android:layout_marginTop="-1dp"
         android:gravity="center"
-        tools:text="1st"
         android:shadowColor="#000000"
         android:shadowRadius="3"
         android:textColor="@color/colorPrimaryText"
@@ -174,7 +173,8 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/inningTextView"
         tools:layout_constraintLeft_creator="1"
-        tools:layout_constraintRight_creator="1" />
+        tools:layout_constraintRight_creator="1"
+        tools:text="1st" />
 
     <ImageView
         android:id="@+id/inningArrowImageView"
@@ -188,9 +188,10 @@
 
     <LinearLayout
         android:id="@+id/ballLayout"
-        android:layout_width="75dp"
+        android:layout_width="80dp"
         android:layout_height="wrap_content"
         android:layout_marginLeft="16dp"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:background="@drawable/ball_button_press_animation"
         android:clickable="true"
@@ -205,9 +206,9 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_gravity="center"
-            android:text="Ball"
             android:shadowColor="#000000"
             android:shadowRadius="3"
+            android:text="Ball"
             android:textColor="@color/colorPrimaryText"
             android:textSize="@dimen/textSize"
             android:textStyle="bold" />
@@ -217,20 +218,21 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center"
-            tools:text="5"
+            android:paddingBottom="5dp"
             android:shadowColor="#000000"
             android:shadowRadius="3"
+
             android:textColor="@color/colorPrimaryText"
-            android:textSize="35dp"
-            android:textStyle="bold" />
+            android:textSize="@dimen/scoreTextSize"
+            android:textStyle="bold"
+            tools:text="5" />
 
     </LinearLayout>
 
     <LinearLayout
         android:id="@+id/strikeLayout"
-        android:layout_width="75dp"
+        android:layout_width="80dp"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="0dp"
         android:layout_marginTop="16dp"
         android:background="@drawable/strike_button_press_animation"
         android:clickable="true"
@@ -244,9 +246,9 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_gravity="center"
-            android:text="Strike"
             android:shadowColor="#000000"
             android:shadowRadius="3"
+            android:text="Strike"
             android:textColor="@color/colorPrimaryText"
             android:textSize="@dimen/textSize"
             android:textStyle="bold" />
@@ -256,20 +258,21 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center"
-            tools:text="5"
+            android:paddingBottom="5dp"
             android:shadowColor="#000000"
             android:shadowRadius="3"
             android:textColor="@color/colorPrimaryText"
-            android:textSize="35dp"
-            android:textStyle="bold" />
+
+            android:textSize="@dimen/scoreTextSize"
+            android:textStyle="bold"
+            tools:text="5" />
 
     </LinearLayout>
 
     <LinearLayout
         android:id="@+id/foulLayout"
-        android:layout_width="75dp"
+        android:layout_width="80dp"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="0dp"
         android:layout_marginTop="16dp"
         android:background="@drawable/foul_button_press_animation"
         android:clickable="true"
@@ -283,9 +286,9 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_gravity="center"
-            android:text="Foul"
             android:shadowColor="#000000"
             android:shadowRadius="3"
+            android:text="Foul"
             android:textColor="@color/colorPrimaryText"
             android:textSize="@dimen/textSize"
             android:textStyle="bold" />
@@ -295,24 +298,24 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center"
-            tools:text="5"
+            android:paddingBottom="5dp"
             android:shadowColor="#000000"
             android:shadowRadius="3"
+
             android:textColor="@color/colorPrimaryText"
-            android:textSize="35dp"
-            android:textStyle="bold" />
+            android:textSize="@dimen/scoreTextSize"
+            android:textStyle="bold"
+            tools:text="5" />
 
     </LinearLayout>
 
 
     <LinearLayout
         android:id="@+id/outLayout"
-        android:layout_width="55dp"
+        android:layout_width="75dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="0dp"
         android:layout_marginEnd="16dp"
         android:layout_marginRight="16dp"
-        android:layout_marginTop="0dp"
         android:background="@drawable/out_button_press_animation"
         android:clickable="true"
         android:orientation="vertical"
@@ -326,9 +329,9 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_gravity="center"
-            android:text="Out"
             android:shadowColor="#000000"
             android:shadowRadius="3"
+            android:text="Out"
             android:textColor="@color/colorPrimaryText"
             android:textSize="@dimen/textSize"
             android:textStyle="bold" />
@@ -338,12 +341,14 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center"
-            tools:text="5"
+            android:paddingBottom="5dp"
             android:shadowColor="#000000"
             android:shadowRadius="3"
             android:textColor="@color/colorPrimaryText"
-            android:textSize="35dp"
-            android:textStyle="bold" />
+
+            android:textSize="@dimen/scoreTextSize"
+            android:textStyle="bold"
+            tools:text="5" />
 
     </LinearLayout>
 
@@ -358,18 +363,20 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:background="@drawable/runner_scored_button_press_animation"
+        android:paddingBottom="10dp"
+        android:paddingTop="10dp"
+        android:shadowColor="#000000"
+        android:shadowRadius="3"
         android:text="Kicker is safe!"
         android:textAllCaps="false"
         android:textColor="@color/colorPrimaryText"
         android:textSize="@dimen/LargeTextSize"
-        android:shadowColor="#000000"
-        android:shadowRadius="3"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/ballLayout"
         tools:layout_constraintLeft_creator="1"
-        tools:layout_constraintRight_creator="1"
-        app:layout_constraintHorizontal_bias="0.0" />
+        tools:layout_constraintRight_creator="1" />
 
     <Button
         android:id="@+id/runnerScoredButton"
@@ -381,12 +388,14 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:background="@drawable/runner_scored_button_press_animation"
+        android:paddingBottom="10dp"
+        android:paddingTop="10dp"
+        android:shadowColor="#000000"
+        android:shadowRadius="3"
         android:text="Runner scored!"
         android:textAllCaps="false"
         android:textColor="@color/colorPrimaryText"
         android:textSize="@dimen/LargeTextSize"
-        android:shadowColor="#000000"
-        android:shadowRadius="3"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
@@ -395,61 +404,17 @@
         tools:layout_constraintRight_creator="1" />
 
     <LinearLayout
-        android:id="@+id/gameClockLayout"
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:layout_marginBottom="16dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginStart="16dp"
-        android:background="@drawable/game_clock_button_press_animation"
-        android:clickable="true"
-        android:longClickable="true"
-        android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.04"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toLeftOf="@+id/undoLayout">
-
-        <TextView
-            android:id="@+id/textView5"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingLeft="10dp"
-            android:paddingRight="10dp"
-            android:text="Game Clock"
-            android:shadowColor="#000000"
-            android:shadowRadius="3"
-            android:textAlignment="center"
-            android:textColor="@color/colorPrimaryText"
-            android:textSize="@dimen/textSize"
-            android:textStyle="bold"
-            tools:layout_editor_absoluteX="0dp"
-            tools:layout_editor_absoluteY="0dp" />
-
-        <TextView
-            android:id="@+id/gameClockTextView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            tools:text="45:00"
-            android:shadowColor="#000000"
-            android:shadowRadius="3"
-            android:textAlignment="center"
-            android:textColor="@color/colorPrimaryText"
-            android:textSize="@dimen/LargeTextSize"
-            android:textStyle="bold" />
-    </LinearLayout>
-
-    <LinearLayout
         android:id="@+id/undoLayout"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
-        android:layout_marginBottom="16dp"
+        android:layout_marginTop="17dp"
         android:background="@drawable/ball_button_press_animation"
         android:clickable="true"
         android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintRight_toLeftOf="@+id/redoLayout"
-        app:layout_constraintTop_toTopOf="@+id/gameClockLayout">
+        app:layout_constraintTop_toBottomOf="@+id/runnerScoredButton"
+        tools:layout_constraintRight_creator="1"
+        tools:layout_constraintTop_creator="1">
 
 
         <TextView
@@ -458,9 +423,9 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:paddingLeft="10dp"
+            android:paddingRight="10dp"
             android:shadowColor="#000000"
             android:shadowRadius="3"
-            android:paddingRight="10dp"
             android:text="Undo"
             android:textColor="@color/colorPrimaryText"
             android:textSize="@dimen/textSize"
@@ -474,18 +439,69 @@
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/gameClockLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="80dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/game_clock_button_press_animation"
+        android:clickable="true"
+        android:longClickable="true"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="@+id/undoLayout"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@+id/undoLayout"
+        app:layout_constraintTop_toTopOf="@+id/undoLayout">
+
+        <TextView
+            android:id="@+id/textView5"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:shadowColor="#000000"
+            android:shadowRadius="3"
+            android:text="Game Clock"
+            android:textAlignment="center"
+            android:textColor="@color/colorPrimaryText"
+            android:textSize="@dimen/textSize"
+            android:textStyle="bold"
+            tools:layout_editor_absoluteX="0dp"
+            tools:layout_editor_absoluteY="0dp" />
+
+        <TextView
+            android:id="@+id/gameClockTextView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:shadowColor="#000000"
+            android:shadowRadius="3"
+
+            android:textAlignment="center"
+            android:textColor="@color/colorPrimaryText"
+            android:textSize="@dimen/LargeTextSize"
+            android:textStyle="bold"
+            tools:text="45:00" />
+    </LinearLayout>
+
+    <LinearLayout
         android:id="@+id/redoLayout"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
-        android:layout_marginBottom="16dp"
         android:layout_marginEnd="16dp"
         android:layout_marginRight="16dp"
         android:background="@drawable/foul_button_press_animation"
         android:clickable="true"
         android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toBottomOf="@+id/undoLayout"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/gameClockLayout">
+        app:layout_constraintTop_toTopOf="@+id/undoLayout"
+        tools:layout_constraintBottom_creator="1"
+        tools:layout_constraintRight_creator="1"
+        tools:layout_constraintTop_creator="1">
 
 
         <TextView
@@ -495,9 +511,9 @@
             android:layout_gravity="center"
             android:paddingLeft="10dp"
             android:paddingRight="10dp"
-            android:text="Redo"
             android:shadowColor="#000000"
             android:shadowRadius="3"
+            android:text="Redo"
             android:textColor="@color/colorPrimaryText"
             android:textSize="@dimen/textSize"
             android:textStyle="bold" />

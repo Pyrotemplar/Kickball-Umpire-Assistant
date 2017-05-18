@@ -86,7 +86,7 @@ public class ClickerView extends Fragment implements ClickerContract.View {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
 
-        View rootView = inflater.inflate(R.layout.clicker_layout_option_3, null);
+        View rootView = inflater.inflate(R.layout.clicker_layout, null);
         ButterKnife.bind(this, rootView);
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getContext());
 
