@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <integer name="DEFAULT_MAX_BALLS">4</integer>
+    <integer name="DEFAULT_MAX_FOULS">4</integer>
+    <integer name="DEFAULT_MAX_OUTS">3</integer>
+    <integer name="DEFAULT_MAX_STRIKE">3</integer>
+    <integer name="DEFAULT_MAX_INNINGS">6</integer>
+
+
+    <integer name="DEFAULT_STARTING_BALLS">0</integer>
+    <integer name="DEFAULT_STARTING_FOULS">0</integer>
+    <integer name="DEFAULT_STARTING_OUTS">0</integer>
+    <integer name="DEFAULT_STARTING_STRIKE">0</integer>
+
+</resources>
