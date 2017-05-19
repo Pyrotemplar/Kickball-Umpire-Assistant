@@ -4,6 +4,8 @@ import android.content.Context;
 import android.support.v7.preference.Preference;
 import android.support.v7.preference.PreferenceViewHolder;
 import android.util.AttributeSet;
+import android.view.View;
+import android.widget.Toast;
 
 
 import com.michaelmuenzer.android.scrollablennumberpicker.ScrollableNumberPicker;
@@ -25,10 +27,12 @@ public class NumberSelectorPreferenceWidget extends Preference {
 
         scrollableNumberPicker = (ScrollableNumberPicker) holder.findViewById(R.id.number_picker);
         setMax();
+
         scrollableNumberPicker.setValue(NumberSelectorPreferenceWidget.this.getPersistedInt(0));
         scrollableNumberPicker.setListener(new ScrollableNumberPickerListener() {
             @Override
             public void onNumberPicked(int value) {
+
                 NumberSelectorPreferenceWidget.this.persistInt(value);
             }
         });
