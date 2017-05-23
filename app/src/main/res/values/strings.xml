@@ -10,13 +10,14 @@
 
 
     <!--SharePreference Keys-->
-    <string name="setting_share_preference_key">PreferenceKey</string>
+    <string name="setting_share_preference_key">preferenceKey</string>
     <string name="SP_HAPTIC_FEEDBACK_SETTINGS_KEY">hapticFeedbackSettingKey</string>
+    <string name="SP_RESET_CLICKER_DATA_SETTINGS_KEY">resetClickerSettingKey</string>
     <string name="SP_THREE_FOULS_SETTINGS_KEY">threeFoulSettingKey</string>
-    <string name="SP_STARTING_BALL_COUNT_KEY">StartingBallCountSettingKey</string>
-    <string name="SP_STARTING_STRIKE_COUNT_KEY">StartingStrikeCountSettingKey</string>
-    <string name="SP_STARTING_FOUL_COUNT_KEY">StartingFoulCountSettingKey</string>
-    <string name="SP_STARTING_OUT_COUNT_KEY">StartingOutCountSettingKey</string>
-    <string name="SP_MAX_NUMBER_INNING_KEY">MaxNumberOfInningSettingKey</string>
+    <string name="SP_STARTING_BALL_COUNT_KEY">startingBallCountSettingKey</string>
+    <string name="SP_STARTING_STRIKE_COUNT_KEY">startingStrikeCountSettingKey</string>
+    <string name="SP_STARTING_FOUL_COUNT_KEY">startingFoulCountSettingKey</string>
+    <string name="SP_STARTING_OUT_COUNT_KEY">startingOutCountSettingKey</string>
+    <string name="SP_MAX_NUMBER_INNING_KEY">maxNumberOfInningSettingKey</string>
 
 </resources>

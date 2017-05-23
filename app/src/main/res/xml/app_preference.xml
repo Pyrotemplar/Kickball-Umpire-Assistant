@@ -9,14 +9,19 @@
             android:summary="Phone will vibrate when buttons are touched"
             android:title="Vibrate on touch" />
 
+        <android.support.v7.preference.Preference
+            android:key="@string/SP_RESET_CLICKER_DATA_SETTINGS_KEY"
+            android:title="Reset Clicker"
+            android:summary="Reset clicker and start new game"/>
+
     </android.support.v7.preference.PreferenceCategory>
 
-    <android.support.v7.preference.PreferenceCategory android:title="Count Settings">
+    <android.support.v7.preference.PreferenceCategory android:title="Game Settings">
 
         <android.support.v7.preference.CheckBoxPreference
             android:defaultValue="false"
             android:key="@string/SP_THREE_FOULS_SETTINGS_KEY"
-            android:summary="This option if selected will count 3 Fouls as an Out."
+            android:summary="If selected will count 3 Fouls as an Out."
             android:title="Three Fouls" />
 
         <com.pyrotemplar.refereehelper.Utils.NumberSelectorPreferenceWidget

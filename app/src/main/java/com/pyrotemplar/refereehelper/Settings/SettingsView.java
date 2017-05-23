@@ -3,13 +3,18 @@ package com.pyrotemplar.refereehelper.Settings;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.preference.Preference;
 import android.support.v7.preference.PreferenceFragmentCompat;
 import android.support.v7.preference.PreferenceManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
+import com.pyrotemplar.refereehelper.DialogFragments.ConfirmationDialogFragment;
 import com.pyrotemplar.refereehelper.R;
+
+import butterknife.OnClick;
 
 /**
  * Created by Manuel Montes de Oca on 5/4/2017.
@@ -24,10 +29,10 @@ public class SettingsView extends PreferenceFragmentCompat implements SharedPref
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-
         // Load the preferences from an XML resource
         addPreferencesFromResource(R.xml.app_preference);
+
+
     }
 
     @Override
@@ -60,7 +65,20 @@ public class SettingsView extends PreferenceFragmentCompat implements SharedPref
     }
 
     @Override
+    public boolean onPreferenceTreeClick(Preference preference) {
+        if (preference.getKey() == getResources().getString(R.string.SP_RESET_CLICKER_DATA_SETTINGS_KEY))
+            resetClicker();
+        return super.onPreferenceTreeClick(preference);
+    }
+
+    @Override
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
+    }
+
+    private void resetClicker() {
+        ConfirmationDialogFragment confirmationDialogFragment = new ConfirmationDialogFragment();
+        confirmationDialogFragment.show(getFragmentManager(), "TAG");
+        mPresenter.resetClicker();
     }
 
     @Override

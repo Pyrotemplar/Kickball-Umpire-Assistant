@@ -4,7 +4,7 @@
     <integer name="DEFAULT_MAX_FOULS">4</integer>
     <integer name="DEFAULT_MAX_OUTS">3</integer>
     <integer name="DEFAULT_MAX_STRIKE">3</integer>
-    <integer name="DEFAULT_MAX_INNINGS">6</integer>
+    <integer name="DEFAULT_MAX_INNINGS">15</integer>
 
 
     <integer name="DEFAULT_STARTING_BALLS">0</integer>

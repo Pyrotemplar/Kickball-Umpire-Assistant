@@ -1,9 +1,11 @@
 package com.pyrotemplar.refereehelper.TabAcivity;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.Toast;
 
@@ -81,7 +83,8 @@ public class TabActivity extends AppCompatActivity implements TabActivityContrac
 
     @Override
     public void onBackPressed() {
-        if (back_pressed + 2000 > System.currentTimeMillis()) {
+
+       /* if (back_pressed + 2000 > System.currentTimeMillis()) {
             super.onBackPressed();
         } else {
             Toast.makeText(getBaseContext(),
@@ -89,6 +92,22 @@ public class TabActivity extends AppCompatActivity implements TabActivityContrac
                     .show();
         }
         back_pressed = System.currentTimeMillis();
+*/
+
+        AlertDialog.Builder builder =  new AlertDialog.Builder(this)
+                .setTitle("Exit")
+                .setMessage("Exiting will Reset Clicker Data.")
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        finish();
+                    }
+                })
+                .setNegativeButton("No", null);
+
+        AlertDialog alertDialog = builder.create();
+        alertDialog.getWindow().setBackgroundDrawableResource(R.color.colorPrimary);
+        alertDialog.show();
     }
 }
 

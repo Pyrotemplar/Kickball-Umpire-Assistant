@@ -78,7 +78,7 @@ public class ClickerView extends Fragment implements ClickerContract.View {
     private GameClockDialogFragment gameClockDialogFragment;
     private Bundle mArgs;
 
-    private ClickerContract.Presenter mPresenter;
+    private static ClickerContract.Presenter mPresenter;
     private boolean isViewShown;
 
 
@@ -123,13 +123,13 @@ public class ClickerView extends Fragment implements ClickerContract.View {
                 mPresenter.updateAwayTeamBanner(data.getStringExtra("teamName"), data.getIntExtra("teamColor", 0));
             else if (data.getStringExtra("caller") == "homeTeamButton")
                 mPresenter.updateHomeTeamBanner(data.getStringExtra("teamName"), data.getIntExtra("teamColor", 0));
-            else if (data.getStringExtra("caller") == "gameClockButton"){
+            else if (data.getStringExtra("caller") == "gameClockButton") {
                 mPresenter.setGameClockString(Integer.parseInt(data.getStringExtra("newTime")));
                 mPresenter.startStopGameClock(true);
             }
-    }
+        }
 
-}
+    }
 
     @Override
     public void setPresenter(ClickerPresenter presenter) {
@@ -172,7 +172,7 @@ public class ClickerView extends Fragment implements ClickerContract.View {
     public void incrementRunButtonClicked(View view) {
 
         //mPresenter.incrementRun(view.getId());
-        if (mPresenter.incrementRun(view.getId()) && isHapticFeedbackEnabled )
+        if (mPresenter.incrementRun(view.getId()) && isHapticFeedbackEnabled)
             hapticFeedback(view);
     }
 
@@ -346,8 +346,11 @@ public class ClickerView extends Fragment implements ClickerContract.View {
         if (teamColor != 0) {
             GradientDrawable backgroundGradient = (GradientDrawable) awayTeamNameTextView.getBackground();
             backgroundGradient.setColor(teamColor);
-        }
+        } else {
+            GradientDrawable backgroundGradient = (GradientDrawable) awayTeamNameTextView.getBackground();
+            backgroundGradient.setColor(getResources().getColor(android.R.color.transparent));
 
+        }
     }
 
     @Override
@@ -357,7 +360,12 @@ public class ClickerView extends Fragment implements ClickerContract.View {
         if (teamColor != 0) {
             GradientDrawable backgroundGradient = (GradientDrawable) homeTeamNameTextView.getBackground();
             backgroundGradient.setColors(new int[]{Color.WHITE, teamColor});
+        } else {
+            GradientDrawable backgroundGradient = (GradientDrawable) homeTeamNameTextView.getBackground();
+            backgroundGradient.setColor(getResources().getColor(android.R.color.transparent));
+
         }
+
     }
 
     @Override
@@ -366,10 +374,19 @@ public class ClickerView extends Fragment implements ClickerContract.View {
     }
 
     @Override
-    public void setStartingCount( ) {
-       mPresenter.setStartingCount(sharedPreferences.getInt(getResources().getString(R.string.SP_STARTING_BALL_COUNT_KEY), 0),
-               sharedPreferences.getInt(getResources().getString(R.string.SP_STARTING_STRIKE_COUNT_KEY), 0),
-               sharedPreferences.getInt(getResources().getString(R.string.SP_STARTING_FOUL_COUNT_KEY), 0));
+    public void setStartingCount() {
+        mPresenter.setStartingCount(sharedPreferences.getInt(getResources().getString(R.string.SP_STARTING_BALL_COUNT_KEY), 0),
+                sharedPreferences.getInt(getResources().getString(R.string.SP_STARTING_STRIKE_COUNT_KEY), 0),
+                sharedPreferences.getInt(getResources().getString(R.string.SP_STARTING_FOUL_COUNT_KEY), 0),
+                sharedPreferences.getInt(getResources().getString(R.string.SP_STARTING_OUT_COUNT_KEY), 0));
+    }
+
+    public static void resetClickerData() {
+        mPresenter.resetData();
+    }
+
+    public void setMaxInnings() {
+        mPresenter.setMaxInnings(sharedPreferences.getInt(getResources().getString(R.string.SP_MAX_NUMBER_INNING_KEY), 5));
     }
 
     private void hapticFeedback(View view) {
@@ -384,8 +401,9 @@ public class ClickerView extends Fragment implements ClickerContract.View {
     public void updateSharePreferences() {
 
         isHapticFeedbackEnabled = sharedPreferences.getBoolean(getResources().getString(R.string.SP_HAPTIC_FEEDBACK_SETTINGS_KEY), false);
-        setStartingCount();
         mPresenter.setThreeFoulOption(sharedPreferences.getBoolean(getResources().getString(R.string.SP_THREE_FOULS_SETTINGS_KEY), false));
+        setStartingCount();
+        setMaxInnings();
     }
 
     @Override

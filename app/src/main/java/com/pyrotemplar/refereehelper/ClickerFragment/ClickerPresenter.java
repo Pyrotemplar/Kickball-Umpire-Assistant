@@ -29,14 +29,16 @@ public class ClickerPresenter implements ClickerContract.Presenter {
     private int startingBallCount;
     private int startingStrikeCount;
     private int startingFoulCount;
+    private int startingOutCount;
     private int inning;
+    private int maxInning;
     private int gameClockTime;
     private boolean isBottomOfInning;
     public static boolean isThreeFoulOptionEnabled;
+
+
     private GameCountState gameCountState;
     private GameTimer gameTimer;
-
-
     private Stack<GameCountState> undoStack;
     private Stack<GameCountState> redoStack;
     private final ClickerContract.View mClickerFragmentView;
@@ -63,7 +65,7 @@ public class ClickerPresenter implements ClickerContract.Presenter {
         strikeCount = startingStrikeCount;
         ballCount = startingBallCount;
         foulCount = startingFoulCount;
-        outCount = 0;
+        outCount = startingOutCount;
         inning = 1;
         gameClockTime = 2700 * 1000;
         isBottomOfInning = false;
@@ -279,11 +281,11 @@ public class ClickerPresenter implements ClickerContract.Presenter {
 
         int mod100 = inning % 100;
         int mod10 = inning % 10;
-        if(mod10 == 1 && mod100 != 11) {
+        if (mod10 == 1 && mod100 != 11) {
             return inning + "st";
-        } else if(mod10 == 2 && mod100 != 12) {
+        } else if (mod10 == 2 && mod100 != 12) {
             return inning + "nd";
-        } else if(mod10 == 3 && mod100 != 13) {
+        } else if (mod10 == 3 && mod100 != 13) {
             return inning + "rd";
         } else {
             return inning + "th";
@@ -320,7 +322,7 @@ public class ClickerPresenter implements ClickerContract.Presenter {
         }
         if (outCount == 3) {
             changeInning();
-            outCount = 0;
+            outCount = startingOutCount;
             ballCount = startingBallCount;
             strikeCount = startingStrikeCount;
             foulCount = startingFoulCount;
@@ -329,11 +331,15 @@ public class ClickerPresenter implements ClickerContract.Presenter {
 
     private void changeInning() {
 
+
         if (isBottomOfInning) {
-            inning++;
-            isBottomOfInning = false;
+            if (inning < maxInning) {
+                inning++;
+                isBottomOfInning = false;
+            }
         } else
             isBottomOfInning = true;
+
     }
 
     private void updateGameCountState() {
@@ -357,20 +363,29 @@ public class ClickerPresenter implements ClickerContract.Presenter {
         gameClockTime = (int) gameTimer.millisUntilFinished;
     }
 
-    public void setStartingCount(int startingBallCount, int startingStrikeCount, int startingFoulCount){
+    public void setStartingCount(int startingBallCount, int startingStrikeCount, int startingFoulCount, int startingOutCount) {
         this.startingBallCount = startingBallCount;
         this.startingStrikeCount = startingStrikeCount;
         this.startingFoulCount = startingFoulCount;
+        this.startingOutCount = startingOutCount;
 
         strikeCount = startingStrikeCount;
         ballCount = startingBallCount;
         foulCount = startingFoulCount;
+        outCount = startingOutCount;
 
         updatedFields();
 
 
     }
 
+    public void setMaxInnings(int maxInnings) {
+        this.maxInning = maxInnings;
+    }
 
+    public void resetData(){
+        startStopGameClock(true);
+        initializeCountFields();
+    }
 
 }

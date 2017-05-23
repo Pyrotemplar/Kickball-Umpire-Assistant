@@ -4,9 +4,6 @@ import android.content.Context;
 import android.support.v7.preference.Preference;
 import android.support.v7.preference.PreferenceViewHolder;
 import android.util.AttributeSet;
-import android.view.View;
-import android.widget.Toast;
-
 
 import com.michaelmuenzer.android.scrollablennumberpicker.ScrollableNumberPicker;
 import com.michaelmuenzer.android.scrollablennumberpicker.ScrollableNumberPickerListener;
@@ -26,13 +23,11 @@ public class NumberSelectorPreferenceWidget extends Preference {
         super.onBindViewHolder(holder);
 
         scrollableNumberPicker = (ScrollableNumberPicker) holder.findViewById(R.id.number_picker);
-        setMax();
-
         scrollableNumberPicker.setValue(NumberSelectorPreferenceWidget.this.getPersistedInt(0));
         scrollableNumberPicker.setListener(new ScrollableNumberPickerListener() {
             @Override
             public void onNumberPicked(int value) {
-
+                setMax();
                 NumberSelectorPreferenceWidget.this.persistInt(value);
             }
         });
@@ -41,26 +36,28 @@ public class NumberSelectorPreferenceWidget extends Preference {
     @Override
     protected void onClick() {
         super.onClick();
-        scrollableNumberPicker.setValue(scrollableNumberPicker.getValue()+1);
+        scrollableNumberPicker.setValue(scrollableNumberPicker.getValue() + 1);
     }
 
-    void setMax(){
-        if(NumberSelectorPreferenceWidget.this.getKey() == getContext().getString(R.string.SP_STARTING_BALL_COUNT_KEY)){
+    void setMax() {
+        if (NumberSelectorPreferenceWidget.this.getKey() == getContext().getString(R.string.SP_STARTING_BALL_COUNT_KEY)) {
             scrollableNumberPicker.setMaxValue(getContext().getResources().getInteger(R.integer.DEFAULT_MAX_BALLS) - 1);
         }
-        if(NumberSelectorPreferenceWidget.this.getKey() == getContext().getString(R.string.SP_STARTING_FOUL_COUNT_KEY)){
-            scrollableNumberPicker.setMaxValue(getContext().getResources().getInteger(R.integer.DEFAULT_MAX_FOULS) -1);
+        if (NumberSelectorPreferenceWidget.this.getKey() == getContext().getString(R.string.SP_STARTING_STRIKE_COUNT_KEY)) {
+            scrollableNumberPicker.setMaxValue(getContext().getResources().getInteger(R.integer.DEFAULT_MAX_STRIKE) - 1);
         }
-        if(NumberSelectorPreferenceWidget.this.getKey() == getContext().getString(R.string.SP_STARTING_OUT_COUNT_KEY)){
-            scrollableNumberPicker.setMaxValue(getContext().getResources().getInteger(R.integer.DEFAULT_MAX_OUTS) -1);
+        if (NumberSelectorPreferenceWidget.this.getKey() == getContext().getString(R.string.SP_STARTING_FOUL_COUNT_KEY)) {
+            if (getSharedPreferences().getBoolean(getContext().getString(R.string.SP_THREE_FOULS_SETTINGS_KEY), false))
+                scrollableNumberPicker.setMaxValue(getContext().getResources().getInteger(R.integer.DEFAULT_MAX_FOULS) - 2);
+            else
+                scrollableNumberPicker.setMaxValue(getContext().getResources().getInteger(R.integer.DEFAULT_MAX_FOULS) - 1);
         }
-        if(NumberSelectorPreferenceWidget.this.getKey() == getContext().getString(R.string.SP_STARTING_STRIKE_COUNT_KEY)){
-            scrollableNumberPicker.setMaxValue(getContext().getResources().getInteger(R.integer.DEFAULT_MAX_STRIKE) -1);
+        if (NumberSelectorPreferenceWidget.this.getKey() == getContext().getString(R.string.SP_STARTING_OUT_COUNT_KEY)) {
+            scrollableNumberPicker.setMaxValue(getContext().getResources().getInteger(R.integer.DEFAULT_MAX_OUTS) - 1);
         }
-        if(NumberSelectorPreferenceWidget.this.getKey() == getContext().getString(R.string.SP_MAX_NUMBER_INNING_KEY)){
+        if (NumberSelectorPreferenceWidget.this.getKey() == getContext().getString(R.string.SP_MAX_NUMBER_INNING_KEY)) {
             scrollableNumberPicker.setMaxValue(getContext().getResources().getInteger(R.integer.DEFAULT_MAX_INNINGS));
         }
-
 
     }
 

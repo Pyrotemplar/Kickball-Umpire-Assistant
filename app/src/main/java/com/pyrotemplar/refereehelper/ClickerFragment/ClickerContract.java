@@ -100,7 +100,11 @@ interface ClickerContract {
 
         void updateGameClock(long millisUntilFinished);
 
-        void setStartingCount(int startingBallCount, int startingStrikeCount, int startingFoulCount);
+        void setStartingCount(int startingBallCount, int startingStrikeCount, int startingFoulCount, int startingOutCount);
+
+        void setMaxInnings(int maxInnings);
+
+        void resetData();
     }
 
     interface Model {

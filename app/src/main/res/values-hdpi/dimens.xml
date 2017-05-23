@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <dimen name="textSize">20sp</dimen>
-    <dimen name="LargeTextSize">25sp</dimen>
-    <dimen name="scoreTextSize">35sp</dimen>
-</resources>

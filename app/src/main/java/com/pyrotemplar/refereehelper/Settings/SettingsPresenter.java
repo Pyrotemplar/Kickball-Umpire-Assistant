@@ -15,4 +15,8 @@ public class SettingsPresenter implements SettingsContract.Presenter {
         mSettingsView.setPresenter(this);
     }
 
+    @Override
+    public void resetClicker() {
+
+    }
 }
