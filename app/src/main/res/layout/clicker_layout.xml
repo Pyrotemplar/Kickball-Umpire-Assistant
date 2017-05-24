@@ -35,7 +35,8 @@
                 android:id="@+id/awayArrowImageView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:srcCompat="@android:drawable/arrow_down_float" />
+                app:srcCompat="@android:drawable/arrow_down_float"
+                />
 
             <TextView
                 android:id="@+id/awayTeamNameTextView"
@@ -145,7 +146,7 @@
         android:layout_height="wrap_content"
         android:shadowColor="#000000"
         android:shadowRadius="3"
-        android:text="Inning"
+        android:text="@string/inning"
         android:textColor="@color/colorPrimaryText"
         android:textSize="@dimen/LargeTextSize"
         android:textStyle="bold"
@@ -153,7 +154,8 @@
         android:layout_marginTop="8dp"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintLeft_toRightOf="@+id/linearLayout2"
-        android:layout_marginRight="8dp" />
+        android:layout_marginRight="8dp"
+        android:layout_marginEnd="8dp"/>
 
     <TextView
         android:id="@+id/inningCountTextView"
@@ -181,7 +183,8 @@
         app:layout_constraintVertical_bias="0.65"
         app:layout_constraintTop_toTopOf="@+id/inningCountTextView"
         app:layout_constraintLeft_toRightOf="@+id/linearLayout2"
-        android:layout_marginLeft="16dp" />
+        android:layout_marginLeft="16dp"
+        android:layout_marginStart="16dp"/>
 
     <Button
         android:id="@+id/kickerIsSafeButton"
@@ -193,7 +196,7 @@
         android:paddingTop="10dp"
         android:shadowColor="#000000"
         android:shadowRadius="3"
-        android:text="Kicker is safe!"
+        android:text="@string/kicker_is_safe"
         android:textAllCaps="false"
         android:textColor="@color/colorPrimaryText"
         android:textSize="@dimen/LargeTextSize"
@@ -219,7 +222,7 @@
         android:paddingTop="10dp"
         android:shadowColor="#000000"
         android:shadowRadius="3"
-        android:text="Runner scored!"
+        android:text="@string/runner_scored"
         android:textAllCaps="false"
         android:textColor="@color/colorPrimaryText"
         android:textSize="@dimen/LargeTextSize"
@@ -237,6 +240,7 @@
 
     <LinearLayout
         android:layout_width="0dp"
+        android:baselineAligned="false"
         android:layout_height="wrap_content"
         app:layout_constraintLeft_toLeftOf="parent"
         android:layout_marginRight="8dp"
@@ -260,6 +264,7 @@
             android:background="@drawable/game_clock_button_press_animation"
             android:clickable="true"
             android:layout_marginRight="5dp"
+            android:layout_marginEnd="5dp"
             android:layout_weight="1"
             android:longClickable="true"
             android:orientation="vertical"
@@ -272,7 +277,7 @@
                 android:layout_height="wrap_content"
                 android:shadowColor="#000000"
                 android:shadowRadius="3"
-                android:text="Game Clock"
+                android:text="@string/game_clock"
                 android:textAlignment="center"
                 android:textColor="@color/colorPrimaryText"
                 android:textSize="@dimen/textSize"
@@ -287,7 +292,6 @@
                 android:gravity="center"
                 android:shadowColor="#000000"
                 android:shadowRadius="3"
-
                 android:textAlignment="center"
                 android:textColor="@color/colorPrimaryText"
                 android:textSize="@dimen/LargeTextSize"
@@ -303,6 +307,7 @@
             android:layout_height="wrap_content"
             android:background="@drawable/ball_button_press_animation"
             android:clickable="true"
+            android:layout_marginStart="5dp"
             android:layout_marginLeft="5dp"
             android:layout_weight=".5"
             android:orientation="vertical"
@@ -319,7 +324,7 @@
                 android:layout_gravity="center"
                 android:shadowColor="#000000"
                 android:shadowRadius="3"
-                android:text="Undo"
+                android:text="@string/undo"
                 android:textColor="@color/colorPrimaryText"
                 android:textSize="@dimen/textSize"
                 android:textStyle="bold" />
@@ -354,7 +359,7 @@
                 android:layout_gravity="center"
                 android:shadowColor="#000000"
                 android:shadowRadius="3"
-                android:text="Redo"
+                android:text="@string/redo"
                 android:textColor="@color/colorPrimaryText"
                 android:textSize="@dimen/textSize"
                 android:textStyle="bold" />
@@ -378,6 +383,7 @@
         android:layout_marginRight="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
+        android:baselineAligned="false"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
@@ -409,7 +415,8 @@
                 android:text="Ball"
                 android:textColor="@color/colorPrimaryText"
                 android:textSize="@dimen/textSize"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                tools:ignore="HardcodedText" />
 
             <TextView
                 android:id="@+id/ballCountTextView"
@@ -446,7 +453,7 @@
                 android:layout_gravity="center"
                 android:shadowColor="#000000"
                 android:shadowRadius="3"
-                android:text="Strike"
+                android:text="@string/strike"
                 android:textColor="@color/colorPrimaryText"
                 android:textSize="@dimen/textSize"
                 android:textStyle="bold" />
@@ -485,7 +492,7 @@
                 android:layout_gravity="center"
                 android:shadowColor="#000000"
                 android:shadowRadius="3"
-                android:text="Foul"
+                android:text="@string/foul"
                 android:textColor="@color/colorPrimaryText"
                 android:textSize="@dimen/textSize"
                 android:textStyle="bold" />
@@ -511,6 +518,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
+            android:layout_marginStart="10dp"
             android:layout_weight="1"
             android:background="@drawable/out_button_press_animation"
             android:clickable="true"
@@ -527,7 +535,7 @@
                 android:layout_gravity="center"
                 android:shadowColor="#000000"
                 android:shadowRadius="3"
-                android:text="Out"
+                android:text="@string/out"
                 android:textColor="@color/colorPrimaryText"
                 android:textSize="@dimen/textSize"
                 android:textStyle="bold" />
