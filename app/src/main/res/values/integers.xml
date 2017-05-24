@@ -11,5 +11,6 @@
     <integer name="DEFAULT_STARTING_FOULS">0</integer>
     <integer name="DEFAULT_STARTING_OUTS">0</integer>
     <integer name="DEFAULT_STARTING_STRIKE">0</integer>
+    <integer name="DEFAULT_STARTING_INNING">6</integer>
 
 </resources>

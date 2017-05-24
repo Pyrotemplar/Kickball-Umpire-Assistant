@@ -60,7 +60,6 @@
             android:widgetLayout="@layout/custom_preference" />
     </android.support.v7.preference.PreferenceCategory>
 
-    <!--
      <android.support.v7.preference.PreferenceCategory android:title="About the App">
          <android.support.v7.preference.PreferenceScreen
              android:key="screen_preference"
@@ -89,11 +88,6 @@
 
 
      </android.support.v7.preference.PreferenceCategory>
-
-
-
-
- -->
 
 
 </android.support.v7.preference.PreferenceScreen>
