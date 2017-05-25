@@ -42,8 +42,8 @@ public class ClickerView extends Fragment implements ClickerContract.View {
     @BindView(R.id.homeTeamNameTextView)
     TextView homeTeamNameTextView;
 
-    @BindView(R.id.homeTeamBannerLayout)
-    LinearLayout homeTeamBannerLayout;
+/*    @BindView(R.id.homeTeamBannerLayout)
+    LinearLayout homeTeamBannerLayout;*/
 
     @BindView(R.id.awayTeamScoreTextView)
     TextView awayTeamScoreTextView;
@@ -341,13 +341,12 @@ public class ClickerView extends Fragment implements ClickerContract.View {
     }
 
     @Override
-    public void updateAwayTeamBannerView(String awayTeamName, int teamColor) {
-        awayTeamNameTextView.setText(awayTeamName);
+    public void updateAwayTeamBannerView(String teamName, int teamColor) {
+        awayTeamNameTextView.setText(teamName);
+        GradientDrawable backgroundGradient = (GradientDrawable) awayTeamNameTextView.getBackground();
         if (teamColor != 0) {
-            GradientDrawable backgroundGradient = (GradientDrawable) awayTeamNameTextView.getBackground();
             backgroundGradient.setColor(teamColor);
         } else {
-            GradientDrawable backgroundGradient = (GradientDrawable) awayTeamNameTextView.getBackground();
             backgroundGradient.setColor(getResources().getColor(android.R.color.transparent));
 
         }
@@ -357,11 +356,10 @@ public class ClickerView extends Fragment implements ClickerContract.View {
     public void updateHomeTeamBannerView(String teamName, int teamColor) {
 
         homeTeamNameTextView.setText(teamName);
+        GradientDrawable backgroundGradient = (GradientDrawable) homeTeamNameTextView.getBackground();
         if (teamColor != 0) {
-            GradientDrawable backgroundGradient = (GradientDrawable) homeTeamNameTextView.getBackground();
             backgroundGradient.setColors(new int[]{Color.WHITE, teamColor});
         } else {
-            GradientDrawable backgroundGradient = (GradientDrawable) homeTeamNameTextView.getBackground();
             backgroundGradient.setColor(getResources().getColor(android.R.color.transparent));
 
         }
