@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE resources [
-    <!ENTITY appname "Kickball Referee Helper">
+    <!ENTITY appname "Kickball Ref">
     <!ENTITY author "Pyrotemplar">
     ]>
 <resources>
-    <string name="app_name">Kickball Referee Helper</string>
+    <string name="app_name">Kickball Ref</string>
 
 
 

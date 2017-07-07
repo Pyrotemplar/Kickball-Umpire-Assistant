@@ -33,8 +33,9 @@ public class ClickerPresenter implements ClickerContract.Presenter {
     private int inning;
     private int maxInning;
     private int gameClockTime;
+    private String GameClockString;
     private boolean isBottomOfInning;
-    public static boolean isThreeFoulOptionEnabled;
+    private boolean isThreeFoulOptionEnabled;
 
 
     private GameCountState gameCountState;
@@ -93,6 +94,7 @@ public class ClickerPresenter implements ClickerContract.Presenter {
 
     @Override
     public void incrementBall() {
+
         updateGameCountState();
         undoStack.push(gameCountState);
         redoStack.clear();
@@ -102,6 +104,7 @@ public class ClickerPresenter implements ClickerContract.Presenter {
         updateGameCountState();
         countLogic();
         updatedFields();
+
     }
 
     @Override
@@ -255,7 +258,7 @@ public class ClickerPresenter implements ClickerContract.Presenter {
             gameTimer = new GameTimer(gameClockTime, 1000, this);
             isGameClockRunning = false;
         } else {
-            if (!newTime) {
+            if (!newTime && (!GameClockString.equals("Time's Up"))) {
                 gameTimer.start();
                 isGameClockRunning = true;
             }
@@ -265,13 +268,14 @@ public class ClickerPresenter implements ClickerContract.Presenter {
 
     @Override
     public void updateGameClock(long millisUntilFinished) {
-        String GameClockString;
-        if (millisUntilFinished != 0l) {
+
+        if (millisUntilFinished != 0L) {
             GameClockString = String.format("%02d:%02d",
                     TimeUnit.MILLISECONDS.toMinutes(millisUntilFinished),
                     TimeUnit.MILLISECONDS.toSeconds(millisUntilFinished) - TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(millisUntilFinished)));
         } else {
             GameClockString = "Time's Up";
+            isGameClockRunning = false;
         }
 
         mClickerFragmentView.updateGameClockTextView(GameClockString);
@@ -355,7 +359,7 @@ public class ClickerPresenter implements ClickerContract.Presenter {
         gameCountState.setBotOfInning(isBottomOfInning);
     }
 
-    public void initializeGameClock() {
+    private void initializeGameClock() {
         //isGameClockRunning = false;
         gameTimer = new GameTimer(gameClockTime, 1000, this);
         gameTimer.start();
@@ -383,7 +387,7 @@ public class ClickerPresenter implements ClickerContract.Presenter {
         this.maxInning = maxInnings;
     }
 
-    public void resetData(){
+    public void resetData() {
         startStopGameClock(true);
         initializeCountFields();
     }

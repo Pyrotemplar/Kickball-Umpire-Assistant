@@ -119,11 +119,11 @@ public class ClickerView extends Fragment implements ClickerContract.View {
             //todo: update the teams name and color from intent.
 
 
-            if (data.getStringExtra("caller") == "awayTeamButton")
+            if (data.getStringExtra("caller").equals("awayTeamButton"))
                 mPresenter.updateAwayTeamBanner(data.getStringExtra("teamName"), data.getIntExtra("teamColor", 0));
-            else if (data.getStringExtra("caller") == "homeTeamButton")
+            else if (data.getStringExtra("caller").equals("homeTeamButton"))
                 mPresenter.updateHomeTeamBanner(data.getStringExtra("teamName"), data.getIntExtra("teamColor", 0));
-            else if (data.getStringExtra("caller") == "gameClockButton") {
+            else if (data.getStringExtra("caller").equals("gameClockButton")) {
                 mPresenter.setGameClockString(Integer.parseInt(data.getStringExtra("newTime")));
                 mPresenter.startStopGameClock(true);
             }
@@ -347,6 +347,7 @@ public class ClickerView extends Fragment implements ClickerContract.View {
         if (teamColor != 0) {
             backgroundGradient.setColor(teamColor);
         } else {
+            //noinspection deprecation
             backgroundGradient.setColor(getResources().getColor(android.R.color.transparent));
 
         }
@@ -358,8 +359,10 @@ public class ClickerView extends Fragment implements ClickerContract.View {
         homeTeamNameTextView.setText(teamName);
         GradientDrawable backgroundGradient = (GradientDrawable) homeTeamNameTextView.getBackground();
         if (teamColor != 0) {
-            backgroundGradient.setColors(new int[]{Color.WHITE, teamColor});
+            backgroundGradient.setColor(teamColor);
+            //backgroundGradient.setColors(new int[]{Color.WHITE, teamColor});
         } else {
+            //noinspection deprecation
             backgroundGradient.setColor(getResources().getColor(android.R.color.transparent));
 
         }
