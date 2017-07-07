@@ -11,7 +11,6 @@ public interface SettingsContract {
     }
 
     interface Presenter {
-       void resetClicker();
 
     }
 }

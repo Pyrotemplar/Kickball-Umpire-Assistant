@@ -1,8 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE resources [
+    <!ENTITY appname "Kickball Referee Helper">
+    <!ENTITY author "Pyrotemplar">
+    ]>
 <resources>
-    <string name="app_name">RefereeHelper</string>
+    <string name="app_name">Kickball Referee Helper</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+
 
     <!--Message String-->
     <string name="MS_ERROR_WARNING_EDIT_GAME_CLOCK">Must be between 1 &#8211; 180 Minutes</string>
@@ -19,6 +23,8 @@
     <string name="SP_STARTING_FOUL_COUNT_KEY">startingFoulCountSettingKey</string>
     <string name="SP_STARTING_OUT_COUNT_KEY">startingOutCountSettingKey</string>
     <string name="SP_MAX_NUMBER_INNING_KEY">maxNumberOfInningSettingKey</string>
+    <string name="SP_FEEDBACK_KEY">feedbackKey</string>
+    <string name="SP_RATE_APP_KEY">rateAppKey</string>
     <string name="inning">Inning</string>
     <string name="out">Out</string>
     <string name="foul">Foul</string>
@@ -28,5 +34,13 @@
     <string name="runner_scored">Runner scored!</string>
     <string name="kicker_is_safe">Kicker is safe!</string>
     <string name="game_clock">Game Clock</string>
+
+    <string name="SP_FEEDBACK_SUBJECT">Feedback For RefereeHelper</string>
+    <string name="SP_FEEDBACK_BUTTON_SUMMARY">Report any bugs or improvements to &appname;.</string>
+
+    <string name="SP_RATE_APP_SUMMARY">Rate &appname; if you enjoyed using it.</string>
+    <string name="SP_APP_INFO_TITLE">App Info</string>
+
+    <string name="SP_APP_INFO_SUMMARY">Version 1.0</string>
 
 </resources>

@@ -1,6 +1,9 @@
 package com.pyrotemplar.refereehelper.Settings;
 
+import android.content.ActivityNotFoundException;
+import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.preference.Preference;
@@ -66,9 +69,23 @@ public class SettingsView extends PreferenceFragmentCompat implements SharedPref
 
     @Override
     public boolean onPreferenceTreeClick(Preference preference) {
-        if (preference.getKey() == getResources().getString(R.string.SP_RESET_CLICKER_DATA_SETTINGS_KEY))
+        if (preference.getKey().equals(getResources().getString(R.string.SP_RESET_CLICKER_DATA_SETTINGS_KEY)))
             resetClicker();
+        if (preference.getKey().equals(getResources().getString(R.string.SP_RATE_APP_KEY)))
+            rateApp();
         return super.onPreferenceTreeClick(preference);
+    }
+
+    private void rateApp() {
+
+        Uri uri = Uri.parse("market://details?id=" + getActivity().getPackageName());
+        Intent myAppLinkToMarket = new Intent(Intent.ACTION_VIEW, uri);
+        try {
+            startActivity(myAppLinkToMarket);
+        } catch (ActivityNotFoundException e) {
+            Toast.makeText(getContext(), " unable to find market app", Toast.LENGTH_LONG).show();
+        }
+
     }
 
     @Override
@@ -78,7 +95,6 @@ public class SettingsView extends PreferenceFragmentCompat implements SharedPref
     private void resetClicker() {
         ConfirmationDialogFragment confirmationDialogFragment = new ConfirmationDialogFragment();
         confirmationDialogFragment.show(getFragmentManager(), "TAG");
-        mPresenter.resetClicker();
     }
 
     @Override

@@ -3,16 +3,17 @@
 
     <android.support.v7.preference.PreferenceCategory android:title="General Settings">
 
+        <android.support.v7.preference.Preference
+            android:key="@string/SP_RESET_CLICKER_DATA_SETTINGS_KEY"
+            android:summary="Reset clicker and start new game"
+            android:title="Reset Clicker" />
+
         <android.support.v7.preference.CheckBoxPreference
             android:defaultValue="true"
             android:key="@string/SP_HAPTIC_FEEDBACK_SETTINGS_KEY"
             android:summary="Phone will vibrate when buttons are touched"
             android:title="Vibrate on touch" />
 
-        <android.support.v7.preference.Preference
-            android:key="@string/SP_RESET_CLICKER_DATA_SETTINGS_KEY"
-            android:title="Reset Clicker"
-            android:summary="Reset clicker and start new game"/>
 
     </android.support.v7.preference.PreferenceCategory>
 
@@ -60,34 +61,34 @@
             android:widgetLayout="@layout/custom_preference" />
     </android.support.v7.preference.PreferenceCategory>
 
-     <android.support.v7.preference.PreferenceCategory android:title="About the App">
-         <android.support.v7.preference.PreferenceScreen
-             android:key="screen_preference"
-             android:title="Feedback"
-             android:summary="summary_screen_preference">
+    <android.support.v7.preference.PreferenceCategory android:title="About the App">
+        <android.support.v7.preference.Preference
+            android:key="@string/SP_FEEDBACK_KEY"
+            android:summary="@string/SP_FEEDBACK_BUTTON_SUMMARY"
+            android:title="Feedback">
+            <intent
+                android:action="android.intent.action.VIEW"
+                android:data="@string/feedback_email">
+                <extra
+                    android:name="android.intent.extra.SUBJECT"
+                    android:value="@string/SP_FEEDBACK_SUBJECT" />
 
-             <CheckBoxPreference
-                 android:key="next_screen_checkbox_preference"
-                 android:title="title_next_screen_toggle_preference"
-                 android:summary="summary_next_screen_toggle_preference" />
-         </android.support.v7.preference.PreferenceScreen>
+            </intent>
 
-         <android.support.v7.preference.PreferenceScreen
-             android:title="Rate the App"
-             android:summary="Rate the app if you enjoy using it">
-
-             <intent android:action="android.intent.action.VIEW"
-                 android:data="http://www.android.com" />
-
-         </android.support.v7.preference.PreferenceScreen>
-
-         <android.support.v7.preference.PreferenceScreen
-             android:key="screen_preference"
-             android:title="App Info"
-             android:summary="Information about @string/app_name"/>
+        </android.support.v7.preference.Preference>
 
 
-     </android.support.v7.preference.PreferenceCategory>
+        <android.support.v7.preference.Preference
+            android:key="@string/SP_RATE_APP_KEY"
+            android:summary="@string/SP_RATE_APP_SUMMARY"
+            android:title="Rate App">
 
+        </android.support.v7.preference.Preference>
 
+        <android.support.v7.preference.Preference
+            android:key="SP_APP_INFO_KEY"
+            android:summary="@string/SP_APP_INFO_SUMMARY"
+            android:title="@string/SP_APP_INFO_TITLE" />
+
+    </android.support.v7.preference.PreferenceCategory>
 </android.support.v7.preference.PreferenceScreen>
