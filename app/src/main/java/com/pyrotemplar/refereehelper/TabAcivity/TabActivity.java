@@ -95,15 +95,15 @@ public class TabActivity extends AppCompatActivity implements TabActivityContrac
 */
 
         AlertDialog.Builder builder =  new AlertDialog.Builder(this)
-                .setTitle("Exit")
-                .setMessage("Exiting will Reset Clicker Data.")
-                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                .setTitle("Exit?")
+                .setMessage(getResources().getString(R.string.EXIT_MASSAGE_PROMPT))
+                .setPositiveButton("Exit", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         finish();
                     }
                 })
-                .setNegativeButton("No", null);
+                .setNegativeButton("Cancel", null);
 
         AlertDialog alertDialog = builder.create();
         alertDialog.getWindow().setBackgroundDrawableResource(R.color.colorPrimary);

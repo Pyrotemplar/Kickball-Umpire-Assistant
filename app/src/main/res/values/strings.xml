@@ -41,6 +41,7 @@
     <string name="SP_RATE_APP_SUMMARY">Rate &appname; if you enjoyed using it.</string>
     <string name="SP_APP_INFO_TITLE">App Info</string>
 
-    <string name="SP_APP_INFO_SUMMARY">Version 1.0</string>
+    <string name="SP_APP_INFO_SUMMARY">&appname; \nVersion 1.0</string>
+    <string name="EXIT_MASSAGE_PROMPT">Exiting will Reset Game Data.</string>
 
 </resources>
