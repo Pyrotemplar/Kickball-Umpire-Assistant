@@ -5,7 +5,7 @@
     ]>
 <resources>
     <string name="app_name">Kickball Referee Assistant</string>
-
+    <string name="test_banner_ad">ca-app-pub-3940256099942544/6300978111</string>
 
 
     <!--Message String-->
@@ -43,5 +43,4 @@
 
     <string name="SP_APP_INFO_SUMMARY">&appname; \nVersion 1.0</string>
     <string name="EXIT_MASSAGE_PROMPT">Exiting will Reset Game Data.</string>
-
 </resources>
