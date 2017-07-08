@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE resources [
-    <!ENTITY appname "Kickball Ref">
+    <!ENTITY appname "Kickball Referee Assistant">
     <!ENTITY author "Pyrotemplar">
     ]>
 <resources>
-    <string name="app_name">Kickball Ref</string>
+    <string name="app_name">Kickball Referee Assistant</string>
 
 
 
@@ -35,7 +35,7 @@
     <string name="kicker_is_safe">Kicker is safe!</string>
     <string name="game_clock">Game Clock</string>
 
-    <string name="SP_FEEDBACK_SUBJECT">Feedback For RefereeHelper</string>
+    <string name="SP_FEEDBACK_SUBJECT">Feedback for &appname;</string>
     <string name="SP_FEEDBACK_BUTTON_SUMMARY">Report any bugs or improvements to &appname;.</string>
 
     <string name="SP_RATE_APP_SUMMARY">Rate &appname; if you enjoyed using it.</string>
