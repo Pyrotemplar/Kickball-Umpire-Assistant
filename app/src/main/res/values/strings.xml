@@ -5,6 +5,7 @@
     ]>
 <resources>
     <string name="app_name">Kickball Referee Assistant</string>
+    <string name="app_name_icon">Kickball Ref Assistant</string>
     <string name="test_banner_ad">ca-app-pub-3940256099942544/6300978111</string>
     <string name="feedback_email">mailto:pyrotemplardev@gmail.com</string>
 

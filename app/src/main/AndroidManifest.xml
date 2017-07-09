@@ -3,7 +3,6 @@
     package="com.pyrotemplar.refereehelper">
 
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <supports-screens android:smallScreens="true"
         android:normalScreens="true"
@@ -20,7 +19,7 @@
         android:theme="@style/AppTheme">
         <activity
             android:name="com.pyrotemplar.refereehelper.TabAcivity.TabActivity"
-            android:label="@string/app_name"
+            android:label="@string/app_name_icon"
             android:screenOrientation="portrait"
             android:launchMode="singleTop">
 

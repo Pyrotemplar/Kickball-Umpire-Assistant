@@ -34,7 +34,7 @@ public class TabActivity extends AppCompatActivity implements TabActivityContrac
 
     private PageAdapter mPageAdapter;
     private TabActivityPresenter presenter;
-    private long back_pressed;
+    // private long back_pressed;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -50,19 +50,19 @@ public class TabActivity extends AppCompatActivity implements TabActivityContrac
         //disable the scrolling of views.
         mPager.setPagingEnabled(false);
         //start app on clicker tab(2)
-      //  mPager.setCurrentItem(2);
+        //  mPager.setCurrentItem(2);
         mPager.setOffscreenPageLimit(2);
         mTabLayout.setupWithViewPager(mPager);
         presenter.setTabIcons();
 
-        AdRequest adRequest = new AdRequest.Builder().addTestDevice(AdRequest.DEVICE_ID_EMULATOR).
-                addTestDevice(Settings.Secure.getString(getApplicationContext().getContentResolver(),
-                Settings.Secure.ANDROID_ID)).build();
+
+        // AdRequest adRequest = new AdRequest.Builder().addTestDevice(AdRequest.DEVICE_ID_EMULATOR).addTestDevice(Settings.Secure.getString(getApplicationContext().getContentResolver(),Settings.Secure.ANDROID_ID)).build();
 
         // change request to this line for publishing.
-        //AdRequest adRequest = new AdRequest.Builder().build();
+        AdRequest adRequest = new AdRequest.Builder().build();
 
-        adView.loadAd(adRequest);
+        // TODO: 7/9/2017 Remove comments to turn on ads
+        //adView.loadAd(adRequest);
 
 
     }
@@ -71,14 +71,16 @@ public class TabActivity extends AppCompatActivity implements TabActivityContrac
     public void showTabIcons(int location, int tabIconId, String IconText) {
 
         // Populates Tabs with icons
-         //  ImageView imageView = new ImageView(this);
-         //  imageView.setImageResource(tabIconId);
+        //  ImageView imageView = new ImageView(this);
+        //  imageView.setImageResource(tabIconId);
         //   imageView.setPadding(0,10,0,20);
 
-          //mTabLayout.getTabAt(location).setCustomView(imageView);
+        //mTabLayout.getTabAt(location).setCustomView(imageView);
 
-        mTabLayout.getTabAt(location).setIcon(tabIconId);
-        mTabLayout.getTabAt(location).setText(IconText);
+        if (mTabLayout.getTabAt(location) != null) {
+            mTabLayout.getTabAt(location).setIcon(tabIconId);
+            mTabLayout.getTabAt(location).setText(IconText);
+        }
     }
 
     @Override
@@ -94,7 +96,7 @@ public class TabActivity extends AppCompatActivity implements TabActivityContrac
         back_pressed = System.currentTimeMillis();
 */
 
-        AlertDialog.Builder builder =  new AlertDialog.Builder(this)
+        AlertDialog.Builder builder = new AlertDialog.Builder(this)
                 .setTitle("Exit?")
                 .setMessage(getResources().getString(R.string.EXIT_MASSAGE_PROMPT))
                 .setPositiveButton("Exit", new DialogInterface.OnClickListener() {

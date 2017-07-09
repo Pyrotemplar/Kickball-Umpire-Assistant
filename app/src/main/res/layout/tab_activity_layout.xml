@@ -32,7 +32,7 @@
             android:layout_height="wrap_content"
             ads:adSize="BANNER"
             android:layout_alignParentBottom="true"
-            ads:adUnitId="@string/test_banner_ad">
+            ads:adUnitId="@string/production_banner_ad">
         </com.google.android.gms.ads.AdView>
     </RelativeLayout>
 </LinearLayout>
