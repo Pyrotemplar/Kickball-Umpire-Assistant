@@ -167,11 +167,10 @@ public class ClickerView extends Fragment implements ClickerContract.View {
         return true;
     }
 
-    @OnClick({R.id.awayTeamBannerLayout, R.id.homeTeamBannerLayout, R.id.runnerScoredButton})
+    @OnClick({R.id.awayTeamBannerLayout, R.id.homeTeamBannerLayout})
     @Override()
     public void incrementRunButtonClicked(View view) {
 
-        //mPresenter.incrementRun(view.getId());
         if (mPresenter.incrementRun(view.getId()) && isHapticFeedbackEnabled)
             hapticFeedback(view);
     }
@@ -222,6 +221,15 @@ public class ClickerView extends Fragment implements ClickerContract.View {
     @Override
     public void redoButtonClicked(View view) {
         mPresenter.redo();
+        if (isHapticFeedbackEnabled)
+            hapticFeedback(view);
+    }
+
+    @OnClick(R.id.runnerScoredButton)
+    @Override
+    public void runnerScoredButtonClicked(View view) {
+        mPresenter.resetCount();
+        mPresenter.incrementRun(view.getId());
         if (isHapticFeedbackEnabled)
             hapticFeedback(view);
     }

@@ -1,5 +1,7 @@
 package com.pyrotemplar.refereehelper.ClickerFragment;
 
+import android.view.View;
+
 /**
  * Created by Manuel Montes de Oca on 4/25/2017.
  */
@@ -24,6 +26,8 @@ interface ClickerContract {
         void undoButtonClicked(android.view.View view);
 
         void redoButtonClicked(android.view.View view);
+
+        void runnerScoredButtonClicked(android.view.View view);
 
         void kickerIsSafeButtonClicked(android.view.View view);
 
