@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <WebView
+        android:id="@+id/webView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    </WebView>
+
+    <ImageButton
+        android:layout_margin="12dp"
+        android:id="@+id/ruleWebViewCloseButton"
+        android:src="@drawable/ic_close_white_24dp"
+        android:hapticFeedbackEnabled="true"
+        android:background="@color/colorAccent"
+        android:layout_width="38dp"
+        android:layout_height="38dp" />
+
+
+</android.support.design.widget.CoordinatorLayout>

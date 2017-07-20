@@ -1,6 +1,7 @@
 package com.pyrotemplar.refereehelper.ClickerFragment;
 
 import android.support.annotation.NonNull;
+import android.widget.Toast;
 
 import com.pyrotemplar.refereehelper.R;
 import com.pyrotemplar.refereehelper.Utils.GameCountState;
@@ -14,6 +15,8 @@ import java.util.concurrent.TimeUnit;
  */
 
 public class ClickerPresenter implements ClickerContract.Presenter {
+    
+    //// TODO: 7/13/2017 runner score button should reset count. 
 
     //Game Count states
     private String awayTeamName;

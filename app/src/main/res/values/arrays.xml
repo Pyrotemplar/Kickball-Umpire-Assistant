@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="title">
+        <item>WAKA Kickball</item>
+        <item>DC FRAY Outdoor</item>
+        <item>STONEWALL DC</item>
+    </array>
+    <array name="URL">
+        <item>https://www.kickball.com/files/KICKBALL_OFFICIAL_RULES_2017.pdf</item>
+        <item>https://dcfray.com/faqs/outdoor-kickball/</item>
+        <item>https://drive.google.com/open?id=0Bx65pLJFAICqazdXVERHYWVBZGc</item>
+    </array>
+</resources>

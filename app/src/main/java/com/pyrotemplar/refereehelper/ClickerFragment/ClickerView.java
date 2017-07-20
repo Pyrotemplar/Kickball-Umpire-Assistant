@@ -4,6 +4,7 @@ package com.pyrotemplar.refereehelper.ClickerFragment;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.ActivityInfo;
 import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
@@ -17,6 +18,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.pyrotemplar.refereehelper.DialogFragments.GameClockDialogFragment;
 import com.pyrotemplar.refereehelper.R;
@@ -100,6 +102,7 @@ public class ClickerView extends Fragment implements ClickerContract.View {
 
 
         new ClickerPresenter(this);
+        Toast.makeText(getContext(), "ClickerView", Toast.LENGTH_SHORT).show();
         if (!isViewShown) {
             //  updateSharePreferences() contains logic to update Share preference when page is selected
             updateSharePreferences();
@@ -419,12 +422,14 @@ public class ClickerView extends Fragment implements ClickerContract.View {
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
 
-        if (getView() != null) {
-            isViewShown = true;
-            //  updateSharePreferences() contains logic to update Share preference when page is selected
-            updateSharePreferences();
-        } else {
-            isViewShown = false;
+        if (isVisibleToUser) {
+        }
+            if (getView() != null) {
+                isViewShown = true;
+                //  updateSharePreferences() contains logic to update Share preference when page is selected
+                updateSharePreferences();
+            } else {
+                isViewShown = false;
+            }
         }
     }
-}
