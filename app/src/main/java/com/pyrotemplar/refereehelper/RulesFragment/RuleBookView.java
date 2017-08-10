@@ -25,6 +25,7 @@ import com.pyrotemplar.refereehelper.Adapters.RulesRecyclerAdapter;
 import com.pyrotemplar.refereehelper.DataObjects.RuleBook;
 import com.pyrotemplar.refereehelper.DialogFragments.AddNewRulesBookLinkDialogFragment;
 import com.pyrotemplar.refereehelper.R;
+import com.pyrotemplar.refereehelper.Utils.CustomWebview;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
@@ -218,7 +219,7 @@ public class RuleBookView extends Fragment implements RuleBooksCotract.View, Rul
         //mWebView.loadUrl("javascript:(function() { " +
         //     "document.getElementsByClassName('drive-viewer-toolstrip')[0].style.visibility='hidden'; })()");
 
-        mWebView.setWebViewClient(new WebViewClient() {
+    /*    mWebView.setWebViewClient(new WebViewClient() {
 
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, String url) {
@@ -227,11 +228,15 @@ public class RuleBookView extends Fragment implements RuleBooksCotract.View, Rul
                 }
                 return true;
             }
-        });
+        });*/
 
-
+       /* if (mWebView != null || (!mWebView.getUrl().equals(URL)))
+            mWebView.loadUrl(URL);*/
+        mWebView.setWebViewClient(new CustomWebview());
         if (mWebView != null || (!mWebView.getUrl().equals(URL)))
             mWebView.loadUrl(URL);
+
+
 
 
     }
