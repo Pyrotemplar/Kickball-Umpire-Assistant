@@ -11,7 +11,7 @@ public class TabActivityPresenter implements TabActivityContract.Presenter {
 
     public static final int[] TAB_ICON_ID = {
             R.drawable.ic_cicker_tab_icon,
-            R.drawable.ic_settings_tab_icon,
+            R.drawable.ic_rulebook_tab_icon,
             R.drawable.ic_settings_tab_icon
     };
     public static final String[] TAB_ICON_TEXT = {

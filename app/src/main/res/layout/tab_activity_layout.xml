@@ -25,14 +25,14 @@
         android:layout_height="50dp"
         android:gravity="center"
         android:layout_weight="0.00">
-
+        <!-- TODO Replace AdUnitID String -->
         <com.google.android.gms.ads.AdView
             android:id="@+id/adView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             ads:adSize="BANNER"
             android:layout_alignParentBottom="true"
-            ads:adUnitId="@string/production_banner_ad">
+            ads:adUnitId="production_banner_ad">
         </com.google.android.gms.ads.AdView>
     </RelativeLayout>
 </LinearLayout>

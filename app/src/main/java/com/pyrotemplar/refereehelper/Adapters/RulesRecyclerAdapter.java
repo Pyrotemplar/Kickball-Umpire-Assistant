@@ -52,7 +52,7 @@ public class RulesRecyclerAdapter extends RecyclerView.Adapter<RulesRecyclerAdap
     public void onBindViewHolder(ViewHolder holder, int position) {
         RuleBook ruleBook = ruleBooks.get(position);
         holder.ruleTitleTextView.setText(ruleBook.getTittle());
-       // holder.positionTextView.setText(String.valueOf(ruleBook.getPosition()+1));
+        holder.positionTextView.setText(String.valueOf(position+1));
     }
 
     @Override
@@ -64,8 +64,8 @@ public class RulesRecyclerAdapter extends RecyclerView.Adapter<RulesRecyclerAdap
     class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener {
         @BindView(R.id.ruleTitleTextView)
         TextView ruleTitleTextView;
-     //   @BindView(R.id.positionTextView)
-       // TextView positionTextView;
+        @BindView(R.id.positionTextView)
+        TextView positionTextView;
 
         public ViewHolder(View itemView) {
             super(itemView);

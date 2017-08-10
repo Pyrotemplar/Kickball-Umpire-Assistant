@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.preference.PreferenceManager;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
@@ -15,6 +16,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
@@ -79,7 +81,11 @@ public class RuleBookView extends Fragment implements RuleBooksCotract.View, Rul
         rulesRecyclerAdapter = new RulesRecyclerAdapter(getContext(), mRulebookList);
         rulesRecyclerAdapter.setListener(this);
         recyclerView.setAdapter(rulesRecyclerAdapter);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
+        recyclerView.setLayoutManager(layoutManager);
+
+        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(recyclerView.getContext(), layoutManager.getOrientation());
+        recyclerView.addItemDecoration(dividerItemDecoration);
 
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(helperCallBack());
         itemTouchHelper.attachToRecyclerView(recyclerView);
@@ -111,7 +117,7 @@ public class RuleBookView extends Fragment implements RuleBooksCotract.View, Rul
             String[] startingURL = getResources().getStringArray(R.array.URL);
 
             for (int i = 0; i < startingTitle.length; i++) {
-              mRulebookList.add( mPresenter.createRuleBook(startingTitle[i], startingURL[i], i));
+                mRulebookList.add(mPresenter.createRuleBook(startingTitle[i], startingURL[i], i));
             }
 
         }
@@ -139,11 +145,10 @@ public class RuleBookView extends Fragment implements RuleBooksCotract.View, Rul
 
             @Override
             public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) {
-                int pos = viewHolder.getAdapterPosition();
-
                 mPresenter.removeRuleBook(viewHolder.getAdapterPosition());
                 rulesRecyclerAdapter.notifyItemRemoved(viewHolder.getAdapterPosition());
                 viewHolder.setIsRecyclable(false);
+                rulesRecyclerAdapter.updateList();
             }
         };
         return simpleCallback;
@@ -211,7 +216,7 @@ public class RuleBookView extends Fragment implements RuleBooksCotract.View, Rul
         mWebView.getSettings().setBuiltInZoomControls(true);
         mWebView.getSettings().setDisplayZoomControls(false);
         //mWebView.loadUrl("javascript:(function() { " +
-           //     "document.getElementsByClassName('drive-viewer-toolstrip')[0].style.visibility='hidden'; })()");
+        //     "document.getElementsByClassName('drive-viewer-toolstrip')[0].style.visibility='hidden'; })()");
 
         mWebView.setWebViewClient(new WebViewClient() {
 

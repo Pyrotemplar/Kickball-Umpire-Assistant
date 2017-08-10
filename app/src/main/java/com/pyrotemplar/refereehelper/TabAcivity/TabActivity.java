@@ -7,6 +7,9 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.google.android.gms.ads.AdRequest;
@@ -31,6 +34,8 @@ public class TabActivity extends AppCompatActivity implements TabActivityContrac
     NonSwipeViewPager mPager;
     @BindView(R.id.adView)
     AdView adView;
+    @BindView(R.id.ads_layout)
+    RelativeLayout ads_layout;
 
     private PageAdapter mPageAdapter;
     private TabActivityPresenter presenter;
@@ -62,6 +67,9 @@ public class TabActivity extends AppCompatActivity implements TabActivityContrac
         AdRequest adRequest = new AdRequest.Builder().build();
 
         // TODO: 7/9/2017 Remove comments to turn on ads
+       // ads_layout.removeAllViews();
+        ads_layout.setVisibility(View.GONE);
+        //ads_layout.setVisibility(View.VISIBLE);
         //adView.loadAd(adRequest);
 
 
