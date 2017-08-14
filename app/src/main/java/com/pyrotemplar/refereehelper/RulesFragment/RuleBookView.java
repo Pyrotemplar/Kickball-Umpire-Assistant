@@ -29,7 +29,6 @@ import com.pyrotemplar.refereehelper.Adapters.RulesRecyclerAdapter;
 import com.pyrotemplar.refereehelper.DataObjects.RuleBook;
 import com.pyrotemplar.refereehelper.DialogFragments.AddNewRulesBookLinkDialogFragment;
 import com.pyrotemplar.refereehelper.R;
-import com.pyrotemplar.refereehelper.Utils.CustomWebview;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
@@ -217,11 +216,12 @@ public class RuleBookView extends Fragment implements RuleBooksCotract.View, Rul
         // recyclerView.setVisibility(View.INVISIBLE);
         //AddNewRuleLinkButtonView.setVisibility(View.INVISIBLE);
         ruleBookEntreeInclude.setVisibility(View.INVISIBLE);
-        webViewInclude.setVisibility(View.VISIBLE);
+
 
         mWebView.getSettings().setJavaScriptEnabled(true);
         mWebView.getSettings().setBuiltInZoomControls(true);
         mWebView.getSettings().setDisplayZoomControls(false);
+
         //mWebView.loadUrl("javascript:(function() { " +
         //     "document.getElementsByClassName('drive-viewer-toolstrip')[0].style.visibility='hidden'; })()");
 
@@ -251,6 +251,7 @@ public class RuleBookView extends Fragment implements RuleBooksCotract.View, Rul
             public void onPageFinished(WebView view, String url) {
                 super.onPageFinished(view, url);
                 webViewProgressBar.setVisibility(View.GONE);
+                webViewInclude.setVisibility(View.VISIBLE);
             }
 
             @Override
@@ -258,12 +259,15 @@ public class RuleBookView extends Fragment implements RuleBooksCotract.View, Rul
                 super.onReceivedError(view, request, error);
                 Toast.makeText(getActivity(), "Cannot load page", Toast.LENGTH_SHORT).show();
                 webViewProgressBar.setVisibility(View.GONE);
+
             }
         });
 
 
         if (mWebView != null && (!URL.equals(mWebView.getUrl())))
             mWebView.loadUrl(URL);
+        else
+            webViewInclude.setVisibility(View.VISIBLE);
 
 
 
