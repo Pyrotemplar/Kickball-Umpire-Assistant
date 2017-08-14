@@ -1,7 +1,9 @@
 package com.pyrotemplar.refereehelper.Utils;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.support.v7.preference.Preference;
+import android.support.v7.preference.PreferenceManager;
 import android.support.v7.preference.PreferenceViewHolder;
 import android.util.AttributeSet;
 
@@ -17,11 +19,13 @@ import com.pyrotemplar.refereehelper.R;
 class NumberSelectorPreferenceWidget extends Preference {
 
     private ScrollableNumberPicker scrollableNumberPicker;
+    SharedPreferences sharedPreferences;
 
     @Override
     public void onBindViewHolder(PreferenceViewHolder holder) {
         super.onBindViewHolder(holder);
 
+        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getContext());
         scrollableNumberPicker = (ScrollableNumberPicker) holder.findViewById(R.id.number_picker);
         scrollableNumberPicker.setValue(NumberSelectorPreferenceWidget.this.getPersistedInt(0));
         initDefault();
@@ -43,7 +47,6 @@ class NumberSelectorPreferenceWidget extends Preference {
     private void initValues() {
         if (NumberSelectorPreferenceWidget.this.getKey().equals(getContext().getString(R.string.SP_STARTING_BALL_COUNT_KEY))) {
             scrollableNumberPicker.setMaxValue(getContext().getResources().getInteger(R.integer.DEFAULT_MAX_BALLS) - 1);
-            setDefaultValue(5);
         }
         if (NumberSelectorPreferenceWidget.this.getKey().equals(getContext().getString(R.string.SP_STARTING_STRIKE_COUNT_KEY))) {
             scrollableNumberPicker.setMaxValue(getContext().getResources().getInteger(R.integer.DEFAULT_MAX_STRIKE) - 1);
@@ -68,22 +71,30 @@ class NumberSelectorPreferenceWidget extends Preference {
         if (NumberSelectorPreferenceWidget.this.getKey().equals(getContext().getString(R.string.SP_STARTING_BALL_COUNT_KEY))) {
             scrollableNumberPicker.setValue(getContext().getResources().getInteger(R.integer.DEFAULT_STARTING_BALLS));
             setDefaultValue(getContext().getResources().getInteger(R.integer.DEFAULT_STARTING_BALLS));
+            scrollableNumberPicker.setValue(sharedPreferences.getInt(getContext().getResources().getString(R.string.SP_STARTING_BALL_COUNT_KEY), 0));
+
         }
         if (NumberSelectorPreferenceWidget.this.getKey().equals(getContext().getString(R.string.SP_STARTING_STRIKE_COUNT_KEY))) {
             scrollableNumberPicker.setValue(getContext().getResources().getInteger(R.integer.DEFAULT_STARTING_STRIKE));
             setDefaultValue(getContext().getResources().getInteger(R.integer.DEFAULT_STARTING_STRIKE));
+            scrollableNumberPicker.setValue(sharedPreferences.getInt(getContext().getResources().getString(R.string.SP_STARTING_STRIKE_COUNT_KEY), 0));
+
         }
         if (NumberSelectorPreferenceWidget.this.getKey().equals(getContext().getString(R.string.SP_STARTING_FOUL_COUNT_KEY))) {
             scrollableNumberPicker.setValue(getContext().getResources().getInteger(R.integer.DEFAULT_STARTING_FOULS));
             setDefaultValue(getContext().getResources().getInteger(R.integer.DEFAULT_STARTING_FOULS));
+            scrollableNumberPicker.setValue(  sharedPreferences.getInt(getContext().getResources().getString(R.string.SP_STARTING_FOUL_COUNT_KEY), 0));
+
         }
         if (NumberSelectorPreferenceWidget.this.getKey().equals(getContext().getString(R.string.SP_STARTING_OUT_COUNT_KEY))) {
             scrollableNumberPicker.setValue(getContext().getResources().getInteger(R.integer.DEFAULT_STARTING_OUTS));
             setDefaultValue(getContext().getResources().getInteger(R.integer.DEFAULT_STARTING_OUTS));
+            scrollableNumberPicker.setValue( sharedPreferences.getInt(getContext().getResources().getString(R.string.SP_STARTING_OUT_COUNT_KEY), 0));
         }
         if (NumberSelectorPreferenceWidget.this.getKey().equals(getContext().getString(R.string.SP_MAX_NUMBER_INNING_KEY))) {
             scrollableNumberPicker.setValue(getContext().getResources().getInteger(R.integer.DEFAULT_STARTING_INNING));
             setDefaultValue(getContext().getResources().getInteger(R.integer.DEFAULT_STARTING_INNING));
+            scrollableNumberPicker.setValue( sharedPreferences.getInt(getContext().getResources().getString(R.string.SP_MAX_NUMBER_INNING_KEY), 5));
         }
 
     }
