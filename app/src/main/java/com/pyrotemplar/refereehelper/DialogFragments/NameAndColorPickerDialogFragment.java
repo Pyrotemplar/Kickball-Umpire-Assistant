@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.EditText;
 
 import com.larswerkman.holocolorpicker.ColorPicker;
+import com.larswerkman.holocolorpicker.SVBar;
 import com.pyrotemplar.refereehelper.ClickerFragment.ClickerView;
 import com.pyrotemplar.refereehelper.R;
 
@@ -26,6 +27,8 @@ public class NameAndColorPickerDialogFragment extends DialogFragment{
     EditText nameView;
     @BindView(R.id.colorPicker)
     ColorPicker colorPicker;
+    @BindView(R.id.SVbar)
+    SVBar SVbar;
 
 
     @Override
@@ -38,6 +41,8 @@ public class NameAndColorPickerDialogFragment extends DialogFragment{
         final String buttonPressed = mArgs.getString(ClickerView.SCORE_BOARD_BUTTONS_PRESSED);
         nameView.append(mArgs.getString("teamName"));
         colorPicker.setShowOldCenterColor(false);
+        colorPicker.addSVBar(SVbar);
+       // colorPicker.setOldCenterColor(colorPicker.getColor());
 
         // Use the Builder class for convenient dialog construction
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
