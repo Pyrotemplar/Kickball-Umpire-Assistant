@@ -96,7 +96,6 @@ public class RuleBookView extends Fragment implements RuleBooksCotract.View, Rul
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(helperCallBack());
         itemTouchHelper.attachToRecyclerView(recyclerView);
 
-        Toast.makeText(getContext(), "test", Toast.LENGTH_SHORT).show();
         return rootView;
 
     }

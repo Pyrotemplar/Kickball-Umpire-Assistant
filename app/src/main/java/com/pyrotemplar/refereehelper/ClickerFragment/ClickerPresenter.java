@@ -1,7 +1,6 @@
 package com.pyrotemplar.refereehelper.ClickerFragment;
 
 import android.support.annotation.NonNull;
-import android.widget.Toast;
 
 import com.pyrotemplar.refereehelper.R;
 import com.pyrotemplar.refereehelper.Utils.GameCountState;
@@ -77,6 +76,8 @@ public class ClickerPresenter implements ClickerContract.Presenter {
         mClickerFragmentView.updateHomeTeamBannerView(homeTeamName, homeTeamColor);
         initializeGameClock();
         updateGameCountState();
+        undoStack.clear();
+        redoStack.clear();
     }
 
     @Override
@@ -393,6 +394,7 @@ public class ClickerPresenter implements ClickerContract.Presenter {
     public void resetData() {
         startStopGameClock(true);
         initializeCountFields();
+
     }
 
 }

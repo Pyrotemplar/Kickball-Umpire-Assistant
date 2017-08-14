@@ -4,8 +4,6 @@ package com.pyrotemplar.refereehelper.ClickerFragment;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.pm.ActivityInfo;
-import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -18,11 +16,10 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.pyrotemplar.refereehelper.DialogFragments.GameClockDialogFragment;
-import com.pyrotemplar.refereehelper.R;
 import com.pyrotemplar.refereehelper.DialogFragments.NameAndColorPickerDialogFragment;
+import com.pyrotemplar.refereehelper.R;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -79,6 +76,8 @@ public class ClickerView extends Fragment implements ClickerContract.View {
     private NameAndColorPickerDialogFragment nameAndColorPickerDialogFragment;
     private GameClockDialogFragment gameClockDialogFragment;
     private Bundle mArgs;
+    private int homeTeamColor;
+    private int awayTeamColor;
 
     private static ClickerContract.Presenter mPresenter;
     private boolean isViewShown;
@@ -102,7 +101,6 @@ public class ClickerView extends Fragment implements ClickerContract.View {
 
 
         new ClickerPresenter(this);
-        Toast.makeText(getContext(), "ClickerView", Toast.LENGTH_SHORT).show();
         if (!isViewShown) {
             //  updateSharePreferences() contains logic to update Share preference when page is selected
             updateSharePreferences();
@@ -150,6 +148,7 @@ public class ClickerView extends Fragment implements ClickerContract.View {
     public boolean AwayTeamButtonLongClicked(View view) {
         mArgs.putString(SCORE_BOARD_BUTTONS_PRESSED, "awayTeamButton");
         mArgs.putString("teamName", awayTeamNameTextView.getText().toString());
+        mArgs.putInt("teamColor", awayTeamColor);
         nameAndColorPickerDialogFragment.setArguments(mArgs);
         nameAndColorPickerDialogFragment.show(getFragmentManager(), "TAG");
         if (isHapticFeedbackEnabled)
@@ -163,6 +162,7 @@ public class ClickerView extends Fragment implements ClickerContract.View {
 
         mArgs.putString(SCORE_BOARD_BUTTONS_PRESSED, "homeTeamButton");
         mArgs.putString("teamName", homeTeamNameTextView.getText().toString());
+        mArgs.putInt("teamColor", homeTeamColor);
         nameAndColorPickerDialogFragment.setArguments(mArgs);
         nameAndColorPickerDialogFragment.show(getFragmentManager(), "TAG");
         if (isHapticFeedbackEnabled)
@@ -356,6 +356,7 @@ public class ClickerView extends Fragment implements ClickerContract.View {
         awayTeamNameTextView.setText(teamName);
         GradientDrawable backgroundGradient = (GradientDrawable) awayTeamNameTextView.getBackground();
         if (teamColor != 0) {
+            awayTeamColor = teamColor;
             backgroundGradient.setColor(teamColor);
         } else {
             //noinspection deprecation
@@ -370,6 +371,7 @@ public class ClickerView extends Fragment implements ClickerContract.View {
         homeTeamNameTextView.setText(teamName);
         GradientDrawable backgroundGradient = (GradientDrawable) homeTeamNameTextView.getBackground();
         if (teamColor != 0) {
+            homeTeamColor = teamColor;
             backgroundGradient.setColor(teamColor);
             //backgroundGradient.setColors(new int[]{Color.WHITE, teamColor});
         } else {
@@ -424,12 +426,12 @@ public class ClickerView extends Fragment implements ClickerContract.View {
 
         if (isVisibleToUser) {
         }
-            if (getView() != null) {
-                isViewShown = true;
-                //  updateSharePreferences() contains logic to update Share preference when page is selected
-                updateSharePreferences();
-            } else {
-                isViewShown = false;
-            }
+        if (getView() != null) {
+            isViewShown = true;
+            //  updateSharePreferences() contains logic to update Share preference when page is selected
+            updateSharePreferences();
+        } else {
+            isViewShown = false;
         }
     }
+}

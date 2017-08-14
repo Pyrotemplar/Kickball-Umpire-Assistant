@@ -3,7 +3,6 @@ package com.pyrotemplar.refereehelper.Settings;
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.pm.ActivityInfo;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -17,8 +16,6 @@ import android.widget.Toast;
 
 import com.pyrotemplar.refereehelper.DialogFragments.ConfirmationDialogFragment;
 import com.pyrotemplar.refereehelper.R;
-
-import butterknife.OnClick;
 
 /**
  * Created by Manuel Montes de Oca on 5/4/2017.

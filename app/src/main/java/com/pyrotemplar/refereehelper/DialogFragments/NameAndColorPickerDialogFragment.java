@@ -40,8 +40,11 @@ public class NameAndColorPickerDialogFragment extends DialogFragment{
         Bundle mArgs = getArguments();
         final String buttonPressed = mArgs.getString(ClickerView.SCORE_BOARD_BUTTONS_PRESSED);
         nameView.append(mArgs.getString("teamName"));
+        int color = mArgs.getInt("teamColor");
         colorPicker.setShowOldCenterColor(false);
         colorPicker.addSVBar(SVbar);
+        if(color != 0)
+        colorPicker.setColor(color);
        // colorPicker.setOldCenterColor(colorPicker.getColor());
 
         // Use the Builder class for convenient dialog construction
