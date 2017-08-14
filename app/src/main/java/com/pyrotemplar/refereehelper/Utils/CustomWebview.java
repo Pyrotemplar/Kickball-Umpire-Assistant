@@ -25,8 +25,8 @@ import butterknife.ButterKnife;
 public class CustomWebview extends WebViewClient {
 
 
-    @BindView(R.id.webViewProgressBar)
-    ProgressBar webViewProgressBar;
+    //@BindView(R.id.webViewProgressBar)
+   // ProgressBar webViewProgressBar;
 
     @Override
     public void onPageStarted(WebView view, String url, Bitmap favicon) {
@@ -71,7 +71,8 @@ public class CustomWebview extends WebViewClient {
         // TODO Auto-generated method stub
         super.onPageFinished(view, url);
         Toast.makeText(view.getContext(), "Testing View Finish", Toast.LENGTH_SHORT).show();
-        ButterKnife.bind(view);
-        webViewProgressBar.setVisibility(View.GONE);
+        //ButterKnife.bind(view);
+        //ProgressBar webViewProgressBar = (ProgressBar) findViewById(R.id.webViewProgressBar);
+       // webViewProgressBar.setVisibility(View.GONE);
     }
 }

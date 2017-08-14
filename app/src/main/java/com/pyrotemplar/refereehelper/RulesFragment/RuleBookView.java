@@ -3,6 +3,7 @@ package com.pyrotemplar.refereehelper.RulesFragment;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -14,9 +15,12 @@ import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.WebResourceError;
+import android.webkit.WebResourceRequest;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
@@ -52,6 +56,8 @@ public class RuleBookView extends Fragment implements RuleBooksCotract.View, Rul
     View webViewInclude;
     @BindView(R.id.ruleBookEntreeInclude)
     View ruleBookEntreeInclude;
+    @BindView(R.id.webViewProgressBar)
+    ProgressBar webViewProgressBar;
 
     private AddNewRulesBookLinkDialogFragment addNewRulesBookLinkDialogFragment;
     private RulesRecyclerAdapter rulesRecyclerAdapter;
@@ -232,10 +238,32 @@ public class RuleBookView extends Fragment implements RuleBooksCotract.View, Rul
 
        /* if (mWebView != null || (!mWebView.getUrl().equals(URL)))
             mWebView.loadUrl(URL);*/
-        mWebView.setWebViewClient(new CustomWebview());
-        if (mWebView != null || (!mWebView.getUrl().equals(URL)))
-            mWebView.loadUrl(URL);
 
+
+        mWebView.setWebViewClient(new WebViewClient() {
+            @Override
+            public void onPageStarted(WebView view, String url, Bitmap favicon) {
+                super.onPageStarted(view, url, favicon);
+                webViewProgressBar.setVisibility(View.VISIBLE);
+            }
+
+            @Override
+            public void onPageFinished(WebView view, String url) {
+                super.onPageFinished(view, url);
+                webViewProgressBar.setVisibility(View.GONE);
+            }
+
+            @Override
+            public void onReceivedError(WebView view, WebResourceRequest request, WebResourceError error) {
+                super.onReceivedError(view, request, error);
+                Toast.makeText(getActivity(), "Cannot load page", Toast.LENGTH_SHORT).show();
+                webViewProgressBar.setVisibility(View.GONE);
+            }
+        });
+
+
+        if (mWebView != null && (!URL.equals(mWebView.getUrl())))
+            mWebView.loadUrl(URL);
 
 
 
