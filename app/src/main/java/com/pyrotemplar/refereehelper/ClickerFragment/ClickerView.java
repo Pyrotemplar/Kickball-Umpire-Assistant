@@ -429,6 +429,7 @@ public class ClickerView extends Fragment implements ClickerContract.View {
         if (getView() != null) {
             isViewShown = true;
             //  updateSharePreferences() contains logic to update Share preference when page is selected
+            //// TODO: 8/16/2017 Check this to only update if the preference update.
             updateSharePreferences();
         } else {
             isViewShown = false;

@@ -8,7 +8,7 @@ import com.pyrotemplar.refereehelper.ClickerFragment.ClickerView;
 import com.pyrotemplar.refereehelper.RulesFragment.RuleBookView;
 import com.pyrotemplar.refereehelper.Settings.SettingsView;
 import com.pyrotemplar.refereehelper.TabAcivity.TabActivityPresenter;
-import com.pyrotemplar.refereehelper.View.ClockFragment;
+import com.pyrotemplar.refereehelper.LeagueFragment.LeagueView;
 import com.pyrotemplar.refereehelper.View.GamesHistoryFragment;
 
 /**
@@ -26,20 +26,20 @@ public class PageAdapter extends FragmentPagerAdapter {
     public Fragment getItem(int position) {
 
         ClickerView clickerView = new ClickerView();
-        ClockFragment clockFragment = new ClockFragment();
+        LeagueView leagueFragment = new LeagueView();
         GamesHistoryFragment gamesHistoryFragment = new GamesHistoryFragment();
         RuleBookView rulesFragment = new RuleBookView();
         SettingsView settingsView = new SettingsView();
 
         if (position == 0)
             return clickerView;
-       /* else if (position == 1)
-            return clockFragment;
-        else if (position == 2)
-            return clickerView;*/
         else if (position == 1)
-            return rulesFragment;
+            return leagueFragment;
+        /*else if (position == 2)
+            return clickerView;*/
         else if (position == 2)
+            return rulesFragment;
+        else if (position == 3)
             return settingsView;
         else
             return clickerView;

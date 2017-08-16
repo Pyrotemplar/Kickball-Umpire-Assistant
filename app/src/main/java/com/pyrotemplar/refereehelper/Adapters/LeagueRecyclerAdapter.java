@@ -5,37 +5,22 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
-import com.pyrotemplar.refereehelper.DataObjects.RuleBook;
 import com.pyrotemplar.refereehelper.R;
 
-
-import java.util.Collections;
-import java.util.List;
-
-import butterknife.BindView;
 import butterknife.ButterKnife;
 
-
 /**
- * Created by Manuel Montes de Oca on 7/9/2017.
+ * Created by Manuel Montes de Oca on 8/16/2017.
  */
 
-public class RulesRecyclerAdapter extends RecyclerView.Adapter<RulesRecyclerAdapter.ViewHolder> {
-
+public class LeagueRecyclerAdapter extends RecyclerView.Adapter<LeagueRecyclerAdapter.ViewHolder>  {
     private final LayoutInflater inflator;
-    private ClickListener clickListener;
-    List<RuleBook> ruleBooks = Collections.emptyList();
+    private LeagueRecyclerAdapter.ClickListener clickListener;
 
-    public RulesRecyclerAdapter(Context context, List<RuleBook> rulebooks) {
+
+    public LeagueRecyclerAdapter(Context context) {
         inflator = LayoutInflater.from(context);
-        this.ruleBooks = rulebooks;
-    }
-
-    public void updateList() {
-        notifyDataSetChanged();
-
     }
 
 
@@ -49,22 +34,17 @@ public class RulesRecyclerAdapter extends RecyclerView.Adapter<RulesRecyclerAdap
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        RuleBook ruleBook = ruleBooks.get(position);
-        holder.ruleTitleTextView.setText(ruleBook.getTittle());
-        holder.positionTextView.setText(String.valueOf(position+1));
+
     }
+
 
     @Override
     public int getItemCount() {
-        return ruleBooks.size();
+        return 1;
     }
 
 
     class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener {
-        @BindView(R.id.ruleTitleTextView)
-        TextView ruleTitleTextView;
-        @BindView(R.id.positionTextView)
-        TextView positionTextView;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -100,3 +80,5 @@ public class RulesRecyclerAdapter extends RecyclerView.Adapter<RulesRecyclerAdap
         this.clickListener = clickListener;
     }
 }
+
+
