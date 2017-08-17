@@ -19,7 +19,6 @@ import android.webkit.WebResourceError;
 import android.webkit.WebResourceRequest;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
-import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
@@ -42,7 +41,7 @@ import butterknife.OnClick;
  * Created by Manuel Montes de Oca on 4/25/2017.
  */
 
-public class RuleBookView extends Fragment implements RuleBooksCotract.View, RulesRecyclerAdapter.ClickListener {
+public class RuleBookView extends Fragment implements RuleBooksContract.View, RulesRecyclerAdapter.ClickListener {
     public static final String SP_RULE_BOOK_KEY = "ruleBookKey";
     public static final String RULE_BOOK_POSITION = "ruleBookPosition";
     public static final String RULE_BOOK_TITLE = "ruleBookTitle";
@@ -60,7 +59,7 @@ public class RuleBookView extends Fragment implements RuleBooksCotract.View, Rul
 
     private AddNewRulesBookLinkDialogFragment addNewRulesBookLinkDialogFragment;
     private RulesRecyclerAdapter rulesRecyclerAdapter;
-    private static RuleBooksCotract.Presenter mPresenter;
+    private static RuleBooksContract.Presenter mPresenter;
     private List<RuleBook> mRulebookList;
     private Bundle mArgs;
 

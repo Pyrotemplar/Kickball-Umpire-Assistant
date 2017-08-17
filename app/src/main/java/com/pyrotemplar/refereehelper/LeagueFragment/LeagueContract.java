@@ -1,6 +1,5 @@
 package com.pyrotemplar.refereehelper.LeagueFragment;
 
-import android.view.View;
 
 /**
  * Created by Manuel Montes de Oca on 8/16/2017.
@@ -9,6 +8,8 @@ import android.view.View;
 public class LeagueContract {
     interface View {
         void AddNewTeamButtonClicked(android.view.View view);
+
+        void setPresenter(LeaguePresenter presenter);
     }
 
     interface Presenter {

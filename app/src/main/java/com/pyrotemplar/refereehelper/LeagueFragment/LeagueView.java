@@ -9,9 +9,8 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.pyrotemplar.refereehelper.Adapters.LeagueRecyclerAdapter;
-import com.pyrotemplar.refereehelper.Adapters.RulesRecyclerAdapter;
+import com.pyrotemplar.refereehelper.DialogFragments.AddNewTeamDialogFragment;
 import com.pyrotemplar.refereehelper.R;
-import com.pyrotemplar.refereehelper.RulesFragment.RuleBooksCotract;
 
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -21,12 +20,26 @@ import butterknife.OnClick;
  */
 
 public class LeagueView extends Fragment implements LeagueContract.View, LeagueRecyclerAdapter.ClickListener  {
+
+    private AddNewTeamDialogFragment addNewTeamDialogFragment;
+    private LeagueRecyclerAdapter leagueRecyclerAdapter;
+    private static LeagueContract.Presenter mPresenter;
+
+    private Bundle mArgs;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
 
         View rootView = inflater.inflate(R.layout.league_layout, null);
         ButterKnife.bind(this, rootView);
+
+        addNewTeamDialogFragment = new AddNewTeamDialogFragment();
+        addNewTeamDialogFragment.setTargetFragment(this, 2);
+
+        mArgs = new Bundle();
+
+        new LeaguePresenter(this);
 
         return rootView;
 
@@ -41,12 +54,22 @@ public class LeagueView extends Fragment implements LeagueContract.View, LeagueR
     public void itemLongClicked(View view, int position) {
 
     }
+
+
+
+
+
     @OnClick(R.id.AddNewTeamButtonView)
     @Override
     public void AddNewTeamButtonClicked(View view) {
-
         Toast.makeText(getContext(), "helo test", Toast.LENGTH_SHORT).show();
-        //addNewRulesBookLinkDialogFragment.setArguments(mArgs);
-       // addNewRulesBookLinkDialogFragment.show(getFragmentManager(), "TAG");
+        addNewTeamDialogFragment.setArguments(mArgs);
+        addNewTeamDialogFragment.show(getFragmentManager(), "TAG");
+
+    }
+
+    @Override
+    public void setPresenter(LeaguePresenter presenter) {
+        mPresenter = presenter;
     }
 }

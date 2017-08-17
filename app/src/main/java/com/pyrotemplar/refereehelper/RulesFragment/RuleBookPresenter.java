@@ -10,13 +10,13 @@ import java.util.List;
  * Created by Manny on 7/10/2017.
  */
 
-public class RuleBookPresenter implements RuleBooksCotract.Presenter {
+public class RuleBookPresenter implements RuleBooksContract.Presenter {
 
 
     private List<RuleBook> arrayOfRuleBooks;
-   // private RuleBooksCotract.View mRuleBookView;
+   // private RuleBooksContract.View mRuleBookView;
 
-    RuleBookPresenter(@NonNull RuleBooksCotract.View ruleBookView) {
+    RuleBookPresenter(@NonNull RuleBooksContract.View ruleBookView) {
 
       //  this.mRuleBookView = ruleBookView;
         ruleBookView.setPresenter(this);

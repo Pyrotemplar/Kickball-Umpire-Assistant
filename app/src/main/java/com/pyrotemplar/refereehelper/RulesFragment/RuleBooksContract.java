@@ -8,7 +8,7 @@ import java.util.List;
  * Created by Manny on 7/9/2017.
  */
 
-public interface RuleBooksCotract {
+public interface RuleBooksContract {
     interface View {
         void setPresenter(RuleBookPresenter clickerPresenter);
 
