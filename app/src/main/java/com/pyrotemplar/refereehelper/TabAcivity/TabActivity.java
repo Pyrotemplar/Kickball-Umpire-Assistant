@@ -17,6 +17,7 @@ import com.pyrotemplar.refereehelper.Utils.NonSwipeViewPager;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import io.realm.Realm;
 
 
 /**
@@ -43,6 +44,7 @@ public class TabActivity extends AppCompatActivity implements TabActivityContrac
         super.onCreate(savedInstanceState);
         setContentView(R.layout.tab_activity_layout);
         ButterKnife.bind(this);
+        Realm.init(getApplicationContext());
 
         presenter = new TabActivityPresenter(this);
 

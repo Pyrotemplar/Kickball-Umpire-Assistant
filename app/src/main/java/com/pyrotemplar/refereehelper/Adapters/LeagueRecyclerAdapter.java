@@ -27,7 +27,7 @@ public class LeagueRecyclerAdapter extends RecyclerView.Adapter<LeagueRecyclerAd
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
-        View view = inflator.inflate(R.layout.rule_entre_layout, parent, false);
+        View view = inflator.inflate(R.layout.team_entree_layout, parent, false);
         ViewHolder viewHolder = new ViewHolder(view);
         return viewHolder;
     }
@@ -40,7 +40,7 @@ public class LeagueRecyclerAdapter extends RecyclerView.Adapter<LeagueRecyclerAd
 
     @Override
     public int getItemCount() {
-        return 1;
+        return 10;
     }
 
 

@@ -46,8 +46,8 @@ public class RuleBookView extends Fragment implements RuleBooksContract.View, Ru
     public static final String RULE_BOOK_POSITION = "ruleBookPosition";
     public static final String RULE_BOOK_TITLE = "ruleBookTitle";
     public static final String RULE_BOOK_URL = "ruleBookURL";
-    @BindView(R.id.recyclerView)
-    RecyclerView recyclerView;
+    @BindView(R.id.RuleBookRecyclerView)
+    RecyclerView ruleBookRecycler;
     @BindView(R.id.webView)
     WebView mWebView;
     @BindView(R.id.webViewInclude)
@@ -85,15 +85,15 @@ public class RuleBookView extends Fragment implements RuleBooksContract.View, Ru
 
         rulesRecyclerAdapter = new RulesRecyclerAdapter(getContext(), mRulebookList);
         rulesRecyclerAdapter.setListener(this);
-        recyclerView.setAdapter(rulesRecyclerAdapter);
+        ruleBookRecycler.setAdapter(rulesRecyclerAdapter);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
-        recyclerView.setLayoutManager(layoutManager);
+        ruleBookRecycler.setLayoutManager(layoutManager);
 
-        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(recyclerView.getContext(), layoutManager.getOrientation());
-        recyclerView.addItemDecoration(dividerItemDecoration);
+        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(ruleBookRecycler.getContext(), layoutManager.getOrientation());
+        ruleBookRecycler.addItemDecoration(dividerItemDecoration);
 
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(helperCallBack());
-        itemTouchHelper.attachToRecyclerView(recyclerView);
+        itemTouchHelper.attachToRecyclerView(ruleBookRecycler);
 
         return rootView;
 
@@ -211,7 +211,7 @@ public class RuleBookView extends Fragment implements RuleBooksContract.View, Ru
         if ((URL != null) && (URL.endsWith(".PDF") || URL.endsWith(".pdf"))) {
             URL = getResources().getString(R.string.PDF_Google_Docs_Viewer_string) + URL;
         }
-        // recyclerView.setVisibility(View.INVISIBLE);
+        // ruleBookRecycler.setVisibility(View.INVISIBLE);
         //AddNewRuleLinkButtonView.setVisibility(View.INVISIBLE);
         ruleBookEntreeInclude.setVisibility(View.INVISIBLE);
 
