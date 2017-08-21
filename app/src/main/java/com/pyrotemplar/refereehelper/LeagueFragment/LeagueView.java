@@ -15,13 +15,19 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.pyrotemplar.refereehelper.Adapters.LeagueRecyclerAdapter;
-import com.pyrotemplar.refereehelper.Adapters.RulesRecyclerAdapter;
+import com.pyrotemplar.refereehelper.DataObjects.Team;
+import com.pyrotemplar.refereehelper.DataObjects.dataHelper;
 import com.pyrotemplar.refereehelper.DialogFragments.AddNewTeamDialogFragment;
 import com.pyrotemplar.refereehelper.R;
+
+import java.util.UUID;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import io.realm.Realm;
+import io.realm.RealmChangeListener;
+import io.realm.RealmResults;
 
 /**
  * Created by Manuel Montes de Oca on 4/25/2017.
@@ -34,6 +40,8 @@ public class LeagueView extends Fragment implements LeagueContract.View, LeagueR
 
     private AddNewTeamDialogFragment addNewTeamDialogFragment;
     private LeagueRecyclerAdapter leagueRecyclerAdapter;
+    private Realm realm;
+    private RealmResults<Team> results;
     private static LeagueContract.Presenter mPresenter;
 
     private Bundle mArgs;
@@ -44,27 +52,46 @@ public class LeagueView extends Fragment implements LeagueContract.View, LeagueR
 
         View rootView = inflater.inflate(R.layout.league_layout, null);
         ButterKnife.bind(this, rootView);
-
+        realm = Realm.getDefaultInstance();
+        results = realm.where(Team.class).findAllAsync();
         addNewTeamDialogFragment = new AddNewTeamDialogFragment();
         addNewTeamDialogFragment.setTargetFragment(this, 2);
 
         mArgs = new Bundle();
 
         new LeaguePresenter(this);
-
-
-        leagueRecyclerAdapter = new LeagueRecyclerAdapter(getContext());
-        leagueRecyclerAdapter.setListener(this);
-        leagueRecycler.setAdapter(leagueRecyclerAdapter);
-        LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
-        leagueRecycler.setLayoutManager(layoutManager);
-
-        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(leagueRecycler.getContext(), layoutManager.getOrientation());
-        leagueRecycler.addItemDecoration(dividerItemDecoration);
-
+        setUpRecyclerView();
 
         return rootView;
 
+    }
+
+    private RealmChangeListener changeListener = new RealmChangeListener() {
+        @Override
+        public void onChange(Object o) {
+            leagueRecyclerAdapter.update(results);
+        }
+    };
+
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        results = realm.where(Team.class).findAll();
+        results.addChangeListener(changeListener);
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        results.removeChangeListener(changeListener);
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        leagueRecycler.setAdapter(null);
+        realm.close();
     }
 
     @Override
@@ -82,6 +109,17 @@ public class LeagueView extends Fragment implements LeagueContract.View, LeagueR
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == Activity.RESULT_OK) {
 
+
+            Team team = new Team(data.getStringExtra("name"), "", 0, "", 0);
+           // realm.beginTransaction();
+           // realm.copyToRealm(team);
+           // realm.commitTransaction();
+            dataHelper.addItem(realm, team);
+            //realm.beginTransaction();
+            //realm.copyToRealm(drop);
+            // realm.commitTransaction();
+
+
             //  int position = data.getIntExtra(RULE_BOOK_POSITION, -1);
             if (-1 == -1) {
                 //   mPresenter.saveRuleBook(mPresenter.createRuleBook(data.getStringExtra(RULE_BOOK_TITLE), data.getStringExtra(RULE_BOOK_URL), mPresenter.getRuleBookList().size()));
@@ -96,6 +134,13 @@ public class LeagueView extends Fragment implements LeagueContract.View, LeagueR
 
     }
 
+    // private Team newTeam(String name) {
+    // Team team = new Team();
+    //team.setName(name);
+    // return team;
+
+    //}
+
     private ItemTouchHelper.Callback helperCallBack() {
         ItemTouchHelper.SimpleCallback simpleCallback = new ItemTouchHelper.SimpleCallback(ItemTouchHelper.UP | ItemTouchHelper.DOWN, ItemTouchHelper.LEFT) {
             @Override
@@ -105,6 +150,7 @@ public class LeagueView extends Fragment implements LeagueContract.View, LeagueR
 
             @Override
             public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) {
+              //  dataHelper.deleteItem();
                 // mPresenter.removeRuleBook(viewHolder.getAdapterPosition());
                 // rulesRecyclerAdapter.notifyItemRemoved(viewHolder.getAdapterPosition());
                 //  viewHolder.setIsRecyclable(false);
@@ -127,5 +173,22 @@ public class LeagueView extends Fragment implements LeagueContract.View, LeagueR
     @Override
     public void setPresenter(LeaguePresenter presenter) {
         mPresenter = presenter;
+    }
+
+    private void setUpRecyclerView() {
+
+        leagueRecyclerAdapter = new LeagueRecyclerAdapter(results, true);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
+        leagueRecycler.setLayoutManager(layoutManager);
+        leagueRecyclerAdapter.setListener(this);
+        leagueRecycler.setAdapter(leagueRecyclerAdapter);
+
+        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(leagueRecycler.getContext(), layoutManager.getOrientation());
+        leagueRecycler.addItemDecoration(dividerItemDecoration);
+
+
+        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(helperCallBack());
+        itemTouchHelper.attachToRecyclerView(leagueRecycler);
+
     }
 }

@@ -1,50 +1,75 @@
 package com.pyrotemplar.refereehelper.Adapters;
 
 import android.content.Context;
+import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
+import com.pyrotemplar.refereehelper.DataObjects.Team;
 import com.pyrotemplar.refereehelper.R;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import butterknife.BindView;
 import butterknife.ButterKnife;
+import io.realm.OrderedRealmCollection;
+import io.realm.RealmRecyclerViewAdapter;
 
 /**
  * Created by Manuel Montes de Oca on 8/16/2017.
  */
 
-public class LeagueRecyclerAdapter extends RecyclerView.Adapter<LeagueRecyclerAdapter.ViewHolder>  {
-    private final LayoutInflater inflator;
+public class LeagueRecyclerAdapter extends RealmRecyclerViewAdapter<Team, LeagueRecyclerAdapter.ViewHolder> {
+
+
+
     private LeagueRecyclerAdapter.ClickListener clickListener;
+    private List<Team> teamList = new ArrayList<>();
 
+    public LeagueRecyclerAdapter(@Nullable OrderedRealmCollection<Team> data, boolean autoUpdate) {
+        super(data, autoUpdate);
+        update(data);
+    }
 
-    public LeagueRecyclerAdapter(Context context) {
-        inflator = LayoutInflater.from(context);
+    public void update(OrderedRealmCollection<Team> data){
+        teamList = data;
+        notifyDataSetChanged();
     }
 
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
-        View view = inflator.inflate(R.layout.team_entree_layout, parent, false);
+
+        View view = LayoutInflater.from(parent.getContext())
+                .inflate(R.layout.team_entree_layout, parent, false);
         ViewHolder viewHolder = new ViewHolder(view);
         return viewHolder;
     }
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-
+        Team team = teamList.get(position);
+        holder.teamPositionTextView.setText(Integer.toString(position+1));
+        holder.teamNameTextView.setText(team.getName());
     }
 
 
     @Override
     public int getItemCount() {
-        return 10;
+        return teamList.size();
     }
 
 
     class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener {
+        @BindView(R.id.teamPositionTextView)
+        TextView teamPositionTextView;
+        @BindView(R.id.teamNameTextView)
+        TextView teamNameTextView;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -73,6 +98,7 @@ public class LeagueRecyclerAdapter extends RecyclerView.Adapter<LeagueRecyclerAd
 
     public interface ClickListener {
         void itemClicked(View view, int position);
+
         void itemLongClicked(View view, int position);
     }
 

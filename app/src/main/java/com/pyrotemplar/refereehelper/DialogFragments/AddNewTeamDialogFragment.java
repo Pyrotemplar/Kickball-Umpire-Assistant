@@ -8,9 +8,11 @@ import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AlertDialog;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.EditText;
 
 import com.pyrotemplar.refereehelper.R;
 
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
@@ -18,7 +20,10 @@ import butterknife.ButterKnife;
  */
 
 public class AddNewTeamDialogFragment extends DialogFragment {
-
+    @BindView(R.id.addNewTeamNameEditBox)
+    EditText addNewTeamNameEditBox;
+    @BindView(R.id.addNewTeamCaptainNameEditBox)
+    EditText addNewTeamCaptainNameEditBox;
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -36,7 +41,7 @@ public class AddNewTeamDialogFragment extends DialogFragment {
                 .setPositiveButton("Save", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
 
-                        // getActivity().getIntent().putExtra(RuleBookView.RULE_BOOK_POSITION, position);
+                         getActivity().getIntent().putExtra("name", addNewTeamNameEditBox.getText().toString());
 
 
                         getTargetFragment().onActivityResult(getTargetRequestCode(), Activity.RESULT_OK, getActivity().getIntent());
