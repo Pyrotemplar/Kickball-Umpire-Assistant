@@ -53,7 +53,7 @@ public class TabActivity extends AppCompatActivity implements TabActivityContrac
         mPager.setPagingEnabled(false);
         //start app on clicker tab(2)
         //  mPager.setCurrentItem(2);
-        mPager.setOffscreenPageLimit(2);
+        mPager.setOffscreenPageLimit(3);
         mTabLayout.setupWithViewPager(mPager);
         presenter.setTabIcons();
 

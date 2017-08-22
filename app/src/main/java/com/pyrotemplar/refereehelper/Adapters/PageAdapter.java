@@ -3,6 +3,7 @@ package com.pyrotemplar.refereehelper.Adapters;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.app.FragmentStatePagerAdapter;
 
 import com.pyrotemplar.refereehelper.ClickerFragment.ClickerView;
 import com.pyrotemplar.refereehelper.RulesFragment.RuleBookView;
@@ -15,7 +16,7 @@ import com.pyrotemplar.refereehelper.View.GamesHistoryFragment;
  * Created by Manuel Montes de Oca on 4/21/2017.
  */
 
-public class PageAdapter extends FragmentPagerAdapter {
+public class PageAdapter extends FragmentStatePagerAdapter {
 
 
     public PageAdapter(FragmentManager fm) {

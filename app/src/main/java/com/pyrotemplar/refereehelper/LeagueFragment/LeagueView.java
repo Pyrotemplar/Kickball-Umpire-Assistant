@@ -2,6 +2,7 @@ package com.pyrotemplar.refereehelper.LeagueFragment;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -111,9 +112,9 @@ public class LeagueView extends Fragment implements LeagueContract.View, LeagueR
 
 
             Team team = new Team(data.getStringExtra("name"), "", 0, "", 0);
-           // realm.beginTransaction();
-           // realm.copyToRealm(team);
-           // realm.commitTransaction();
+            // realm.beginTransaction();
+            // realm.copyToRealm(team);
+            // realm.commitTransaction();
             dataHelper.addItem(realm, team);
             //realm.beginTransaction();
             //realm.copyToRealm(drop);
@@ -150,7 +151,7 @@ public class LeagueView extends Fragment implements LeagueContract.View, LeagueR
 
             @Override
             public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) {
-              //  dataHelper.deleteItem();
+                //  dataHelper.deleteItem();
                 // mPresenter.removeRuleBook(viewHolder.getAdapterPosition());
                 // rulesRecyclerAdapter.notifyItemRemoved(viewHolder.getAdapterPosition());
                 //  viewHolder.setIsRecyclable(false);
@@ -190,5 +191,15 @@ public class LeagueView extends Fragment implements LeagueContract.View, LeagueR
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(helperCallBack());
         itemTouchHelper.attachToRecyclerView(leagueRecycler);
 
+    }
+
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if (isVisibleToUser) {
+            Activity activity = getActivity();
+            if (activity != null)
+                activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_FULL_SENSOR);
+        }
     }
 }

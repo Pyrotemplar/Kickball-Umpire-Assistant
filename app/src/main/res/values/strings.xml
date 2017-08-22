@@ -46,4 +46,28 @@
 
     <string name="SP_APP_INFO_SUMMARY">&appname; \nVersion 1.0</string>
     <string name="EXIT_MASSAGE_PROMPT">Exiting will Reset Game Data.</string>
+
+    <!-- Save Instance Keys -->
+    <string name="Away_Team_Score">awayTeamScore</string>
+    <string name="Away_Team_Color">awayTeamScore</string>
+    <string name="Away_Team_Name">awayTeamName</string>
+    <string name="Home_Team_Score">HomeTeamScore</string>
+    <string name="Home_Team_Color">homeTeamColor</string>
+    <string name="Home_Team_Name">homeTeamName</string>
+
+    <string name="Current_Inning">CurrentInning</string>
+    <string name="Is_Bottom_of_Inning">isBottomOfInning</string>
+
+    <string name="Number_Of_Balls">NumberOfBalls</string>
+    <string name="Number_Of_Strikes">NumberOfStrikes</string>
+    <string name="Number_Of_Fouls">NumberOfFouls</string>
+    <string name="Number_Of_Outs">NumberOfOuts</string>
+
+    <string name="Game_Clock">gameClock</string>
+    <string name="Is_Game_Clock_Running">isGameClockRunning</string>
+
+    <string name="Undo_Stack">undoStack</string>
+    <string name="Redo_Stack">redoStack</string>
+
+
 </resources>

@@ -3,6 +3,7 @@ package com.pyrotemplar.refereehelper.RulesFragment;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.ActivityInfo;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -281,5 +282,15 @@ public class RuleBookView extends Fragment implements RuleBooksContract.View, Ru
         addNewRulesBookLinkDialogFragment.setArguments(mArgs);
         addNewRulesBookLinkDialogFragment.show(getFragmentManager(), "TAG");
 
+    }
+
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if (isVisibleToUser) {
+            Activity activity = getActivity();
+            if (activity != null)
+                activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_FULL_SENSOR);
+        }
     }
 }

@@ -1,5 +1,7 @@
 package com.pyrotemplar.refereehelper.ClickerFragment;
 
+import android.content.res.Resources;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 
 import com.pyrotemplar.refereehelper.R;
@@ -14,7 +16,7 @@ import java.util.concurrent.TimeUnit;
  */
 
 public class ClickerPresenter implements ClickerContract.Presenter {
-    
+
     //// TODO: 7/13/2017 runner score button should reset count. 
 
     //Game Count states
@@ -57,7 +59,58 @@ public class ClickerPresenter implements ClickerContract.Presenter {
         updatedFields();
     }
 
+    public Bundle saveState() {
+        Bundle savedState = new Bundle();
+        savedState.putString(Resources.getSystem().getString(R.string.Away_Team_Name), awayTeamName);
+        savedState.putInt(Resources.getSystem().getString(R.string.Away_Team_Score), awayTeamScore);
+        savedState.putInt(Resources.getSystem().getString(R.string.Away_Team_Color), awayTeamColor);
+        savedState.putString(Resources.getSystem().getString(R.string.Home_Team_Name), homeTeamName);
+        savedState.putInt(Resources.getSystem().getString(R.string.Home_Team_Score), homeTeamScore);
+        savedState.putInt(Resources.getSystem().getString(R.string.Home_Team_Color), homeTeamColor);
+
+        savedState.putInt(Resources.getSystem().getString(R.string.Current_Inning), inning);
+        savedState.putBoolean(Resources.getSystem().getString(R.string.Is_Bottom_of_Inning), isBottomOfInning);
+
+        savedState.putInt(Resources.getSystem().getString(R.string.Number_Of_Balls), ballCount);
+        savedState.putInt(Resources.getSystem().getString(R.string.Number_Of_Strikes), strikeCount);
+        savedState.putInt(Resources.getSystem().getString(R.string.Number_Of_Fouls), foulCount);
+        savedState.putInt(Resources.getSystem().getString(R.string.Number_Of_Outs), outCount);
+
+        savedState.putInt(Resources.getSystem().getString(R.string.Game_Clock), gameClockTime);
+        savedState.putBoolean(Resources.getSystem().getString(R.string.Is_Game_Clock_Running), isGameClockRunning);
+
+        savedState.putSerializable(Resources.getSystem().getString(R.string.Undo_Stack), undoStack);
+        savedState.putSerializable(Resources.getSystem().getString(R.string.Redo_Stack), redoStack);
+
+        return savedState;
+    }
+
+    public void loadState(Bundle savedInstanceState) {
+        awayTeamName = savedInstanceState.getString(Resources.getSystem().getString(R.string.Away_Team_Name));
+        awayTeamScore = savedInstanceState.getInt(Resources.getSystem().getString(R.string.Away_Team_Score));
+        awayTeamColor = savedInstanceState.getInt(Resources.getSystem().getString(R.string.Away_Team_Color));
+        homeTeamName = savedInstanceState.getString(Resources.getSystem().getString(R.string.Home_Team_Name));
+        homeTeamScore = savedInstanceState.getInt(Resources.getSystem().getString(R.string.Home_Team_Score));
+        homeTeamColor = savedInstanceState.getInt(Resources.getSystem().getString(R.string.Home_Team_Color));
+
+        inning = savedInstanceState.getInt(Resources.getSystem().getString(R.string.Current_Inning));
+        isBottomOfInning = savedInstanceState.getBoolean(Resources.getSystem().getString(R.string.Is_Bottom_of_Inning));
+
+        ballCount = savedInstanceState.getInt(Resources.getSystem().getString(R.string.Number_Of_Balls));
+        strikeCount = savedInstanceState.getInt(Resources.getSystem().getString(R.string.Number_Of_Strikes));
+        foulCount = savedInstanceState.getInt(Resources.getSystem().getString(R.string.Number_Of_Fouls));
+        outCount = savedInstanceState.getInt(Resources.getSystem().getString(R.string.Number_Of_Outs));
+
+        gameClockTime = savedInstanceState.getInt(Resources.getSystem().getString(R.string.Game_Clock));
+        isGameClockRunning = savedInstanceState.getBoolean(Resources.getSystem().getString(R.string.Is_Game_Clock_Running));
+
+        undoStack = (Stack<GameCountState>) savedInstanceState.getSerializable(Resources.getSystem().getString(R.string.Undo_Stack));
+        redoStack = (Stack<GameCountState>) savedInstanceState.getSerializable(Resources.getSystem().getString(R.string.Redo_Stack));
+
+    }
+
     private void initializeCountFields() {
+
 
         awayTeamName = "Away";
         homeTeamName = "Home";

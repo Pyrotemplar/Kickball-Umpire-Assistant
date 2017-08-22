@@ -4,6 +4,7 @@ package com.pyrotemplar.refereehelper.ClickerFragment;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.ActivityInfo;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -82,7 +83,6 @@ public class ClickerView extends Fragment implements ClickerContract.View {
     private static ClickerContract.Presenter mPresenter;
     private boolean isViewShown;
 
-
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
@@ -110,7 +110,19 @@ public class ClickerView extends Fragment implements ClickerContract.View {
         awayTeamNameTextView.setSelected(true);
         homeTeamNameTextView.setSelected(true);
 
+        if (savedInstanceState != null) {
+            // not null means we are restoring the fragment
+            mPresenter.loadState(savedInstanceState);
+        }
+
+
         return rootView;
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        mPresenter.saveState();
+        super.onSaveInstanceState(outState);
     }
 
     @Override
@@ -425,6 +437,9 @@ public class ClickerView extends Fragment implements ClickerContract.View {
         super.setUserVisibleHint(isVisibleToUser);
 
         if (isVisibleToUser) {
+            Activity activity = getActivity();
+            if (activity != null)
+                activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         }
         if (getView() != null) {
             isViewShown = true;

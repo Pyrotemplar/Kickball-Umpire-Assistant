@@ -1,6 +1,6 @@
 package com.pyrotemplar.refereehelper.ClickerFragment;
 
-import android.view.View;
+import android.os.Bundle;
 
 /**
  * Created by Manuel Montes de Oca on 4/25/2017.
@@ -109,6 +109,8 @@ interface ClickerContract {
         void setMaxInnings(int maxInnings);
 
         void resetData();
+        Bundle saveState();
+        void loadState(Bundle savedInstanceState);
     }
 
     interface Model {
