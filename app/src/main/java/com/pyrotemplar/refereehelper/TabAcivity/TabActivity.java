@@ -45,7 +45,6 @@ public class TabActivity extends AppCompatActivity implements TabActivityContrac
         ButterKnife.bind(this);
 
         presenter = new TabActivityPresenter(this);
-
         mPageAdapter = new PageAdapter(getSupportFragmentManager());
 
         mPager.setAdapter(mPageAdapter);

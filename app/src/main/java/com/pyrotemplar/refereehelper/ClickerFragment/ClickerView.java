@@ -112,7 +112,7 @@ public class ClickerView extends Fragment implements ClickerContract.View {
 
         if (savedInstanceState != null) {
             // not null means we are restoring the fragment
-            mPresenter.loadState(savedInstanceState);
+            mPresenter.loadState(savedInstanceState, getContext());
         }
 
 
@@ -121,7 +121,7 @@ public class ClickerView extends Fragment implements ClickerContract.View {
 
     @Override
     public void onSaveInstanceState(Bundle outState) {
-        mPresenter.saveState();
+        mPresenter.saveState(outState, getContext());
         super.onSaveInstanceState(outState);
     }
 
@@ -445,7 +445,7 @@ public class ClickerView extends Fragment implements ClickerContract.View {
             isViewShown = true;
             //  updateSharePreferences() contains logic to update Share preference when page is selected
             //// TODO: 8/16/2017 Check this to only update if the preference update.
-            updateSharePreferences();
+           // updateSharePreferences();
         } else {
             isViewShown = false;
         }

@@ -1,5 +1,6 @@
 package com.pyrotemplar.refereehelper.ClickerFragment;
 
+import android.content.Context;
 import android.os.Bundle;
 
 /**
@@ -109,8 +110,8 @@ interface ClickerContract {
         void setMaxInnings(int maxInnings);
 
         void resetData();
-        Bundle saveState();
-        void loadState(Bundle savedInstanceState);
+        void saveState(Bundle outState, Context context);
+        void loadState(Bundle savedInstanceState, Context context);
     }
 
     interface Model {
