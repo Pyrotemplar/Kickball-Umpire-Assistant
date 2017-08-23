@@ -1,10 +1,12 @@
 package com.pyrotemplar.refereehelper.Utils;
 
+import java.io.Serializable;
+
 /**
  * Created by Manuel Montes de Oca on 4/26/2017.
  */
 
-public class GameCountState {
+public class GameCountState implements Serializable {
 
     private int awayTeamScore;
     private int homeTeamScore;

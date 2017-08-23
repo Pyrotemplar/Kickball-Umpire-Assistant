@@ -74,7 +74,7 @@ public class ClickerPresenter implements ClickerContract.Presenter {
         outState.putInt(context.getString(R.string.Number_Of_Fouls), foulCount);
         outState.putInt(context.getString(R.string.Number_Of_Outs), outCount);
 
-        outState.putInt(context.getString(R.string.Game_Clock), gameClockTime);
+        outState.putInt(context.getString(R.string.Game_Clock), (int)gameTimer.millisUntilFinished);
         outState.putBoolean(context.getString(R.string.Is_Game_Clock_Running), isGameClockRunning);
 
         outState.putSerializable(context.getString(R.string.Undo_Stack), undoStack);
@@ -103,7 +103,11 @@ public class ClickerPresenter implements ClickerContract.Presenter {
 
         undoStack = (Stack<GameCountState>) savedInstanceState.getSerializable(context.getString(R.string.Undo_Stack));
         redoStack = (Stack<GameCountState>) savedInstanceState.getSerializable(context.getString(R.string.Redo_Stack));
-
+        updatedFields();
+        initializeGameClock();
+        startStopGameClock(true);
+        mClickerFragmentView.updateAwayTeamBannerView(awayTeamName, awayTeamColor);
+        mClickerFragmentView.updateHomeTeamBannerView(homeTeamName, homeTeamColor);
     }
 
     private void initializeCountFields() {
@@ -388,7 +392,6 @@ public class ClickerPresenter implements ClickerContract.Presenter {
     }
 
     private void changeInning() {
-
 
         if (isBottomOfInning) {
             if (inning < maxInning) {

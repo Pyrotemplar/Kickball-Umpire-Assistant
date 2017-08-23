@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
+import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -63,6 +64,7 @@ public class RuleBookView extends Fragment implements RuleBooksContract.View, Ru
     private static RuleBooksContract.Presenter mPresenter;
     private List<RuleBook> mRulebookList;
     private Bundle mArgs;
+    private String URL;
 
     @Nullable
     @Override
@@ -95,9 +97,18 @@ public class RuleBookView extends Fragment implements RuleBooksContract.View, Ru
 
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(helperCallBack());
         itemTouchHelper.attachToRecyclerView(ruleBookRecycler);
+        if (savedInstanceState != null) {
+            mWebView.restoreState(savedInstanceState);
+            mWebView.setVisibility(View.VISIBLE);
+        }
 
         return rootView;
 
+    }
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
     }
 
     @Override
@@ -105,6 +116,12 @@ public class RuleBookView extends Fragment implements RuleBooksContract.View, Ru
         mRulebookList = mPresenter.getRuleBookList();
         saveRuleBookList();
         super.onStop();
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        mWebView.saveState(outState);
     }
 
     private void loadRuleBookList() {
@@ -208,7 +225,7 @@ public class RuleBookView extends Fragment implements RuleBooksContract.View, Ru
         // TODO: 7/10/2017 implement WebView from here
 
         // String URL = getResources().getString(R.string.PDF_Google_Docs_Viewer_string) + mPresenter.getRuleBook(position).getURL();
-        String URL = mPresenter.getRuleBook(position).getURL();
+       URL = mPresenter.getRuleBook(position).getURL();
         if ((URL != null) && (URL.endsWith(".PDF") || URL.endsWith(".pdf"))) {
             URL = getResources().getString(R.string.PDF_Google_Docs_Viewer_string) + URL;
         }
@@ -239,6 +256,19 @@ public class RuleBookView extends Fragment implements RuleBooksContract.View, Ru
             mWebView.loadUrl(URL);*/
 
 
+        setWebViewClient();
+
+
+        if (mWebView != null && (!URL.equals(mWebView.getUrl())))
+            mWebView.loadUrl(URL);
+        else
+            webViewInclude.setVisibility(View.VISIBLE);
+
+
+
+    }
+
+    private void setWebViewClient() {
         mWebView.setWebViewClient(new WebViewClient() {
             @Override
             public void onPageStarted(WebView view, String url, Bitmap favicon) {
@@ -261,15 +291,6 @@ public class RuleBookView extends Fragment implements RuleBooksContract.View, Ru
 
             }
         });
-
-
-        if (mWebView != null && (!URL.equals(mWebView.getUrl())))
-            mWebView.loadUrl(URL);
-        else
-            webViewInclude.setVisibility(View.VISIBLE);
-
-
-
     }
 
 

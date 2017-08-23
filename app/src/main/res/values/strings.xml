@@ -49,7 +49,7 @@
 
     <!-- Save Instance Keys -->
     <string name="Away_Team_Score">awayTeamScore</string>
-    <string name="Away_Team_Color">awayTeamScore</string>
+    <string name="Away_Team_Color">awayTeamColor</string>
     <string name="Away_Team_Name">awayTeamName</string>
     <string name="Home_Team_Score">HomeTeamScore</string>
     <string name="Home_Team_Color">homeTeamColor</string>
