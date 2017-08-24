@@ -21,6 +21,7 @@ import android.widget.TextView;
 import com.pyrotemplar.refereehelper.DialogFragments.GameClockDialogFragment;
 import com.pyrotemplar.refereehelper.DialogFragments.NameAndColorPickerDialogFragment;
 import com.pyrotemplar.refereehelper.R;
+import com.pyrotemplar.refereehelper.TabAcivity.TabActivity;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -445,7 +446,10 @@ public class ClickerView extends Fragment implements ClickerContract.View {
             isViewShown = true;
             //  updateSharePreferences() contains logic to update Share preference when page is selected
             //// TODO: 8/16/2017 Check this to only update if the preference update.
-           // updateSharePreferences();
+           if(TabActivity.isPreferenceUpdated) {
+               updateSharePreferences();
+               TabActivity.isPreferenceUpdated = false;
+           }
         } else {
             isViewShown = false;
         }

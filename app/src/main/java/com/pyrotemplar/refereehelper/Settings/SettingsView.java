@@ -8,6 +8,7 @@ import android.content.pm.ActivityInfo;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.TabLayout;
 import android.support.v7.preference.Preference;
 import android.support.v7.preference.PreferenceFragmentCompat;
 import android.support.v7.preference.PreferenceManager;
@@ -18,6 +19,7 @@ import android.widget.Toast;
 
 import com.pyrotemplar.refereehelper.DialogFragments.ConfirmationDialogFragment;
 import com.pyrotemplar.refereehelper.R;
+import com.pyrotemplar.refereehelper.TabAcivity.TabActivity;
 
 /**
  * Created by Manuel Montes de Oca on 5/4/2017.
@@ -90,6 +92,7 @@ public class SettingsView extends PreferenceFragmentCompat implements SharedPref
 
     @Override
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
+        TabActivity.isPreferenceUpdated = true;
     }
 
     private void resetClicker() {

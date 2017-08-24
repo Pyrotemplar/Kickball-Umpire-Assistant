@@ -36,6 +36,7 @@ public class TabActivity extends AppCompatActivity implements TabActivityContrac
 
     private PageAdapter mPageAdapter;
     private TabActivityPresenter presenter;
+    public static boolean isPreferenceUpdated;
     // private long back_pressed;
 
     @Override
