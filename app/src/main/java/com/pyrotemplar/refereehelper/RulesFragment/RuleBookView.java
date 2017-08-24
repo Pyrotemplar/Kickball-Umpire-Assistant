@@ -141,10 +141,7 @@ public class RuleBookView extends Fragment implements RuleBooksContract.View, Ru
             for (int i = 0; i < startingTitle.length; i++) {
                 mRulebookList.add(mPresenter.createRuleBook(startingTitle[i], startingURL[i], i));
             }
-
         }
-
-
     }
 
     private void saveRuleBookList() {

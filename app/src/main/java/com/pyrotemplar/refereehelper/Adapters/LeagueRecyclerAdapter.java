@@ -55,7 +55,8 @@ public class LeagueRecyclerAdapter extends RealmRecyclerViewAdapter<Team, League
     public void onBindViewHolder(ViewHolder holder, int position) {
         Team team = teamList.get(position);
         holder.teamPositionTextView.setText(Integer.toString(position+1));
-        holder.teamNameTextView.setText(team.getName());
+        holder.teamNameTextView.setText(team.getTeamName());
+        holder.teamColorView.setBackgroundColor(team.getTeamColor());
     }
 
 
@@ -67,9 +68,11 @@ public class LeagueRecyclerAdapter extends RealmRecyclerViewAdapter<Team, League
 
     class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener {
         @BindView(R.id.teamPositionTextView)
-        TextView teamPositionTextView;
+       public TextView teamPositionTextView;
         @BindView(R.id.teamNameTextView)
         TextView teamNameTextView;
+        @BindView(R.id.teamColorView)
+        View teamColorView;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -89,7 +92,7 @@ public class LeagueRecyclerAdapter extends RealmRecyclerViewAdapter<Team, League
         @Override
         public boolean onLongClick(View v) {
             if (clickListener != null) {
-                clickListener.itemLongClicked(v, getAdapterPosition());
+                clickListener.itemLongClicked(v, teamList.get(getAdapterPosition()).getTeamName());
                 return true;
             }
             return false;
@@ -99,7 +102,7 @@ public class LeagueRecyclerAdapter extends RealmRecyclerViewAdapter<Team, League
     public interface ClickListener {
         void itemClicked(View view, int position);
 
-        void itemLongClicked(View view, int position);
+        void itemLongClicked(View view, String teamName);
     }
 
     public void setListener(ClickListener clickListener) {

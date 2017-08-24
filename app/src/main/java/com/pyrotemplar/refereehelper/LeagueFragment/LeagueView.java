@@ -13,6 +13,8 @@ import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.pyrotemplar.refereehelper.Adapters.LeagueRecyclerAdapter;
@@ -36,8 +38,18 @@ import io.realm.RealmResults;
 
 public class LeagueView extends Fragment implements LeagueContract.View, LeagueRecyclerAdapter.ClickListener {
 
+    public static final String TEAM_NAME = "teamName";
+    public static final String TEAM_CAPTAIN_NAME = "teamCaptainName";
+    public static final String TEAM_CAPTAIN_EMAIL = "teamCaptainEmail";
+    public static final String TEAM_CAPTAIN_NUMBER = "teamCaptainNumber";
+    public static final String TEAM_COLOR = "teamColor";
+    public static final int REQUEST_CODE_EDIT = 10;
+    public static final int REQUEST_CODE_NEW = 20;
+
+
     @BindView(R.id.LeagueRecyclerView)
     RecyclerView leagueRecycler;
+
 
     private AddNewTeamDialogFragment addNewTeamDialogFragment;
     private LeagueRecyclerAdapter leagueRecyclerAdapter;
@@ -58,7 +70,6 @@ public class LeagueView extends Fragment implements LeagueContract.View, LeagueR
         addNewTeamDialogFragment = new AddNewTeamDialogFragment();
         addNewTeamDialogFragment.setTargetFragment(this, 2);
 
-        mArgs = new Bundle();
 
         new LeaguePresenter(this);
         setUpRecyclerView();
@@ -98,11 +109,22 @@ public class LeagueView extends Fragment implements LeagueContract.View, LeagueR
     @Override
     public void itemClicked(View view, int position) {
 
+        Toast.makeText(getContext(), "testclick", Toast.LENGTH_SHORT).show();
     }
 
     @Override
-    public void itemLongClicked(View view, int position) {
-
+    public void itemLongClicked(View view, String teamName) {
+        Toast.makeText(getContext(), "test Long Click", Toast.LENGTH_SHORT).show();
+        Team team = dataHelper.getItem(realm, teamName);
+        mArgs = new Bundle();
+        mArgs.putString(TEAM_NAME, team.getTeamName());
+        mArgs.putString(TEAM_CAPTAIN_NAME, team.getCaptainName());
+        mArgs.putString(TEAM_CAPTAIN_EMAIL, team.getCaptainEmail());
+        mArgs.putInt(TEAM_CAPTAIN_NUMBER, team.getCaptainPhoneNumber());
+        mArgs.putInt(TEAM_COLOR, team.getTeamColor());
+        addNewTeamDialogFragment.setArguments(mArgs);
+        addNewTeamDialogFragment.setTargetFragment(this, REQUEST_CODE_EDIT);
+        addNewTeamDialogFragment.show(getFragmentManager(), "TAG");
     }
 
     @Override
@@ -110,39 +132,14 @@ public class LeagueView extends Fragment implements LeagueContract.View, LeagueR
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == Activity.RESULT_OK) {
 
-
-            Team team = new Team(data.getStringExtra("name"), "", 0, "", 0);
-            // realm.beginTransaction();
-            // realm.copyToRealm(team);
-            // realm.commitTransaction();
+            Team team = new Team(data.getStringExtra(TEAM_NAME), data.getStringExtra(TEAM_CAPTAIN_NAME),
+                    data.getStringExtra(TEAM_CAPTAIN_EMAIL), Integer.parseInt(data.getStringExtra(TEAM_CAPTAIN_NUMBER)), data.getIntExtra(TEAM_COLOR, 0));
             dataHelper.addItem(realm, team);
-            //realm.beginTransaction();
-            //realm.copyToRealm(drop);
-            // realm.commitTransaction();
-
-
-            //  int position = data.getIntExtra(RULE_BOOK_POSITION, -1);
-            if (-1 == -1) {
-                //   mPresenter.saveRuleBook(mPresenter.createRuleBook(data.getStringExtra(RULE_BOOK_TITLE), data.getStringExtra(RULE_BOOK_URL), mPresenter.getRuleBookList().size()));
-            } else {
-            }
-            //  mPresenter.editRuleBook(position, data.getStringExtra(RULE_BOOK_TITLE), data.getStringExtra(RULE_BOOK_URL));
-
-            //rulesRecyclerAdapter.updateList();
-
-            // saveRuleBookList();
         }
 
     }
 
-    // private Team newTeam(String name) {
-    // Team team = new Team();
-    //team.setName(name);
-    // return team;
-
-    //}
-
-    private ItemTouchHelper.Callback helperCallBack() {
+    /*private ItemTouchHelper.Callback helperCallBack() {
         ItemTouchHelper.SimpleCallback simpleCallback = new ItemTouchHelper.SimpleCallback(ItemTouchHelper.UP | ItemTouchHelper.DOWN, ItemTouchHelper.LEFT) {
             @Override
             public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
@@ -151,7 +148,11 @@ public class LeagueView extends Fragment implements LeagueContract.View, LeagueR
 
             @Override
             public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) {
-                //  dataHelper.deleteItem();
+
+              Team team = leagueRecyclerAdapter.getItem(viewHolder.getAdapterPosition());
+
+                dataHelper.deleteItem(realm, "Test");
+              //  dataHelper.deleteItem(viewHolder.itemView.);
                 // mPresenter.removeRuleBook(viewHolder.getAdapterPosition());
                 // rulesRecyclerAdapter.notifyItemRemoved(viewHolder.getAdapterPosition());
                 //  viewHolder.setIsRecyclable(false);
@@ -159,16 +160,14 @@ public class LeagueView extends Fragment implements LeagueContract.View, LeagueR
             }
         };
         return simpleCallback;
-    }
+    }*/
 
 
     @OnClick(R.id.AddNewTeamButtonView)
     @Override
     public void AddNewTeamButtonClicked(View view) {
-        Toast.makeText(getContext(), "helo test", Toast.LENGTH_SHORT).show();
-        addNewTeamDialogFragment.setArguments(mArgs);
+        addNewTeamDialogFragment.setTargetFragment(this, REQUEST_CODE_NEW);
         addNewTeamDialogFragment.show(getFragmentManager(), "TAG");
-
     }
 
     @Override
@@ -187,9 +186,8 @@ public class LeagueView extends Fragment implements LeagueContract.View, LeagueR
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(leagueRecycler.getContext(), layoutManager.getOrientation());
         leagueRecycler.addItemDecoration(dividerItemDecoration);
 
-
-        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(helperCallBack());
-        itemTouchHelper.attachToRecyclerView(leagueRecycler);
+      //  ItemTouchHelper itemTouchHelper = new ItemTouchHelper(helperCallBack());
+      //  itemTouchHelper.attachToRecyclerView(leagueRecycler);
 
     }
 

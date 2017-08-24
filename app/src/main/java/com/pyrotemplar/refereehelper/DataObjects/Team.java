@@ -1,6 +1,7 @@
 package com.pyrotemplar.refereehelper.DataObjects;
 
 import io.realm.RealmObject;
+import io.realm.annotations.PrimaryKey;
 
 /**
  * Created by Manuel Montes de Oca on 8/17/2017.
@@ -8,10 +9,10 @@ import io.realm.RealmObject;
 
 public class Team extends RealmObject {
 
-    public static final String FIELD_Name = "name";
+    public static final String FIELD_Name = "teamName";
 
-
-    private String name;
+    @PrimaryKey
+    private String teamName;
 
     private String captainName;
 
@@ -21,24 +22,24 @@ public class Team extends RealmObject {
 
     private int teamColor;
 
-    public Team(String name, String captainName, int captainPhoneNumber, String captainEmail, int teamColor) {
+    public Team(String teamName, String captainName, String captainEmail, int captainPhoneNumber, int teamColor) {
 
-        this.name = name;
+        this.teamName = teamName;
         this.captainName = captainName;
-        this.captainPhoneNumber = captainPhoneNumber;
         this.captainEmail = captainEmail;
+        this.captainPhoneNumber = captainPhoneNumber;
         this.teamColor = teamColor;
     }
 
     public Team() {
     }
 
-    public String getName() {
-        return name;
+    public String getTeamName() {
+        return teamName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setTeamName(String name) {
+        this.teamName = name;
     }
 
     public String getCaptainName() {
