@@ -17,6 +17,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.pyrotemplar.refereehelper.ClickerFragment.ClickerView;
+import com.pyrotemplar.refereehelper.DataObjects.Team;
+import com.pyrotemplar.refereehelper.DataObjects.dataHelper;
 import com.pyrotemplar.refereehelper.DialogFragments.ConfirmationDialogFragment;
 import com.pyrotemplar.refereehelper.R;
 import com.pyrotemplar.refereehelper.TabAcivity.TabActivity;
@@ -27,11 +30,17 @@ import com.pyrotemplar.refereehelper.TabAcivity.TabActivity;
 
 public class SettingsView extends PreferenceFragmentCompat implements SharedPreferences.OnSharedPreferenceChangeListener, SettingsContract.View {
 
+    public static final String TITLE = "title";
+    public static final String MESSAGE = "message";
+    public static final String POSITIVE_BUTTON = "positiveButton";
+    public static final int REQUEST_CODE_RESET = 40;
+    public static final String CLICKER_DATA_RESET = "Clicker Data reset";
 
     SharedPreferences sharedPreferences;
     private SettingsContract.Presenter mPresenter;
 
     @Override
+
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         // Load the preferences from an XML resource
@@ -48,6 +57,16 @@ public class SettingsView extends PreferenceFragmentCompat implements SharedPref
         new SettingsPresenter(this);
 
         return rootView;
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == Activity.RESULT_OK) {
+            ClickerView.resetClickerData();
+             Toast.makeText(getContext(), CLICKER_DATA_RESET, Toast.LENGTH_SHORT).show();
+        }
+
     }
 
     @Override
@@ -96,7 +115,15 @@ public class SettingsView extends PreferenceFragmentCompat implements SharedPref
     }
 
     private void resetClicker() {
+
+        Bundle mArgs = new Bundle();
+        mArgs.putString(TITLE, "Reset Clicker");
+        mArgs.putString(MESSAGE, "Start a New Game?");
+        mArgs.putString(POSITIVE_BUTTON, "Reset");
+
         ConfirmationDialogFragment confirmationDialogFragment = new ConfirmationDialogFragment();
+        confirmationDialogFragment.setArguments(mArgs);
+        confirmationDialogFragment.setTargetFragment(this, REQUEST_CODE_RESET);
         confirmationDialogFragment.show(getFragmentManager(), "TAG");
     }
 

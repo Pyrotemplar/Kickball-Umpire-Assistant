@@ -25,6 +25,12 @@ import butterknife.ButterKnife;
  */
 
 public class AddNewTeamDialogFragment extends DialogFragment {
+    public static final String ADD_NEW_TEAM = "Add New Team";
+    public static final String EDIT_TEAM_INFO = "Edit Team Info";
+    public static final String TEAM = "TEAM";
+    public static final String SAVE = "Save";
+    public static final String CANCEL = "Cancel";
+
     @BindView(R.id.addNewTeamNameEditBox)
     EditText addNewTeamNameEditBox;
     @BindView(R.id.addNewTeamCaptainNameEditBox)
@@ -51,7 +57,7 @@ public class AddNewTeamDialogFragment extends DialogFragment {
         colorPicker.addSVBar(SVbar);
 
         if (mArgs != null) {
-            message = "Edit Team Info";
+            message = EDIT_TEAM_INFO;
             addNewTeamNameEditBox.append(mArgs.getString(LeagueView.TEAM_NAME));
             addNewTeamCaptainNameEditBox.append(mArgs.getString(LeagueView.TEAM_CAPTAIN_NAME));
             addNewTeamCaptainEmailEditBoxEditBox.append(mArgs.getString(LeagueView.TEAM_CAPTAIN_EMAIL));
@@ -60,13 +66,13 @@ public class AddNewTeamDialogFragment extends DialogFragment {
             if (color != 0)
                 colorPicker.setColor(color);
         } else {
-            message  = "Add New Team";
+            message = ADD_NEW_TEAM;
         }
 
         // Use the Builder class for convenient dialog construction
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        builder.setTitle("TEAM").setMessage(message).setView(view)
-                .setPositiveButton("Save", new DialogInterface.OnClickListener() {
+        builder.setTitle(TEAM).setMessage(message).setView(view)
+                .setPositiveButton(SAVE, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
 
                         getActivity().getIntent().putExtra(LeagueView.TEAM_NAME, addNewTeamNameEditBox.getText().toString());
@@ -78,7 +84,7 @@ public class AddNewTeamDialogFragment extends DialogFragment {
                         getTargetFragment().onActivityResult(getTargetRequestCode(), Activity.RESULT_OK, getActivity().getIntent());
                     }
                 })
-                .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                .setNegativeButton(CANCEL, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                     }
                 });

@@ -85,7 +85,7 @@ public class LeagueRecyclerAdapter extends RealmRecyclerViewAdapter<Team, League
         public void onClick(View v) {
 
             if (clickListener != null) {
-                clickListener.itemClicked(v, getAdapterPosition());
+                clickListener.itemClicked(v, teamList.get(getAdapterPosition()).getTeamName());
             }
         }
 
@@ -100,7 +100,7 @@ public class LeagueRecyclerAdapter extends RealmRecyclerViewAdapter<Team, League
     }
 
     public interface ClickListener {
-        void itemClicked(View view, int position);
+        void itemClicked(View view, String teamName);
 
         void itemLongClicked(View view, String teamName);
     }

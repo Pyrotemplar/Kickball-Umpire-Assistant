@@ -21,6 +21,7 @@ import com.pyrotemplar.refereehelper.Adapters.LeagueRecyclerAdapter;
 import com.pyrotemplar.refereehelper.DataObjects.Team;
 import com.pyrotemplar.refereehelper.DataObjects.dataHelper;
 import com.pyrotemplar.refereehelper.DialogFragments.AddNewTeamDialogFragment;
+import com.pyrotemplar.refereehelper.DialogFragments.ConfirmationDialogFragment;
 import com.pyrotemplar.refereehelper.R;
 
 import java.util.UUID;
@@ -45,6 +46,11 @@ public class LeagueView extends Fragment implements LeagueContract.View, LeagueR
     public static final String TEAM_COLOR = "teamColor";
     public static final int REQUEST_CODE_EDIT = 10;
     public static final int REQUEST_CODE_NEW = 20;
+    public static final int REQUEST_CODE_DELETE = 30;
+    public static final String TEAM_TO_DELETE = "teamToDelete";
+    public static final String TITLE = "title";
+    public static final String MESSAGE = "message";
+    public static final String POSITIVE_BUTTON = "positiveButton";
 
 
     @BindView(R.id.LeagueRecyclerView)
@@ -68,7 +74,7 @@ public class LeagueView extends Fragment implements LeagueContract.View, LeagueR
         realm = Realm.getDefaultInstance();
         results = realm.where(Team.class).findAllAsync();
         addNewTeamDialogFragment = new AddNewTeamDialogFragment();
-        addNewTeamDialogFragment.setTargetFragment(this, 2);
+        // addNewTeamDialogFragment.setTargetFragment(this, 2);
 
 
         new LeaguePresenter(this);
@@ -107,13 +113,8 @@ public class LeagueView extends Fragment implements LeagueContract.View, LeagueR
     }
 
     @Override
-    public void itemClicked(View view, int position) {
+    public void itemClicked(View view, String teamName) {
 
-        Toast.makeText(getContext(), "testclick", Toast.LENGTH_SHORT).show();
-    }
-
-    @Override
-    public void itemLongClicked(View view, String teamName) {
         Toast.makeText(getContext(), "test Long Click", Toast.LENGTH_SHORT).show();
         Team team = dataHelper.getItem(realm, teamName);
         mArgs = new Bundle();
@@ -128,13 +129,31 @@ public class LeagueView extends Fragment implements LeagueContract.View, LeagueR
     }
 
     @Override
+    public void itemLongClicked(View view, String teamName) {
+        Bundle mArgs = new Bundle();
+        mArgs.putString(TEAM_TO_DELETE, teamName);
+        mArgs.putString(TITLE, "Delete Team");
+        mArgs.putString(MESSAGE, "Delete Team "+ teamName +"?");
+        mArgs.putString(POSITIVE_BUTTON, "Delete");
+        ConfirmationDialogFragment confirmationDialogFragment = new ConfirmationDialogFragment();
+        confirmationDialogFragment.setArguments(mArgs);
+        confirmationDialogFragment.setTargetFragment(this, REQUEST_CODE_DELETE);
+        confirmationDialogFragment.show(getFragmentManager(), "TAG");
+    }
+
+    @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == Activity.RESULT_OK) {
 
-            Team team = new Team(data.getStringExtra(TEAM_NAME), data.getStringExtra(TEAM_CAPTAIN_NAME),
-                    data.getStringExtra(TEAM_CAPTAIN_EMAIL), Integer.parseInt(data.getStringExtra(TEAM_CAPTAIN_NUMBER)), data.getIntExtra(TEAM_COLOR, 0));
-            dataHelper.addItem(realm, team);
+            if (requestCode == REQUEST_CODE_NEW || requestCode == REQUEST_CODE_EDIT) {
+                Team team = new Team(data.getStringExtra(TEAM_NAME), data.getStringExtra(TEAM_CAPTAIN_NAME),
+                        data.getStringExtra(TEAM_CAPTAIN_EMAIL), Integer.parseInt(data.getStringExtra(TEAM_CAPTAIN_NUMBER)), data.getIntExtra(TEAM_COLOR, 0));
+                dataHelper.addItem(realm, team);
+            } else if (requestCode == REQUEST_CODE_DELETE) {
+                String teamName = data.getStringExtra(TEAM_TO_DELETE);
+                dataHelper.deleteItem(realm, teamName);
+            }
         }
 
     }
@@ -186,8 +205,8 @@ public class LeagueView extends Fragment implements LeagueContract.View, LeagueR
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(leagueRecycler.getContext(), layoutManager.getOrientation());
         leagueRecycler.addItemDecoration(dividerItemDecoration);
 
-      //  ItemTouchHelper itemTouchHelper = new ItemTouchHelper(helperCallBack());
-      //  itemTouchHelper.attachToRecyclerView(leagueRecycler);
+        //  ItemTouchHelper itemTouchHelper = new ItemTouchHelper(helperCallBack());
+        //  itemTouchHelper.attachToRecyclerView(leagueRecycler);
 
     }
 

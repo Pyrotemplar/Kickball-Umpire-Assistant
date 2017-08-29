@@ -447,6 +447,7 @@ public class ClickerPresenter implements ClickerContract.Presenter {
     public void resetData() {
         startStopGameClock(true);
         initializeCountFields();
+        updatedFields();
 
     }
 
