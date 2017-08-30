@@ -4,12 +4,18 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 
+import com.pyrotemplar.refereehelper.DataObjects.Team;
 import com.pyrotemplar.refereehelper.R;
 import com.pyrotemplar.refereehelper.Utils.GameCountState;
 import com.pyrotemplar.refereehelper.Utils.GameTimer;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Stack;
 import java.util.concurrent.TimeUnit;
+
+import io.realm.Realm;
+import io.realm.RealmResults;
 
 /**
  * Created by Manuel Montes de Oca on 4/25/2017.
@@ -74,7 +80,7 @@ public class ClickerPresenter implements ClickerContract.Presenter {
         outState.putInt(context.getString(R.string.Number_Of_Fouls), foulCount);
         outState.putInt(context.getString(R.string.Number_Of_Outs), outCount);
 
-        outState.putInt(context.getString(R.string.Game_Clock), (int)gameTimer.millisUntilFinished);
+        outState.putInt(context.getString(R.string.Game_Clock), (int) gameTimer.millisUntilFinished);
         outState.putBoolean(context.getString(R.string.Is_Game_Clock_Running), isGameClockRunning);
 
         outState.putSerializable(context.getString(R.string.Undo_Stack), undoStack);
@@ -436,7 +442,6 @@ public class ClickerPresenter implements ClickerContract.Presenter {
         outCount = startingOutCount;
 
         updatedFields();
-
 
     }
 

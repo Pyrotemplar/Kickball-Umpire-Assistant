@@ -1,5 +1,10 @@
 package com.pyrotemplar.refereehelper.DataObjects;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
+import java.io.Serializable;
+
 import io.realm.RealmObject;
 import io.realm.annotations.PrimaryKey;
 
@@ -7,7 +12,7 @@ import io.realm.annotations.PrimaryKey;
  * Created by Manuel Montes de Oca on 8/17/2017.
  */
 
-public class Team extends RealmObject {
+public class Team extends RealmObject implements Serializable {
 
     public static final String FIELD_Name = "teamName";
 

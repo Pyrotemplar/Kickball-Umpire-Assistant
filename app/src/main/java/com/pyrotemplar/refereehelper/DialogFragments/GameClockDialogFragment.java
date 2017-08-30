@@ -89,7 +89,7 @@ public class GameClockDialogFragment extends DialogFragment {
                         getActivity().getIntent().putExtra("newTime", timeEditTextView.getText().toString());
                         //     getActivity().getIntent().putExtra("isCountUpEnabled", countUpSwitch.isChecked());
 
-                        getTargetFragment().onActivityResult(2, Activity.RESULT_OK, getActivity().getIntent());
+                        getTargetFragment().onActivityResult(getTargetRequestCode(), Activity.RESULT_OK, getActivity().getIntent());
                         d.dismiss();
                     } else
                         textInputLayout.setError(getResources().getString(R.string.MS_ERROR_WARNING_EDIT_GAME_CLOCK));

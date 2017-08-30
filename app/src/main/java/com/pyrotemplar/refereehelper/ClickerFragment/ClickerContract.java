@@ -3,6 +3,10 @@ package com.pyrotemplar.refereehelper.ClickerFragment;
 import android.content.Context;
 import android.os.Bundle;
 
+import com.pyrotemplar.refereehelper.DataObjects.Team;
+
+import java.util.List;
+
 /**
  * Created by Manuel Montes de Oca on 4/25/2017.
  */

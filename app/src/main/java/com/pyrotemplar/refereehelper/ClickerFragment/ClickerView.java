@@ -20,6 +20,7 @@ import android.widget.TextView;
 
 import com.pyrotemplar.refereehelper.DialogFragments.GameClockDialogFragment;
 import com.pyrotemplar.refereehelper.DialogFragments.NameAndColorPickerDialogFragment;
+import com.pyrotemplar.refereehelper.DialogFragments.TeamSelectionDialogFragment;
 import com.pyrotemplar.refereehelper.R;
 import com.pyrotemplar.refereehelper.TabAcivity.TabActivity;
 
@@ -37,6 +38,11 @@ public class ClickerView extends Fragment implements ClickerContract.View {
 
     public final static String SCORE_BOARD_BUTTONS_PRESSED = "scoreboardButtonPressed";
     public final static String GAME_CLOCK_BUTTONS_PRESSED = "gameClockButtonPressed";
+    public static final int REQUEST_CODE_AWAY_TEAM = 50;
+    public static final int REQUEST_CODE_HOME_TEAM = 60;
+    public static final int REQUEST_CODE_GAME_CLOCK = 70;
+    public static final String TEAM_NAME = "teamName";
+    public static final String TEAM_COLOR = "teamColor";
 
     @BindView(R.id.awayTeamNameTextView)
     TextView awayTeamNameTextView;
@@ -76,6 +82,7 @@ public class ClickerView extends Fragment implements ClickerContract.View {
     private boolean isHapticFeedbackEnabled;
     private SharedPreferences sharedPreferences;
     private NameAndColorPickerDialogFragment nameAndColorPickerDialogFragment;
+    private TeamSelectionDialogFragment teamSelectionDialogFragment;
     private GameClockDialogFragment gameClockDialogFragment;
     private Bundle mArgs;
     private int homeTeamColor;
@@ -94,6 +101,10 @@ public class ClickerView extends Fragment implements ClickerContract.View {
 
         nameAndColorPickerDialogFragment = new NameAndColorPickerDialogFragment();
         nameAndColorPickerDialogFragment.setTargetFragment(this, 1);
+
+        teamSelectionDialogFragment = new TeamSelectionDialogFragment();
+        teamSelectionDialogFragment.setTargetFragment(this, 1);
+
 
         gameClockDialogFragment = new GameClockDialogFragment();
         gameClockDialogFragment.setTargetFragment(this, 2);
@@ -130,20 +141,18 @@ public class ClickerView extends Fragment implements ClickerContract.View {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == Activity.RESULT_OK) {
-            //todo: update the teams name and color from intent.
 
-
-            if (data.getStringExtra("caller").equals("awayTeamButton"))
-                mPresenter.updateAwayTeamBanner(data.getStringExtra("teamName"), data.getIntExtra("teamColor", 0));
-            else if (data.getStringExtra("caller").equals("homeTeamButton"))
-                mPresenter.updateHomeTeamBanner(data.getStringExtra("teamName"), data.getIntExtra("teamColor", 0));
-            else if (data.getStringExtra("caller").equals("gameClockButton")) {
+            if (requestCode == REQUEST_CODE_AWAY_TEAM)
+                mPresenter.updateAwayTeamBanner(data.getStringExtra(TEAM_NAME), data.getIntExtra(TEAM_COLOR, 0));
+            else if (requestCode == REQUEST_CODE_HOME_TEAM)
+                mPresenter.updateHomeTeamBanner(data.getStringExtra(TEAM_NAME), data.getIntExtra(TEAM_COLOR, 0));
+            else if (requestCode == REQUEST_CODE_GAME_CLOCK) {
                 mPresenter.setGameClockString(Integer.parseInt(data.getStringExtra("newTime")));
                 mPresenter.startStopGameClock(true);
             }
         }
-
     }
+
 
     @Override
     public void setPresenter(ClickerPresenter presenter) {
@@ -159,11 +168,13 @@ public class ClickerView extends Fragment implements ClickerContract.View {
     @OnLongClick(R.id.awayTeamBannerLayout)
     @Override
     public boolean AwayTeamButtonLongClicked(View view) {
-        mArgs.putString(SCORE_BOARD_BUTTONS_PRESSED, "awayTeamButton");
+
+       /* mArgs.putString(SCORE_BOARD_BUTTONS_PRESSED, "awayTeamButton");
         mArgs.putString("teamName", awayTeamNameTextView.getText().toString());
-        mArgs.putInt("teamColor", awayTeamColor);
-        nameAndColorPickerDialogFragment.setArguments(mArgs);
-        nameAndColorPickerDialogFragment.show(getFragmentManager(), "TAG");
+        mArgs.putInt("teamColor", awayTeamColor);*/
+        // nameAndColorPickerDialogFragment.setArguments(mArgs);
+        teamSelectionDialogFragment.setTargetFragment(this, REQUEST_CODE_AWAY_TEAM);
+        teamSelectionDialogFragment.show(getFragmentManager(), "TAG");
         if (isHapticFeedbackEnabled)
             hapticFeedback(view);
         return true;
@@ -173,11 +184,13 @@ public class ClickerView extends Fragment implements ClickerContract.View {
     @Override
     public boolean homeTeamButtonLongClicked(View view) {
 
-        mArgs.putString(SCORE_BOARD_BUTTONS_PRESSED, "homeTeamButton");
-        mArgs.putString("teamName", homeTeamNameTextView.getText().toString());
+        teamSelectionDialogFragment.setTargetFragment(this, REQUEST_CODE_HOME_TEAM);
+        teamSelectionDialogFragment.show(getFragmentManager(), "TAG");
+     /*   mArgs.putString("teamName", homeTeamNameTextView.getText().toString());
         mArgs.putInt("teamColor", homeTeamColor);
         nameAndColorPickerDialogFragment.setArguments(mArgs);
-        nameAndColorPickerDialogFragment.show(getFragmentManager(), "TAG");
+
+        nameAndColorPickerDialogFragment.show(getFragmentManager(), "TAG");*/
         if (isHapticFeedbackEnabled)
             hapticFeedback(view);
         return true;
@@ -269,7 +282,7 @@ public class ClickerView extends Fragment implements ClickerContract.View {
     @OnLongClick(R.id.gameClockLayout)
     @Override
     public boolean gameClockButtonLongClicked(View view) {
-        mArgs.putString(GAME_CLOCK_BUTTONS_PRESSED, "gameClockButton");
+        gameClockDialogFragment.setTargetFragment(this, REQUEST_CODE_GAME_CLOCK);
         mArgs.putString("gameClockTime", gameClockTextView.getText().toString().substring(0, gameClockTextView.getText().toString().length() - 3));
         gameClockDialogFragment.setArguments(mArgs);
         mPresenter.startStopGameClock(true);
@@ -446,10 +459,10 @@ public class ClickerView extends Fragment implements ClickerContract.View {
             isViewShown = true;
             //  updateSharePreferences() contains logic to update Share preference when page is selected
             //// TODO: 8/16/2017 Check this to only update if the preference update.
-           if(TabActivity.isPreferenceUpdated) {
-               updateSharePreferences();
-               TabActivity.isPreferenceUpdated = false;
-           }
+            if (TabActivity.isPreferenceUpdated) {
+                updateSharePreferences();
+                TabActivity.isPreferenceUpdated = false;
+            }
         } else {
             isViewShown = false;
         }
