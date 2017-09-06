@@ -31,12 +31,9 @@ public class TeamSelectionDialogFragment extends DialogFragment implements Adapt
     public static final String TEAM_COLOR = "teamColor";
     @BindView(R.id.teamSelectionDropDownSpinner)
     Spinner teamSelectionDropDownSpinner;
-    @BindView(R.id.teamSelectionNameTextView)
-    TextView teamSelectionNameTextView;
 
     int teamColor;
     String teamName;
-
 
     List<Team> teamList;
 
@@ -53,6 +50,7 @@ public class TeamSelectionDialogFragment extends DialogFragment implements Adapt
         teamSelectionDropDownSpinner.setOnItemSelectedListener(this);
 
         TeamSelectionSpinnerAdapter teamSelectionSpinnerAdapter = new TeamSelectionSpinnerAdapter(getContext(), teamList);
+
         teamSelectionDropDownSpinner.setAdapter(teamSelectionSpinnerAdapter);
 
         // Use the Builder class for convenient dialog construction
@@ -84,9 +82,6 @@ public class TeamSelectionDialogFragment extends DialogFragment implements Adapt
         Team team = teamList.get(position);
         teamName = team.getTeamName();
         teamColor = team.getTeamColor();
-        teamSelectionNameTextView.setText(teamName);
-        teamSelectionNameTextView.setTextColor(teamColor);
-
     }
 
     @Override

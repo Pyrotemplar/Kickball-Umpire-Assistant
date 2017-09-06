@@ -115,13 +115,13 @@ public class LeagueView extends Fragment implements LeagueContract.View, LeagueR
     @Override
     public void itemClicked(View view, String teamName) {
 
-        Toast.makeText(getContext(), "test Long Click", Toast.LENGTH_SHORT).show();
+        Toast.makeText(getContext(), "TextFitTextView Long Click", Toast.LENGTH_SHORT).show();
         Team team = dataHelper.getItem(realm, teamName);
         mArgs = new Bundle();
         mArgs.putString(TEAM_NAME, team.getTeamName());
-        mArgs.putString(TEAM_CAPTAIN_NAME, team.getCaptainName());
-        mArgs.putString(TEAM_CAPTAIN_EMAIL, team.getCaptainEmail());
-        mArgs.putInt(TEAM_CAPTAIN_NUMBER, team.getCaptainPhoneNumber());
+       // mArgs.putString(TEAM_CAPTAIN_NAME, team.getCaptainName());
+      //  mArgs.putString(TEAM_CAPTAIN_EMAIL, team.getCaptainEmail());
+      //  mArgs.putInt(TEAM_CAPTAIN_NUMBER, team.getCaptainPhoneNumber());
         mArgs.putInt(TEAM_COLOR, team.getTeamColor());
         addNewTeamDialogFragment.setArguments(mArgs);
         addNewTeamDialogFragment.setTargetFragment(this, REQUEST_CODE_EDIT);
@@ -147,8 +147,12 @@ public class LeagueView extends Fragment implements LeagueContract.View, LeagueR
         if (resultCode == Activity.RESULT_OK) {
 
             if (requestCode == REQUEST_CODE_NEW || requestCode == REQUEST_CODE_EDIT) {
+/*
                 Team team = new Team(data.getStringExtra(TEAM_NAME), data.getStringExtra(TEAM_CAPTAIN_NAME),
                         data.getStringExtra(TEAM_CAPTAIN_EMAIL), Integer.parseInt(data.getStringExtra(TEAM_CAPTAIN_NUMBER)), data.getIntExtra(TEAM_COLOR, 0));
+*/
+                Team team = new Team(data.getStringExtra(TEAM_NAME), "Temp","TEMP", 000000000, data.getIntExtra(TEAM_COLOR, 0));
+
                 dataHelper.addItem(realm, team);
             } else if (requestCode == REQUEST_CODE_DELETE) {
                 String teamName = data.getStringExtra(TEAM_TO_DELETE);

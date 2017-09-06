@@ -61,6 +61,7 @@ public class TeamSelectionSpinnerAdapter extends BaseAdapter {
         Team team = getItem(position);
         if (team != null)
             name.setText(team.getTeamName());
+            name.setTextColor(team.getTeamColor());
 
         return convertView;
     }

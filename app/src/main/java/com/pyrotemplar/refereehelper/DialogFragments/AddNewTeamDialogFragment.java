@@ -33,12 +33,12 @@ public class AddNewTeamDialogFragment extends DialogFragment {
 
     @BindView(R.id.addNewTeamNameEditBox)
     EditText addNewTeamNameEditBox;
-    @BindView(R.id.addNewTeamCaptainNameEditBox)
+   /* @BindView(R.id.addNewTeamCaptainNameEditBox)
     EditText addNewTeamCaptainNameEditBox;
     @BindView(R.id.addNewTeamCaptainEmailEditBoxEditBox)
     EditText addNewTeamCaptainEmailEditBoxEditBox;
     @BindView(R.id.addNewTeamCaptainPhoneNumberEditBoxEditBox)
-    EditText addNewTeamCaptainPhoneNumberEditBoxEditBox;
+    EditText addNewTeamCaptainPhoneNumberEditBoxEditBox;*/
     @BindView(R.id.addNewTeamColorPicker)
     ColorPicker colorPicker;
     @BindView(R.id.addNewTeamColorPickerSVbar)
@@ -59,9 +59,9 @@ public class AddNewTeamDialogFragment extends DialogFragment {
         if (mArgs != null) {
             message = EDIT_TEAM_INFO;
             addNewTeamNameEditBox.append(mArgs.getString(LeagueView.TEAM_NAME));
-            addNewTeamCaptainNameEditBox.append(mArgs.getString(LeagueView.TEAM_CAPTAIN_NAME));
-            addNewTeamCaptainEmailEditBoxEditBox.append(mArgs.getString(LeagueView.TEAM_CAPTAIN_EMAIL));
-            addNewTeamCaptainPhoneNumberEditBoxEditBox.append(Integer.toString(mArgs.getInt(LeagueView.TEAM_CAPTAIN_NUMBER)));
+         //   addNewTeamCaptainNameEditBox.append(mArgs.getString(LeagueView.TEAM_CAPTAIN_NAME));
+         //   addNewTeamCaptainEmailEditBoxEditBox.append(mArgs.getString(LeagueView.TEAM_CAPTAIN_EMAIL));
+         //   addNewTeamCaptainPhoneNumberEditBoxEditBox.append(Integer.toString(mArgs.getInt(LeagueView.TEAM_CAPTAIN_NUMBER)));
             int color = mArgs.getInt(LeagueView.TEAM_COLOR);
             if (color != 0)
                 colorPicker.setColor(color);
@@ -76,9 +76,9 @@ public class AddNewTeamDialogFragment extends DialogFragment {
                     public void onClick(DialogInterface dialog, int id) {
 
                         getActivity().getIntent().putExtra(LeagueView.TEAM_NAME, addNewTeamNameEditBox.getText().toString());
-                        getActivity().getIntent().putExtra(LeagueView.TEAM_CAPTAIN_NAME, addNewTeamCaptainNameEditBox.getText().toString());
-                        getActivity().getIntent().putExtra(LeagueView.TEAM_CAPTAIN_EMAIL, addNewTeamCaptainEmailEditBoxEditBox.getText().toString());
-                        getActivity().getIntent().putExtra(LeagueView.TEAM_CAPTAIN_NUMBER, addNewTeamCaptainPhoneNumberEditBoxEditBox.getText().toString());
+                      //  getActivity().getIntent().putExtra(LeagueView.TEAM_CAPTAIN_NAME, addNewTeamCaptainNameEditBox.getText().toString());
+                     //   getActivity().getIntent().putExtra(LeagueView.TEAM_CAPTAIN_EMAIL, addNewTeamCaptainEmailEditBoxEditBox.getText().toString());
+                      //  getActivity().getIntent().putExtra(LeagueView.TEAM_CAPTAIN_NUMBER, addNewTeamCaptainPhoneNumberEditBoxEditBox.getText().toString());
                         getActivity().getIntent().putExtra(LeagueView.TEAM_COLOR, colorPicker.getColor());
 
                         getTargetFragment().onActivityResult(getTargetRequestCode(), Activity.RESULT_OK, getActivity().getIntent());
