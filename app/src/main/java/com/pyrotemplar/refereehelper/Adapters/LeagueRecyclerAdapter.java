@@ -26,7 +26,6 @@ import io.realm.RealmRecyclerViewAdapter;
 public class LeagueRecyclerAdapter extends RealmRecyclerViewAdapter<Team, LeagueRecyclerAdapter.ViewHolder> {
 
 
-
     private LeagueRecyclerAdapter.ClickListener clickListener;
     private List<Team> teamList = new ArrayList<>();
 
@@ -35,7 +34,7 @@ public class LeagueRecyclerAdapter extends RealmRecyclerViewAdapter<Team, League
         update(data);
     }
 
-    public void update(OrderedRealmCollection<Team> data){
+    public void update(OrderedRealmCollection<Team> data) {
         teamList = data;
         notifyDataSetChanged();
     }
@@ -54,7 +53,7 @@ public class LeagueRecyclerAdapter extends RealmRecyclerViewAdapter<Team, League
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         Team team = teamList.get(position);
-        holder.teamPositionTextView.setText(Integer.toString(position+1));
+        holder.teamPositionTextView.setText(Integer.toString(position + 1));
         holder.teamNameTextView.setText(team.getTeamName());
         holder.teamColorView.setBackgroundColor(team.getTeamColor());
     }
@@ -68,7 +67,7 @@ public class LeagueRecyclerAdapter extends RealmRecyclerViewAdapter<Team, League
 
     class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener {
         @BindView(R.id.teamPositionTextView)
-       public TextView teamPositionTextView;
+        TextView teamPositionTextView;
         @BindView(R.id.teamNameTextView)
         TextView teamNameTextView;
         @BindView(R.id.teamColorView)

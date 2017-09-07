@@ -17,7 +17,7 @@ public class TabActivityPresenter implements TabActivityContract.Presenter {
     };
     public static final String[] TAB_ICON_TEXT = {
             "Clicker",
-            "League",
+            "Teams",
             "Rule Book",
             "Settings"
     };

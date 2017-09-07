@@ -11,7 +11,10 @@ import android.view.WindowManager;
 import android.widget.EditText;
 
 import com.larswerkman.holocolorpicker.ColorPicker;
+import com.larswerkman.holocolorpicker.OpacityBar;
 import com.larswerkman.holocolorpicker.SVBar;
+import com.larswerkman.holocolorpicker.SaturationBar;
+import com.larswerkman.holocolorpicker.ValueBar;
 import com.pyrotemplar.refereehelper.ClickerFragment.ClickerView;
 import com.pyrotemplar.refereehelper.LeagueFragment.LeagueView;
 import com.pyrotemplar.refereehelper.R;
@@ -43,6 +46,12 @@ public class AddNewTeamDialogFragment extends DialogFragment {
     ColorPicker colorPicker;
     @BindView(R.id.addNewTeamColorPickerSVbar)
     SVBar SVbar;
+    @BindView(R.id.addNewTeamColorPickerOpacityBar)
+    OpacityBar opacityBar;
+    @BindView(R.id.addNewTeamColorPickerSaturationBar)
+    SaturationBar saturationBar;
+    @BindView(R.id.addNewTeamColorPickerValueBar)
+    ValueBar valueBar;
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -55,6 +64,9 @@ public class AddNewTeamDialogFragment extends DialogFragment {
 
         colorPicker.setShowOldCenterColor(false);
         colorPicker.addSVBar(SVbar);
+        colorPicker.addOpacityBar(opacityBar);
+        colorPicker.addSaturationBar(saturationBar);
+        colorPicker.addValueBar(valueBar);
 
         if (mArgs != null) {
             message = EDIT_TEAM_INFO;

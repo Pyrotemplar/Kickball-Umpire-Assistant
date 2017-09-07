@@ -37,6 +37,7 @@ dependencies {
     testCompile 'junit:junit:4.12'
 
     //third party libraries
+    compile 'me.grantland:autofittextview:0.2.+'
     compile 'com.larswerkman:HoloColorPicker:1.5'
     compile 'com.jakewharton:butterknife:8.5.1'
     compile 'io.realm:android-adapters:2.1.0'

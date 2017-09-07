@@ -39,7 +39,7 @@
 
             <TextView
                 android:id="@+id/awayTeamNameTextView"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_gravity="center"
                 android:layout_marginLeft="5dp"
@@ -55,7 +55,6 @@
                 android:shadowColor="#000000"
                 android:shadowRadius="3"
                 android:singleLine="true"
-                android:textAllCaps="true"
                 android:textColor="@color/colorPrimaryText"
                 android:textSize="@dimen/textSize"
                 android:textStyle="bold"
@@ -108,7 +107,7 @@
 
             <TextView
                 android:id="@+id/homeTeamNameTextView"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_gravity="center"
                 android:layout_marginLeft="5dp"
@@ -124,7 +123,6 @@
                 android:shadowColor="#000000"
                 android:shadowRadius="3"
                 android:singleLine="true"
-                android:textAllCaps="true"
                 android:textColor="@color/colorPrimaryText"
                 android:textSize="@dimen/textSize"
                 android:textStyle="bold"

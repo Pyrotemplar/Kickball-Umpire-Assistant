@@ -173,6 +173,8 @@ public class ClickerView extends Fragment implements ClickerContract.View {
         mArgs.putString("teamName", awayTeamNameTextView.getText().toString());
         mArgs.putInt("teamColor", awayTeamColor);*/
         // nameAndColorPickerDialogFragment.setArguments(mArgs);
+        mArgs.putInt("team", 2);
+        teamSelectionDialogFragment.setArguments(mArgs);
         teamSelectionDialogFragment.setTargetFragment(this, REQUEST_CODE_AWAY_TEAM);
         teamSelectionDialogFragment.show(getFragmentManager(), "TAG");
         if (isHapticFeedbackEnabled)
@@ -184,6 +186,8 @@ public class ClickerView extends Fragment implements ClickerContract.View {
     @Override
     public boolean homeTeamButtonLongClicked(View view) {
 
+        mArgs.putInt("team", 1);
+        teamSelectionDialogFragment.setArguments(mArgs);
         teamSelectionDialogFragment.setTargetFragment(this, REQUEST_CODE_HOME_TEAM);
         teamSelectionDialogFragment.show(getFragmentManager(), "TAG");
      /*   mArgs.putString("teamName", homeTeamNameTextView.getText().toString());

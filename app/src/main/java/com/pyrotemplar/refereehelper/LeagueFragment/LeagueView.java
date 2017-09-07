@@ -72,7 +72,7 @@ public class LeagueView extends Fragment implements LeagueContract.View, LeagueR
         View rootView = inflater.inflate(R.layout.league_layout, null);
         ButterKnife.bind(this, rootView);
         realm = Realm.getDefaultInstance();
-        results = realm.where(Team.class).findAllAsync();
+        results = realm.where(Team.class).findAllSorted(TEAM_NAME);
         addNewTeamDialogFragment = new AddNewTeamDialogFragment();
         // addNewTeamDialogFragment.setTargetFragment(this, 2);
 
@@ -95,7 +95,7 @@ public class LeagueView extends Fragment implements LeagueContract.View, LeagueR
     @Override
     public void onStart() {
         super.onStart();
-        results = realm.where(Team.class).findAll();
+        results = realm.where(Team.class).findAllSorted(TEAM_NAME);
         results.addChangeListener(changeListener);
     }
 
@@ -157,6 +157,7 @@ public class LeagueView extends Fragment implements LeagueContract.View, LeagueR
             } else if (requestCode == REQUEST_CODE_DELETE) {
                 String teamName = data.getStringExtra(TEAM_TO_DELETE);
                 dataHelper.deleteItem(realm, teamName);
+                leagueRecyclerAdapter.notifyDataSetChanged();
             }
         }
 
@@ -189,6 +190,7 @@ public class LeagueView extends Fragment implements LeagueContract.View, LeagueR
     @OnClick(R.id.AddNewTeamButtonView)
     @Override
     public void AddNewTeamButtonClicked(View view) {
+        addNewTeamDialogFragment.setArguments(null);
         addNewTeamDialogFragment.setTargetFragment(this, REQUEST_CODE_NEW);
         addNewTeamDialogFragment.show(getFragmentManager(), "TAG");
     }

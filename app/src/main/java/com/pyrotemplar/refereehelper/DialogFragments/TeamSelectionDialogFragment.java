@@ -29,6 +29,8 @@ import io.realm.RealmResults;
 public class TeamSelectionDialogFragment extends DialogFragment implements AdapterView.OnItemSelectedListener {
     public static final String TEAM_NAME = "teamName";
     public static final String TEAM_COLOR = "teamColor";
+    public static final String DONE = "Done";
+    public static final String CANCEL = "cancel";
     @BindView(R.id.teamSelectionDropDownSpinner)
     Spinner teamSelectionDropDownSpinner;
 
@@ -43,8 +45,16 @@ public class TeamSelectionDialogFragment extends DialogFragment implements Adapt
         View view = View.inflate(getContext(), R.layout.team_selection_layout, null);
         ButterKnife.bind(this, view);
 
-       Realm realm = Realm.getDefaultInstance();
-        RealmResults<Team> results = realm.where(Team.class).findAllAsync();
+        Bundle mArgs = getArguments();
+        final int teamPressed = mArgs.getInt("team");
+        final String selectTeamTitle;
+        if (teamPressed == 1) {
+            selectTeamTitle = "Select Home Team";
+        } else
+            selectTeamTitle = "Select Away Team";
+
+        Realm realm = Realm.getDefaultInstance();
+        RealmResults<Team> results = realm.where(Team.class).findAllSorted(TEAM_NAME);
         teamList = realm.copyFromRealm(results);
 
         teamSelectionDropDownSpinner.setOnItemSelectedListener(this);
@@ -55,17 +65,17 @@ public class TeamSelectionDialogFragment extends DialogFragment implements Adapt
 
         // Use the Builder class for convenient dialog construction
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        builder.setTitle("Team Name and Color").setMessage("Change Team Name and Color").setView(view)
-                .setPositiveButton("Done", new DialogInterface.OnClickListener() {
+        builder.setTitle(selectTeamTitle).setView(view)
+                .setPositiveButton(DONE, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
 
-                         getActivity().getIntent().putExtra(TEAM_NAME, teamName );
-                          getActivity().getIntent().putExtra(TEAM_COLOR, teamColor);
+                        getActivity().getIntent().putExtra(TEAM_NAME, teamName);
+                        getActivity().getIntent().putExtra(TEAM_COLOR, teamColor);
 
-                       getTargetFragment().onActivityResult(getTargetRequestCode(), Activity.RESULT_OK, getActivity().getIntent());
+                        getTargetFragment().onActivityResult(getTargetRequestCode(), Activity.RESULT_OK, getActivity().getIntent());
                     }
                 })
-                .setNegativeButton("cancel", new DialogInterface.OnClickListener() {
+                .setNegativeButton(CANCEL, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
 
                     }
