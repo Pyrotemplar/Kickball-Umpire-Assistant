@@ -9,19 +9,20 @@ import com.pyrotemplar.refereehelper.R;
 
 public class TabActivityPresenter implements TabActivityContract.Presenter {
 
+    public static final String CLICKER = "Clicker";
+    public static final String TEAMS = "Teams";
+    public static final String RULE_BOOK = "Rule Book";
+    public static final String SETTINGS = "Settings";
+    private final TabActivity view;
+    public static final String[] TAB_ICON_TEXT = {CLICKER, TEAMS, RULE_BOOK, SETTINGS};
+
     public static final int[] TAB_ICON_ID = {
             R.drawable.ic_cicker_tab_icon,
             R.drawable.ic_settings_tab_icon,
             R.drawable.ic_rulebook_tab_icon,
             R.drawable.ic_settings_tab_icon
     };
-    public static final String[] TAB_ICON_TEXT = {
-            "Clicker",
-            "Teams",
-            "Rule Book",
-            "Settings"
-    };
-    private final TabActivity view;
+
 
     public TabActivityPresenter(TabActivity view) {
         this.view = view;

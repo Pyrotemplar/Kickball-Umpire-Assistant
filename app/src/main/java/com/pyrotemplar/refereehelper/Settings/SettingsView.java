@@ -35,6 +35,12 @@ public class SettingsView extends PreferenceFragmentCompat implements SharedPref
     public static final String POSITIVE_BUTTON = "positiveButton";
     public static final int REQUEST_CODE_RESET = 40;
     public static final String CLICKER_DATA_RESET = "Clicker Data reset";
+    public static final String MARKET_DETAILS_ID = "market://details?id=";
+    public static final String UNABLE_TO_FIND_MARKET_APP = " unable to find market app";
+    public static final String RESET_CLICKER = "Reset Clicker";
+    public static final String START_A_NEW_GAME = "Start a New Game?";
+    public static final String RESET = "Reset";
+    public static final String TAG = "TAG";
 
     SharedPreferences sharedPreferences;
     private SettingsContract.Presenter mPresenter;
@@ -99,12 +105,12 @@ public class SettingsView extends PreferenceFragmentCompat implements SharedPref
 
     private void rateApp() {
 
-        Uri uri = Uri.parse("market://details?id=" + getActivity().getPackageName());
+        Uri uri = Uri.parse(MARKET_DETAILS_ID + getActivity().getPackageName());
         Intent myAppLinkToMarket = new Intent(Intent.ACTION_VIEW, uri);
         try {
             startActivity(myAppLinkToMarket);
         } catch (ActivityNotFoundException e) {
-            Toast.makeText(getContext(), " unable to find market app", Toast.LENGTH_LONG).show();
+            Toast.makeText(getContext(), UNABLE_TO_FIND_MARKET_APP, Toast.LENGTH_LONG).show();
         }
 
     }
@@ -117,14 +123,14 @@ public class SettingsView extends PreferenceFragmentCompat implements SharedPref
     private void resetClicker() {
 
         Bundle mArgs = new Bundle();
-        mArgs.putString(TITLE, "Reset Clicker");
-        mArgs.putString(MESSAGE, "Start a New Game?");
-        mArgs.putString(POSITIVE_BUTTON, "Reset");
+        mArgs.putString(TITLE, RESET_CLICKER);
+        mArgs.putString(MESSAGE, START_A_NEW_GAME);
+        mArgs.putString(POSITIVE_BUTTON, RESET);
 
         ConfirmationDialogFragment confirmationDialogFragment = new ConfirmationDialogFragment();
         confirmationDialogFragment.setArguments(mArgs);
         confirmationDialogFragment.setTargetFragment(this, REQUEST_CODE_RESET);
-        confirmationDialogFragment.show(getFragmentManager(), "TAG");
+        confirmationDialogFragment.show(getFragmentManager(), TAG);
     }
 
     @Override

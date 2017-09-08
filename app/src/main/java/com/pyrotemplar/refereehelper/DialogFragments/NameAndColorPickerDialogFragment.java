@@ -23,6 +23,8 @@ import butterknife.ButterKnife;
 
 public class NameAndColorPickerDialogFragment extends DialogFragment{
 
+    public static final String TEAM_NAME = "teamName";
+    public static final String TEAM_COLOR = "teamColor";
     @BindView(R.id.dialogNameEditView)
     EditText nameView;
     @BindView(R.id.colorPicker)
@@ -39,8 +41,8 @@ public class NameAndColorPickerDialogFragment extends DialogFragment{
 
         Bundle mArgs = getArguments();
         final String buttonPressed = mArgs.getString(ClickerView.SCORE_BOARD_BUTTONS_PRESSED);
-        nameView.append(mArgs.getString("teamName"));
-        int color = mArgs.getInt("teamColor");
+        nameView.append(mArgs.getString(TEAM_NAME));
+        int color = mArgs.getInt(TEAM_COLOR);
         colorPicker.setShowOldCenterColor(false);
         colorPicker.addSVBar(SVbar);
         if(color != 0)

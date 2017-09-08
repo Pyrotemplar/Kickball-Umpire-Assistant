@@ -23,6 +23,9 @@ import io.realm.RealmResults;
 
 public class ClickerPresenter implements ClickerContract.Presenter {
 
+    public static final String AWAY = "Away";
+    public static final String HOME = "Home";
+    public static final String TIME_S_UP = "Time's Up";
     //Game Count states
     private String awayTeamName;
     private String homeTeamName;
@@ -119,8 +122,8 @@ public class ClickerPresenter implements ClickerContract.Presenter {
     private void initializeCountFields() {
 
 
-        awayTeamName = "Away";
-        homeTeamName = "Home";
+        awayTeamName = AWAY;
+        homeTeamName = HOME;
         awayTeamColor = 0;
         homeTeamColor = 0;
         awayTeamScore = 0;
@@ -338,7 +341,7 @@ public class ClickerPresenter implements ClickerContract.Presenter {
                     TimeUnit.MILLISECONDS.toMinutes(millisUntilFinished),
                     TimeUnit.MILLISECONDS.toSeconds(millisUntilFinished) - TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(millisUntilFinished)));
         } else {
-            GameClockString = "Time's Up";
+            GameClockString = TIME_S_UP;
             isGameClockRunning = false;
         }
 

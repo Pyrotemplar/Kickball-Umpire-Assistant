@@ -26,6 +26,13 @@ import butterknife.ButterKnife;
 
 public class GameClockDialogFragment extends DialogFragment {
 
+    public static final String GAME_CLOCK = "Game Clock";
+    public static final String ADJUST_GAME_CLOCK = "Adjust Game Clock";
+    public static final String DONE = "Done";
+    public static final String CANCEL = "Cancel";
+    public static final String GAME_CLOCK_TIME = "gameClockTime";
+    public static final String CALLER = "caller";
+    public static final String NEW_TIME = "newTime";
     @BindView(R.id.timeEditTextView)
     TextInputEditText timeEditTextView;
     @BindView(R.id.text_input_layout)
@@ -45,12 +52,12 @@ public class GameClockDialogFragment extends DialogFragment {
 
         // Use the Builder class for convenient dialog construction
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        builder.setTitle("Game Clock").setMessage("Adjust Game Clock").setView(view)
-                .setPositiveButton("Done", new DialogInterface.OnClickListener() {
+        builder.setTitle(GAME_CLOCK).setMessage(ADJUST_GAME_CLOCK).setView(view)
+                .setPositiveButton(DONE, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                     }
                 })
-                .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                .setNegativeButton(CANCEL, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                     }
                 });
@@ -73,7 +80,7 @@ public class GameClockDialogFragment extends DialogFragment {
 
             Bundle mArgs = getArguments();
             final String buttonPressed = mArgs.getString(ClickerView.GAME_CLOCK_BUTTONS_PRESSED);
-            timeEditTextView.append(mArgs.getString("gameClockTime"));
+            timeEditTextView.append(mArgs.getString(GAME_CLOCK_TIME));
 
             Button positiveButton = d.getButton(Dialog.BUTTON_POSITIVE);
             positiveButton.setOnClickListener(new View.OnClickListener()
@@ -85,8 +92,8 @@ public class GameClockDialogFragment extends DialogFragment {
                             && Integer.parseInt(timeEditTextView.getText().toString()) <= 180
                             && timeEditTextView.getText().toString().matches("[0-9]+")) {
 
-                        getActivity().getIntent().putExtra("caller", buttonPressed);
-                        getActivity().getIntent().putExtra("newTime", timeEditTextView.getText().toString());
+                        getActivity().getIntent().putExtra(CALLER, buttonPressed);
+                        getActivity().getIntent().putExtra(NEW_TIME, timeEditTextView.getText().toString());
                         //     getActivity().getIntent().putExtra("isCountUpEnabled", countUpSwitch.isChecked());
 
                         getTargetFragment().onActivityResult(getTargetRequestCode(), Activity.RESULT_OK, getActivity().getIntent());

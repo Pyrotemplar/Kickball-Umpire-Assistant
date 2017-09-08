@@ -8,6 +8,10 @@ import android.text.TextUtils;
  */
 
 public class DeviceInfo {
+
+    public static final String API_LEVEL = " / API level ";
+    public static final String VERSION = ", version ";
+
     public static String getDeviceInfo() {
         String manufacturer = Build.MANUFACTURER;
         String model = Build.MODEL;
@@ -16,7 +20,7 @@ public class DeviceInfo {
         if (model.startsWith(manufacturer)) {
             return capitalize(model);
         }
-        return capitalize(manufacturer) + " " + model + " / API level " + version + ", version " + versionRelease;
+        return capitalize(manufacturer) + " " + model + API_LEVEL + version + VERSION + versionRelease;
     }
 
     private static String capitalize(String str) {

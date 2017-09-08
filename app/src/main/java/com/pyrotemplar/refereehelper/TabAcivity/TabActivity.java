@@ -25,6 +25,8 @@ import butterknife.ButterKnife;
 
 public class TabActivity extends AppCompatActivity implements TabActivityContract.View {
 
+    public static final String EXIT = "Exit?";
+    public static final String CANCEL = "Cancel";
     @BindView(R.id.tabLayout)
     TabLayout mTabLayout;
     @BindView(R.id.pager)
@@ -102,15 +104,15 @@ public class TabActivity extends AppCompatActivity implements TabActivityContrac
 */
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this)
-                .setTitle("Exit?")
+                .setTitle(EXIT)
                 .setMessage(getResources().getString(R.string.EXIT_MASSAGE_PROMPT))
-                .setPositiveButton("Exit", new DialogInterface.OnClickListener() {
+                .setPositiveButton(EXIT, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         finish();
                     }
                 })
-                .setNegativeButton("Cancel", null);
+                .setNegativeButton(CANCEL, null);
 
         AlertDialog alertDialog = builder.create();
         alertDialog.getWindow().setBackgroundDrawableResource(R.color.colorPrimary);

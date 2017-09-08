@@ -51,6 +51,9 @@ public class LeagueView extends Fragment implements LeagueContract.View, LeagueR
     public static final String TITLE = "title";
     public static final String MESSAGE = "message";
     public static final String POSITIVE_BUTTON = "positiveButton";
+    public static final String DELETE_TEAM = "Delete Team ";
+    public static final String DELETE = "Delete";
+    public static final String TAG = "TAG";
 
 
     @BindView(R.id.LeagueRecyclerView)
@@ -124,20 +127,20 @@ public class LeagueView extends Fragment implements LeagueContract.View, LeagueR
         mArgs.putInt(TEAM_COLOR, team.getTeamColor());
         addNewTeamDialogFragment.setArguments(mArgs);
         addNewTeamDialogFragment.setTargetFragment(this, REQUEST_CODE_EDIT);
-        addNewTeamDialogFragment.show(getFragmentManager(), "TAG");
+        addNewTeamDialogFragment.show(getFragmentManager(), TAG);
     }
 
     @Override
     public void itemLongClicked(View view, String teamName) {
         Bundle mArgs = new Bundle();
         mArgs.putString(TEAM_TO_DELETE, teamName);
-        mArgs.putString(TITLE, "Delete Team");
-        mArgs.putString(MESSAGE, "Delete Team "+ teamName +"?");
-        mArgs.putString(POSITIVE_BUTTON, "Delete");
+        mArgs.putString(TITLE, DELETE_TEAM);
+        mArgs.putString(MESSAGE, DELETE_TEAM + teamName + "?");
+        mArgs.putString(POSITIVE_BUTTON, DELETE);
         ConfirmationDialogFragment confirmationDialogFragment = new ConfirmationDialogFragment();
         confirmationDialogFragment.setArguments(mArgs);
         confirmationDialogFragment.setTargetFragment(this, REQUEST_CODE_DELETE);
-        confirmationDialogFragment.show(getFragmentManager(), "TAG");
+        confirmationDialogFragment.show(getFragmentManager(), TAG);
     }
 
     @Override
@@ -191,7 +194,7 @@ public class LeagueView extends Fragment implements LeagueContract.View, LeagueR
     public void AddNewTeamButtonClicked(View view) {
         addNewTeamDialogFragment.setArguments(null);
         addNewTeamDialogFragment.setTargetFragment(this, REQUEST_CODE_NEW);
-        addNewTeamDialogFragment.show(getFragmentManager(), "TAG");
+        addNewTeamDialogFragment.show(getFragmentManager(), TAG);
     }
 
     @Override

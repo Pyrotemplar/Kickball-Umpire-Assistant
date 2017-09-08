@@ -48,6 +48,10 @@ public class RuleBookView extends Fragment implements RuleBooksContract.View, Ru
     public static final String RULE_BOOK_POSITION = "ruleBookPosition";
     public static final String RULE_BOOK_TITLE = "ruleBookTitle";
     public static final String RULE_BOOK_URL = "ruleBookURL";
+    public static final String TAG = "TAG";
+    public static final String PDF = ".PDF";
+    public static final String PDF1 = ".pdf";
+    public static final String CANNOT_LOAD_PAGE = "Cannot load page";
     @BindView(R.id.RuleBookRecyclerView)
     RecyclerView ruleBookRecycler;
     @BindView(R.id.webView)
@@ -203,7 +207,7 @@ public class RuleBookView extends Fragment implements RuleBooksContract.View, Ru
 
         mArgs = null;
         addNewRulesBookLinkDialogFragment.setArguments(mArgs);
-        addNewRulesBookLinkDialogFragment.show(getFragmentManager(), "TAG");
+        addNewRulesBookLinkDialogFragment.show(getFragmentManager(), TAG);
         // if (isHapticFeedbackEnabled)
         //     hapticFeedback(view);
         //  return true;
@@ -223,7 +227,7 @@ public class RuleBookView extends Fragment implements RuleBooksContract.View, Ru
 
         // String URL = getResources().getString(R.string.PDF_Google_Docs_Viewer_string) + mPresenter.getRuleBook(position).getURL();
        URL = mPresenter.getRuleBook(position).getURL();
-        if ((URL != null) && (URL.endsWith(".PDF") || URL.endsWith(".pdf"))) {
+        if ((URL != null) && (URL.endsWith(PDF) || URL.endsWith(PDF1))) {
             URL = getResources().getString(R.string.PDF_Google_Docs_Viewer_string) + URL;
         }
         // ruleBookRecycler.setVisibility(View.INVISIBLE);
@@ -283,7 +287,7 @@ public class RuleBookView extends Fragment implements RuleBooksContract.View, Ru
             @Override
             public void onReceivedError(WebView view, WebResourceRequest request, WebResourceError error) {
                 super.onReceivedError(view, request, error);
-                Toast.makeText(getActivity(), "Cannot load page", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), CANNOT_LOAD_PAGE, Toast.LENGTH_SHORT).show();
                 webViewProgressBar.setVisibility(View.GONE);
 
             }
@@ -298,7 +302,7 @@ public class RuleBookView extends Fragment implements RuleBooksContract.View, Ru
         mArgs.putString(RULE_BOOK_TITLE, mPresenter.getRuleBook(position).getTittle());
         mArgs.putString(RULE_BOOK_URL, mPresenter.getRuleBook(position).getURL());
         addNewRulesBookLinkDialogFragment.setArguments(mArgs);
-        addNewRulesBookLinkDialogFragment.show(getFragmentManager(), "TAG");
+        addNewRulesBookLinkDialogFragment.show(getFragmentManager(), TAG);
 
     }
 

@@ -3,4 +3,5 @@
     <dimen name="textSize">20sp</dimen>
     <dimen name="LargeTextSize">30sp</dimen>
     <dimen name="scoreTextSize">45sp</dimen>
+    <dimen name="TeamNameTextSize">25sp</dimen>
 </resources>

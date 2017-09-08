@@ -43,6 +43,10 @@ public class ClickerView extends Fragment implements ClickerContract.View {
     public static final int REQUEST_CODE_GAME_CLOCK = 70;
     public static final String TEAM_NAME = "teamName";
     public static final String TEAM_COLOR = "teamColor";
+    public static final String NEW_TIME = "newTime";
+    public static final String TEAM = "team";
+    public static final String GAME_CLOCK_TIME = "gameClockTime";
+    public static final String TAG = "TAG";
 
     @BindView(R.id.awayTeamNameTextView)
     TextView awayTeamNameTextView;
@@ -147,7 +151,7 @@ public class ClickerView extends Fragment implements ClickerContract.View {
             else if (requestCode == REQUEST_CODE_HOME_TEAM)
                 mPresenter.updateHomeTeamBanner(data.getStringExtra(TEAM_NAME), data.getIntExtra(TEAM_COLOR, 0));
             else if (requestCode == REQUEST_CODE_GAME_CLOCK) {
-                mPresenter.setGameClockString(Integer.parseInt(data.getStringExtra("newTime")));
+                mPresenter.setGameClockString(Integer.parseInt(data.getStringExtra(NEW_TIME)));
                 mPresenter.startStopGameClock(true);
             }
         }
@@ -173,10 +177,10 @@ public class ClickerView extends Fragment implements ClickerContract.View {
         mArgs.putString("teamName", awayTeamNameTextView.getText().toString());
         mArgs.putInt("teamColor", awayTeamColor);*/
         // nameAndColorPickerDialogFragment.setArguments(mArgs);
-        mArgs.putInt("team", 2);
+        mArgs.putInt(TEAM, 2);
         teamSelectionDialogFragment.setArguments(mArgs);
         teamSelectionDialogFragment.setTargetFragment(this, REQUEST_CODE_AWAY_TEAM);
-        teamSelectionDialogFragment.show(getFragmentManager(), "TAG");
+        teamSelectionDialogFragment.show(getFragmentManager(), TAG);
         if (isHapticFeedbackEnabled)
             hapticFeedback(view);
         return true;
@@ -186,10 +190,10 @@ public class ClickerView extends Fragment implements ClickerContract.View {
     @Override
     public boolean homeTeamButtonLongClicked(View view) {
 
-        mArgs.putInt("team", 1);
+        mArgs.putInt(TEAM, 1);
         teamSelectionDialogFragment.setArguments(mArgs);
         teamSelectionDialogFragment.setTargetFragment(this, REQUEST_CODE_HOME_TEAM);
-        teamSelectionDialogFragment.show(getFragmentManager(), "TAG");
+        teamSelectionDialogFragment.show(getFragmentManager(), TAG);
      /*   mArgs.putString("teamName", homeTeamNameTextView.getText().toString());
         mArgs.putInt("teamColor", homeTeamColor);
         nameAndColorPickerDialogFragment.setArguments(mArgs);
@@ -287,10 +291,10 @@ public class ClickerView extends Fragment implements ClickerContract.View {
     @Override
     public boolean gameClockButtonLongClicked(View view) {
         gameClockDialogFragment.setTargetFragment(this, REQUEST_CODE_GAME_CLOCK);
-        mArgs.putString("gameClockTime", gameClockTextView.getText().toString().substring(0, gameClockTextView.getText().toString().length() - 3));
+        mArgs.putString(GAME_CLOCK_TIME, gameClockTextView.getText().toString().substring(0, gameClockTextView.getText().toString().length() - 3));
         gameClockDialogFragment.setArguments(mArgs);
         mPresenter.startStopGameClock(true);
-        gameClockDialogFragment.show(getFragmentManager(), "TAG");
+        gameClockDialogFragment.show(getFragmentManager(), TAG);
         if (isHapticFeedbackEnabled)
             hapticFeedback(view);
         return true;

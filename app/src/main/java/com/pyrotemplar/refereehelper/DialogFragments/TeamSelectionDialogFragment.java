@@ -31,6 +31,9 @@ public class TeamSelectionDialogFragment extends DialogFragment implements Adapt
     public static final String TEAM_COLOR = "teamColor";
     public static final String DONE = "Done";
     public static final String CANCEL = "cancel";
+    public static final String TEAM = "team";
+    public static final String SELECT_HOME_TEAM = "Select Home Team";
+    public static final String SELECT_AWAY_TEAM = "Select Away Team";
     @BindView(R.id.teamSelectionDropDownSpinner)
     Spinner teamSelectionDropDownSpinner;
 
@@ -46,12 +49,12 @@ public class TeamSelectionDialogFragment extends DialogFragment implements Adapt
         ButterKnife.bind(this, view);
 
         Bundle mArgs = getArguments();
-        final int teamPressed = mArgs.getInt("team");
+        final int teamPressed = mArgs.getInt(TEAM);
         final String selectTeamTitle;
         if (teamPressed == 1) {
-            selectTeamTitle = "Select Home Team";
+            selectTeamTitle = SELECT_HOME_TEAM;
         } else
-            selectTeamTitle = "Select Away Team";
+            selectTeamTitle = SELECT_AWAY_TEAM;
 
         Realm realm = Realm.getDefaultInstance();
         RealmResults<Team> results = realm.where(Team.class).findAllSorted(TEAM_NAME);

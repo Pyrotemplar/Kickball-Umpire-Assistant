@@ -25,6 +25,12 @@ import butterknife.ButterKnife;
 
 public class AddNewRulesBookLinkDialogFragment extends DialogFragment {
 
+    public static final String RULE_BOOK = "Rule Book";
+    public static final String SAVE = "Save";
+    public static final String CANCEL = "Cancel";
+    private static final String ADD = "Add" ;
+    public static final String EDIT_RULE_BOOK = "Edit Rule book";
+    public static final String ADD_NEW_RULE_BOOK = "Add New Rule book";
     @BindView(R.id.ruleTitleEditTextView)
     EditText ruleTitleEditTextView;
     @BindView(R.id.ruleBookURLEditTextView)
@@ -38,20 +44,23 @@ public class AddNewRulesBookLinkDialogFragment extends DialogFragment {
         Bundle mArgs = getArguments();
         final int position;
         String message;
+        String positiveButton;
         if (mArgs != null) {
-            message = "Edit Rule book";
+            message = EDIT_RULE_BOOK;
+            positiveButton = SAVE;
             position = mArgs.getInt(RuleBookView.RULE_BOOK_POSITION);
             ruleTitleEditTextView.setText(mArgs.getString(RuleBookView.RULE_BOOK_TITLE));
             ruleBookURLEditTextView.append(mArgs.getString(RuleBookView.RULE_BOOK_URL));
 
         } else {
-            message = "Add New Rule book";
+            message = ADD_NEW_RULE_BOOK;
+            positiveButton = ADD;
             position = -1;
         }
         // Use the Builder class for convenient dialog construction
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        builder.setTitle("Rule Book").setMessage(message).setView(view)
-                .setPositiveButton("Save", new DialogInterface.OnClickListener() {
+        builder.setTitle(RULE_BOOK).setMessage(message).setView(view)
+                .setPositiveButton(positiveButton, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
 
                             getActivity().getIntent().putExtra(RuleBookView.RULE_BOOK_POSITION, position);
@@ -65,7 +74,7 @@ public class AddNewRulesBookLinkDialogFragment extends DialogFragment {
                       //  }
                     }
                 })
-                .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                .setNegativeButton(CANCEL, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                     }
                 });
