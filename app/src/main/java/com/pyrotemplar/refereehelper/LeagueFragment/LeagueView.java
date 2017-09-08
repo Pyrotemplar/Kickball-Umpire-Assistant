@@ -115,7 +115,6 @@ public class LeagueView extends Fragment implements LeagueContract.View, LeagueR
     @Override
     public void itemClicked(View view, String teamName) {
 
-        Toast.makeText(getContext(), "TextFitTextView Long Click", Toast.LENGTH_SHORT).show();
         Team team = dataHelper.getItem(realm, teamName);
         mArgs = new Bundle();
         mArgs.putString(TEAM_NAME, team.getTeamName());

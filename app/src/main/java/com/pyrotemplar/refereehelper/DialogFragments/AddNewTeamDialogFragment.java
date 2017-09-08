@@ -32,7 +32,10 @@ public class AddNewTeamDialogFragment extends DialogFragment {
     public static final String EDIT_TEAM_INFO = "Edit Team Info";
     public static final String TEAM = "TEAM";
     public static final String SAVE = "Save";
+    public static final String ADD = "ADD";
+
     public static final String CANCEL = "Cancel";
+
 
     @BindView(R.id.addNewTeamNameEditBox)
     EditText addNewTeamNameEditBox;
@@ -46,8 +49,6 @@ public class AddNewTeamDialogFragment extends DialogFragment {
     ColorPicker colorPicker;
     @BindView(R.id.addNewTeamColorPickerSVbar)
     SVBar SVbar;
-    @BindView(R.id.addNewTeamColorPickerOpacityBar)
-    OpacityBar opacityBar;
     @BindView(R.id.addNewTeamColorPickerSaturationBar)
     SaturationBar saturationBar;
     @BindView(R.id.addNewTeamColorPickerValueBar)
@@ -61,15 +62,15 @@ public class AddNewTeamDialogFragment extends DialogFragment {
         Bundle mArgs = getArguments();
 
         String message;
-
+        String positiveButton;
         colorPicker.setShowOldCenterColor(false);
         colorPicker.addSVBar(SVbar);
-        colorPicker.addOpacityBar(opacityBar);
         colorPicker.addSaturationBar(saturationBar);
         colorPicker.addValueBar(valueBar);
 
         if (mArgs != null) {
             message = EDIT_TEAM_INFO;
+            positiveButton = SAVE;
             addNewTeamNameEditBox.append(mArgs.getString(LeagueView.TEAM_NAME));
          //   addNewTeamCaptainNameEditBox.append(mArgs.getString(LeagueView.TEAM_CAPTAIN_NAME));
          //   addNewTeamCaptainEmailEditBoxEditBox.append(mArgs.getString(LeagueView.TEAM_CAPTAIN_EMAIL));
@@ -78,13 +79,14 @@ public class AddNewTeamDialogFragment extends DialogFragment {
             if (color != 0)
                 colorPicker.setColor(color);
         } else {
+            positiveButton = ADD;
             message = ADD_NEW_TEAM;
         }
 
         // Use the Builder class for convenient dialog construction
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setTitle(TEAM).setMessage(message).setView(view)
-                .setPositiveButton(SAVE, new DialogInterface.OnClickListener() {
+                .setPositiveButton(positiveButton, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
 
                         getActivity().getIntent().putExtra(LeagueView.TEAM_NAME, addNewTeamNameEditBox.getText().toString());
