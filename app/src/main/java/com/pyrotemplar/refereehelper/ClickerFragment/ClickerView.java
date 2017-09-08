@@ -208,8 +208,10 @@ public class ClickerView extends Fragment implements ClickerContract.View {
     @Override()
     public void incrementRunButtonClicked(View view) {
 
-        if (mPresenter.incrementRun(view.getId()) && isHapticFeedbackEnabled)
+        if (mPresenter.incrementRun(view.getId()) && isHapticFeedbackEnabled) {
+         mPresenter.resetCount();
             hapticFeedback(view);
+        }
     }
 
     @OnClick(R.id.ballLayout)
