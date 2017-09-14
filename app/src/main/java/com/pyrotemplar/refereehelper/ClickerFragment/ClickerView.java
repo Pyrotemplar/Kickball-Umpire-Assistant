@@ -89,8 +89,7 @@ public class ClickerView extends Fragment implements ClickerContract.View {
     private TeamSelectionDialogFragment teamSelectionDialogFragment;
     private GameClockDialogFragment gameClockDialogFragment;
     private Bundle mArgs;
-    private int homeTeamColor;
-    private int awayTeamColor;
+
 
     private static ClickerContract.Presenter mPresenter;
     private boolean isViewShown;
@@ -392,7 +391,6 @@ public class ClickerView extends Fragment implements ClickerContract.View {
         awayTeamNameTextView.setText(teamName);
         GradientDrawable backgroundGradient = (GradientDrawable) awayTeamNameTextView.getBackground();
         if (teamColor != 0) {
-            awayTeamColor = teamColor;
             backgroundGradient.setColor(teamColor);
         } else {
             //noinspection deprecation
@@ -407,7 +405,6 @@ public class ClickerView extends Fragment implements ClickerContract.View {
         homeTeamNameTextView.setText(teamName);
         GradientDrawable backgroundGradient = (GradientDrawable) homeTeamNameTextView.getBackground();
         if (teamColor != 0) {
-            homeTeamColor = teamColor;
             backgroundGradient.setColor(teamColor);
             //backgroundGradient.setColors(new int[]{Color.WHITE, teamColor});
         } else {

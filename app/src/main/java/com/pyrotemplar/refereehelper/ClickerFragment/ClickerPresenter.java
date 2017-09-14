@@ -3,6 +3,7 @@ package com.pyrotemplar.refereehelper.ClickerFragment;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.widget.Toast;
 
 import com.pyrotemplar.refereehelper.DataObjects.Team;
 import com.pyrotemplar.refereehelper.R;
@@ -26,6 +27,7 @@ public class ClickerPresenter implements ClickerContract.Presenter {
     public static final String AWAY = "Away";
     public static final String HOME = "Home";
     public static final String TIME_S_UP = "Time's Up";
+    public static final String SOMETHING_WENT_WRONG = "Something went wrong!";
     //Game Count states
     private String awayTeamName;
     private String homeTeamName;
@@ -109,9 +111,12 @@ public class ClickerPresenter implements ClickerContract.Presenter {
 
         gameClockTime = savedInstanceState.getInt(context.getString(R.string.Game_Clock));
         isGameClockRunning = savedInstanceState.getBoolean(context.getString(R.string.Is_Game_Clock_Running));
-
-        undoStack = (Stack<GameCountState>) savedInstanceState.getSerializable(context.getString(R.string.Undo_Stack));
-        redoStack = (Stack<GameCountState>) savedInstanceState.getSerializable(context.getString(R.string.Redo_Stack));
+        try {
+            undoStack = (Stack<GameCountState>) savedInstanceState.getSerializable(context.getString(R.string.Undo_Stack));
+            redoStack = (Stack<GameCountState>) savedInstanceState.getSerializable(context.getString(R.string.Redo_Stack));
+        } catch (Exception e) {
+            Toast.makeText(context, SOMETHING_WENT_WRONG, Toast.LENGTH_SHORT).show();
+        }
         updatedFields();
         initializeGameClock();
         startStopGameClock(true);

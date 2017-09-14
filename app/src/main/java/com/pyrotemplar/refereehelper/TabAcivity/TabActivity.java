@@ -60,16 +60,16 @@ public class TabActivity extends AppCompatActivity implements TabActivityContrac
         presenter.setTabIcons();
 
 
-        // AdRequest adRequest = new AdRequest.Builder().addTestDevice(AdRequest.DEVICE_ID_EMULATOR).addTestDevice(Settings.Secure.getString(getApplicationContext().getContentResolver(),Settings.Secure.ANDROID_ID)).build();
+        // adRequest = new AdRequest.Builder().addTestDevice(AdRequest.DEVICE_ID_EMULATOR).addTestDevice(Settings.Secure.getString(getApplicationContext().getContentResolver(),Settings.Secure.ANDROID_ID)).build();
 
         // change request to this line for publishing.
         AdRequest adRequest = new AdRequest.Builder().build();
 
         // TODO: 7/9/2017 Remove comments to turn on ads
-       // ads_layout.removeAllViews();
-        ads_layout.setVisibility(View.GONE);
-        //ads_layout.setVisibility(View.VISIBLE);
-        //adView.loadAd(adRequest);
+        //ads_layout.removeAllViews();
+        //ads_layout.setVisibility(View.GONE);
+        ads_layout.setVisibility(View.VISIBLE);
+        adView.loadAd(adRequest);
 
 
     }
