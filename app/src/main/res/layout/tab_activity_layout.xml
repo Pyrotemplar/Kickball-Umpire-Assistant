@@ -13,7 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="50dp"/>
 
-    <com.pyrotemplar.refereehelper.Utils.NonSwipeViewPager
+    <com.pyrotemplar.kickballUmpireAssistant.Utils.NonSwipeViewPager
         android:id="@+id/pager"
         android:layout_width="match_parent"
         android:layout_height="0dp"
