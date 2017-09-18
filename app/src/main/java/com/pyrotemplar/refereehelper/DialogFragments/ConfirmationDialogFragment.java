@@ -8,7 +8,12 @@ import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AlertDialog;
 import android.view.WindowManager;
 
+import com.pyrotemplar.refereehelper.ClickerFragment.ClickerView;
+import com.pyrotemplar.refereehelper.LeagueFragment.LeagueView;
 import com.pyrotemplar.refereehelper.R;
+import com.pyrotemplar.refereehelper.RulesFragment.RuleBookView;
+import com.pyrotemplar.refereehelper.Settings.SettingsContract;
+import com.pyrotemplar.refereehelper.Settings.SettingsView;
 
 /**
  * Created by Manuel Montes de Oca on 5/23/2017.

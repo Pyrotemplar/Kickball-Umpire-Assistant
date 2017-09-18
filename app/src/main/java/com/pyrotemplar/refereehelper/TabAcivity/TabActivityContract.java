@@ -1,4 +1,4 @@
-package com.pyrotemplar.refereehelper.TabActivity;
+package com.pyrotemplar.refereehelper.TabAcivity;
 
 /**
  * Created by Manuel Montes de Oca on 4/25/2017.

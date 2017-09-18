@@ -22,7 +22,7 @@ import com.pyrotemplar.refereehelper.DialogFragments.GameClockDialogFragment;
 import com.pyrotemplar.refereehelper.DialogFragments.NameAndColorPickerDialogFragment;
 import com.pyrotemplar.refereehelper.DialogFragments.TeamSelectionDialogFragment;
 import com.pyrotemplar.refereehelper.R;
-import com.pyrotemplar.refereehelper.TabActivity.TabActivity;
+import com.pyrotemplar.refereehelper.TabAcivity.TabActivity;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;

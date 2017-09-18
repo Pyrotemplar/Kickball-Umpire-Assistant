@@ -1,4 +1,4 @@
-package com.pyrotemplar.refereehelper.TabActivity;
+package com.pyrotemplar.refereehelper.TabAcivity;
 
 import android.content.DialogInterface;
 import android.os.Bundle;

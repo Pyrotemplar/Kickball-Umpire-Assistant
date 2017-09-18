@@ -5,11 +5,11 @@ android {
     compileSdkVersion 25
     buildToolsVersion "25.0.2"
     defaultConfig {
-        applicationId "com.pyrotemplar.kickballUmpireAssistant"
+        applicationId "com.pyrotemplar.refereehelper"
         minSdkVersion 19
         targetSdkVersion 25
-        versionCode 5
-        versionName "1.0"
+        versionCode 4
+        versionName "1.0.4"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {

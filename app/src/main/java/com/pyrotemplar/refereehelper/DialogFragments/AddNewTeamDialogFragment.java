@@ -11,11 +11,14 @@ import android.view.WindowManager;
 import android.widget.EditText;
 
 import com.larswerkman.holocolorpicker.ColorPicker;
+import com.larswerkman.holocolorpicker.OpacityBar;
 import com.larswerkman.holocolorpicker.SVBar;
 import com.larswerkman.holocolorpicker.SaturationBar;
 import com.larswerkman.holocolorpicker.ValueBar;
+import com.pyrotemplar.refereehelper.ClickerFragment.ClickerView;
 import com.pyrotemplar.refereehelper.LeagueFragment.LeagueView;
 import com.pyrotemplar.refereehelper.R;
+import com.pyrotemplar.refereehelper.RulesFragment.RuleBookView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;

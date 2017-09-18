@@ -3,13 +3,17 @@ package com.pyrotemplar.refereehelper.Adapters;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.app.FragmentStatePagerAdapter;
 import android.view.ViewGroup;
 
 import com.pyrotemplar.refereehelper.ClickerFragment.ClickerView;
 import com.pyrotemplar.refereehelper.RulesFragment.RuleBookView;
 import com.pyrotemplar.refereehelper.Settings.SettingsView;
-import com.pyrotemplar.refereehelper.TabActivity.TabActivityPresenter;
+import com.pyrotemplar.refereehelper.TabAcivity.TabActivityPresenter;
 import com.pyrotemplar.refereehelper.LeagueFragment.LeagueView;
+import com.pyrotemplar.refereehelper.View.GamesHistoryFragment;
+
+import java.util.ArrayList;
 
 /**
  * Created by Manuel Montes de Oca on 4/21/2017.

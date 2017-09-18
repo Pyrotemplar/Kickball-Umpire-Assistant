@@ -1,5 +1,8 @@
 package com.pyrotemplar.refereehelper.DataObjects;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.io.Serializable;
 
 import io.realm.RealmObject;

@@ -8,8 +8,11 @@ import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AlertDialog;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.EditText;
 
+import com.pyrotemplar.refereehelper.ClickerFragment.ClickerView;
+import com.pyrotemplar.refereehelper.DataObjects.RuleBook;
 import com.pyrotemplar.refereehelper.R;
 import com.pyrotemplar.refereehelper.RulesFragment.RuleBookView;
 
