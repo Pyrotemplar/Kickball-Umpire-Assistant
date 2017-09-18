@@ -51,7 +51,7 @@ public class RuleBookView extends Fragment implements RuleBooksContract.View, Ru
     public static final String TAG = "TAG";
     public static final String PDF = ".PDF";
     public static final String PDF1 = ".pdf";
-    public static final String CANNOT_LOAD_PAGE = "Cannot load page";
+    public static final String CANNOT_LOAD_PAGE = "Cannot load Rules, Please Try again later";
     @BindView(R.id.RuleBookRecyclerView)
     RecyclerView ruleBookRecycler;
     @BindView(R.id.webView)
