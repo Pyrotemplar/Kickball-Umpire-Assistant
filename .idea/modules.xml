@@ -4,7 +4,6 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/Kickball-Umpire-Assistant.iml" filepath="$PROJECT_DIR$/Kickball-Umpire-Assistant.iml" />
       <module fileurl="file://$PROJECT_DIR$/NumbePicker/NumbePicker.iml" filepath="$PROJECT_DIR$/NumbePicker/NumbePicker.iml" />
-      <module fileurl="file://C:\Users\mmontesd\Documents\Programing\Projects\Kickball-Umpire-Assistant\RefereeHelper.iml" filepath="C:\Users\mmontesd\Documents\Programing\Projects\Kickball-Umpire-Assistant\RefereeHelper.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>
