@@ -20,6 +20,8 @@
     <string name="setting_share_preference_key">preferenceKey</string>
     <string name="SP_HAPTIC_FEEDBACK_SETTINGS_KEY">hapticFeedbackSettingKey</string>
     <string name="SP_RESET_CLICKER_DATA_SETTINGS_KEY">resetClickerSettingKey</string>
+    <string name="SP_SHARE_SCORE_SETTINGS_KEY">shareScoreSettingKey</string>
+    <string name="SP_DEFAULT_EMAIL_SETTINGS_KEY">defaultEmailSettingKey</string>
     <string name="SP_THREE_FOULS_SETTINGS_KEY">threeFoulSettingKey</string>
     <string name="SP_STARTING_BALL_COUNT_KEY">startingBallCountSettingKey</string>
     <string name="SP_STARTING_STRIKE_COUNT_KEY">startingStrikeCountSettingKey</string>
