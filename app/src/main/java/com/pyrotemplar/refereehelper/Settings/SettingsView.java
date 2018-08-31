@@ -9,12 +9,15 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
+import android.support.v7.preference.EditTextPreference;
+import android.support.v7.preference.ListPreference;
 import android.support.v7.preference.Preference;
 import android.support.v7.preference.PreferenceFragmentCompat;
 import android.support.v7.preference.PreferenceManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.BaseAdapter;
 import android.widget.Toast;
 
 import com.pyrotemplar.refereehelper.ClickerFragment.ClickerView;
@@ -100,6 +103,9 @@ public class SettingsView extends PreferenceFragmentCompat implements SharedPref
             resetClicker();
         if (preference.getKey().equals(getResources().getString(R.string.SP_RATE_APP_KEY)))
             rateApp();
+        if (preference.getKey().equals(getResources().getString(R.string.SP_DEFAULT_EMAIL_SETTINGS_KEY)))
+            setDefaultEmail(preference);
+
         return super.onPreferenceTreeClick(preference);
     }
 
@@ -118,6 +124,14 @@ public class SettingsView extends PreferenceFragmentCompat implements SharedPref
     @Override
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
         TabActivity.isPreferenceUpdated = true;
+
+        Preference preference = findPreference(key);
+
+        /* update summary */
+        if (key.equals("defaultEmailSettingKey")) {
+            preference.setSummary(sharedPreferences.getString(key, "test1"));
+
+        }
     }
 
     private void resetClicker() {
@@ -133,20 +147,32 @@ public class SettingsView extends PreferenceFragmentCompat implements SharedPref
         confirmationDialogFragment.show(getFragmentManager(), TAG);
     }
 
+    private void setDefaultEmail(Preference preference){
+        if (preference instanceof EditTextPreference){
+            EditTextPreference editTextPreference =  (EditTextPreference)preference;
+            if (editTextPreference.getText().trim().length() > 0){
+                preference.setSummary(editTextPreference.getText());
+            }else{
+                preference.setSummary("Default Email to send game score");
+            }
+        }
+    }
+
     @Override
     public void onResume() {
         super.onResume();
-        //unregister the preferenceChange listener
+        //register the preferenceChange listener
         getPreferenceScreen().getSharedPreferences()
                 .registerOnSharedPreferenceChangeListener(this);
     }
 
     @Override
     public void onPause() {
-        super.onPause();
+
         //unregister the preference change listener
         getPreferenceScreen().getSharedPreferences()
                 .unregisterOnSharedPreferenceChangeListener(this);
+        super.onPause();
     }
 
     @Override
