@@ -20,12 +20,16 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Toast;
 
+import com.pyrotemplar.refereehelper.ClickerFragment.ClickerPresenter;
 import com.pyrotemplar.refereehelper.ClickerFragment.ClickerView;
 import com.pyrotemplar.refereehelper.DataObjects.Team;
 import com.pyrotemplar.refereehelper.DataObjects.dataHelper;
 import com.pyrotemplar.refereehelper.DialogFragments.ConfirmationDialogFragment;
 import com.pyrotemplar.refereehelper.R;
 import com.pyrotemplar.refereehelper.TabAcivity.TabActivity;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
  * Created by Manuel Montes de Oca on 5/4/2017.
@@ -47,6 +51,7 @@ public class SettingsView extends PreferenceFragmentCompat implements SharedPref
 
     SharedPreferences sharedPreferences;
     private SettingsContract.Presenter mPresenter;
+    private ClickerPresenter mClickerPresenter;
 
     @Override
 
@@ -54,6 +59,10 @@ public class SettingsView extends PreferenceFragmentCompat implements SharedPref
         super.onCreate(savedInstanceState);
         // Load the preferences from an XML resource
         addPreferencesFromResource(R.xml.app_preference);
+        Preference preference =  findPreference(getResources().getString(R.string.SP_DEFAULT_EMAIL_SETTINGS_KEY));
+        preference.setSummary(sharedPreferences.getString(getResources().getString(R.string.SP_DEFAULT_EMAIL_SETTINGS_KEY), "Default Email to send game score"));
+
+
 
 
     }
@@ -103,10 +112,25 @@ public class SettingsView extends PreferenceFragmentCompat implements SharedPref
             resetClicker();
         if (preference.getKey().equals(getResources().getString(R.string.SP_RATE_APP_KEY)))
             rateApp();
+        if (preference.getKey().equals(getResources().getString(R.string.SP_SHARE_SCORE_SETTINGS_KEY)))
+            shareScore();
         if (preference.getKey().equals(getResources().getString(R.string.SP_DEFAULT_EMAIL_SETTINGS_KEY)))
             setDefaultEmail(preference);
 
         return super.onPreferenceTreeClick(preference);
+    }
+
+    private void shareScore() {
+
+        String date = new SimpleDateFormat("MM-dd-yyyy").format(new Date());
+        Intent shareScoreIntent = new Intent(Intent.ACTION_SEND);
+        shareScoreIntent.setType("text/plain");
+        shareScoreIntent.putExtra(Intent.EXTRA_EMAIL, new String[] {sharedPreferences.getString(getResources().getString(R.string.SP_DEFAULT_EMAIL_SETTINGS_KEY),"")});
+        shareScoreIntent.putExtra(Intent.EXTRA_SUBJECT, "Final Score between " + ClickerPresenter.awayTeamName + " vs. " + ClickerPresenter.homeTeamName + " on " + date);
+        shareScoreIntent.putExtra(Intent.EXTRA_TEXT, "Final Score between " + ClickerPresenter.awayTeamName + " vs. " + ClickerPresenter.homeTeamName + " on " + date + "\n" + ClickerPresenter.awayTeamName +
+                " - " + ClickerPresenter.awayTeamScore + "\n" + ClickerPresenter.homeTeamName + " - " + ClickerPresenter.homeTeamScore);
+        startActivity(Intent.createChooser(shareScoreIntent, "Share Game Score:"));
+
     }
 
     private void rateApp() {
@@ -129,7 +153,7 @@ public class SettingsView extends PreferenceFragmentCompat implements SharedPref
 
         /* update summary */
         if (key.equals("defaultEmailSettingKey")) {
-            preference.setSummary(sharedPreferences.getString(key, "test1"));
+            preference.setSummary(sharedPreferences.getString(key, "Default Email to send game score"));
 
         }
     }
@@ -149,8 +173,9 @@ public class SettingsView extends PreferenceFragmentCompat implements SharedPref
 
     private void setDefaultEmail(Preference preference){
         if (preference instanceof EditTextPreference){
-            EditTextPreference editTextPreference =  (EditTextPreference)preference;
-            if (editTextPreference.getText().trim().length() > 0){
+        //
+            if (preference instanceof EditTextPreference){
+                EditTextPreference editTextPreference =  (EditTextPreference)preference;
                 preference.setSummary(editTextPreference.getText());
             }else{
                 preference.setSummary("Default Email to send game score");

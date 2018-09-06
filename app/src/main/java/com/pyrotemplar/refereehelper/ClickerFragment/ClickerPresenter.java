@@ -29,12 +29,12 @@ public class ClickerPresenter implements ClickerContract.Presenter {
     public static final String TIME_S_UP = "Time's Up";
     public static final String SOMETHING_WENT_WRONG = "Something went wrong!";
     //Game Count states
-    private String awayTeamName;
-    private String homeTeamName;
+    public static String awayTeamName;
+    public static String homeTeamName;
     private int awayTeamColor;
     private int homeTeamColor;
-    private int awayTeamScore;
-    private int homeTeamScore;
+    public static int awayTeamScore;
+    public static int homeTeamScore;
     private int strikeCount;
     private int ballCount;
     private int foulCount;

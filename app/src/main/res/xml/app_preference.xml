@@ -26,7 +26,7 @@
 
         <android.support.v7.preference.EditTextPreference
             android:key="@string/SP_DEFAULT_EMAIL_SETTINGS_KEY"
-            android:summary="%s"
+            android:summary="Default Email to send game score"
             android:title="Default Share Score Email" />
 
     </android.support.v7.preference.PreferenceCategory>
